@@ -1,2 +1,2 @@
-# proj_inz_fe
+# Frontend Plant Managmement App
 Projekt aplikacji frontendowej projektu inżynierskiego

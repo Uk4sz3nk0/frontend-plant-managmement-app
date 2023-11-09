@@ -33,3 +33,36 @@ input[type=submit]{
 h3{
     margin: 2vh;
 }
+
+
+.up-in-toggle input {
+  height: 0px;
+  width: 0px;
+
+}
+.up-in-toggle input:checked + label {
+  background-color: #2f3749;
+  color: white;
+}
+.up-in-toggle label {
+  display: inline-block;
+  width: 50%;
+  background-color: white;
+  color: lightgrey;
+  text-align: center;
+ 
+  padding: 6px 6px;
+  float: left;
+  transition: all 0.1s ease-in-out;
+}
+.up-in-toggle label:hover {
+  cursor: pointer;
+}
+
+.up-in-toggle label:first-of-type {
+  border-radius: 15px 0 0 15px;
+}
+
+.up-in-toggle label:last-of-type {
+  border-radius: 0 15px 15px 0;
+}

@@ -12,20 +12,33 @@
         <div class="row justify-content-center align-items-center" style="height: 100vh;">
             <div class='col-lg-6' id="form">
                 <h1 class="text-center">Rejestracja</h1>
-                <form action="#">
+                <form action="#" [formGroup]="form" (ngSubmit) ="register()">
                     <div class="form-group">
-                        <input type="email" placeholder="Wpisz swój email" class="form-control " required>
+                        <input type="text" formControlName="firstname" placeholder="Imię" class="form-control " required>
                     </div>
                     <div class="form-group">
-                        <input type="password" placeholder="Wpisz swoje hasło" class="form-control" required>
+                        <input type="text" placeholder="Nazwisko" formControlName="lastname" class="form-control " required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Wpisz swój email" formControlName="email" class="form-control " required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" placeholder="Wpisz swoje hasło" formControlName="password" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <input type="password" placeholder="Powtórz hasło" class="form-control" required>
                     </div>
+                    <div class="up-in-toggle">
+                        <input type="radio" id="switch_left" name="switch_2" formControlName="role" value="ROLE_OWNER" />
+                        <label for="switch_left">Właściciel</label>
+                        <input type="radio" id="switch_right" name="switch_2" formControlName="role" value="ROLE_USER" checked/>
+                        <label for="switch_right">Pracownik</label>
+                      </div>
                     <div class="form-group">
-                        <input type="submit" value="Zaloguj się" class="form-control">
+                        <input type="submit" value="Zarejestruj się" class="form-control">
                         <h3 class="text-center">Masz już konto?<a href="/login">Zaloguj się</a></h3>
                     </div>
+                    
                 </form>
             </div>
         </div>    

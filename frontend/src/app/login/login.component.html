@@ -12,17 +12,17 @@
         <div class="row justify-content-center align-items-center" style="height: 100vh;">
             <div class='col-lg-6' id="form">
                 <h1 class="text-center">Logowanie</h1>
-                <form action="#">
+                <form action="#" [formGroup]="sign" (ngSubmit) ="login()">
                     <div class="form-group">
-                        <input type="email" placeholder="Wpisz swój email" class="form-control " required>
+                        <input type="email" formControlName="email" placeholder="Wpisz swój email" class="form-control " required>
                     </div>
                     <div class="form-group">
-                        <input type="password" placeholder="Wpisz swoje hasło" class="form-control" required>
+                        <input type="password" formControlName="password" placeholder="Wpisz swoje hasło" class="form-control" required>
                         
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Zaloguj się" class="form-control">
-                        <h3 class="text-center">Nie masz konta?<a href="/register">Zarejestruj się</a></h3>
+                        <h3 class="text-center">Nie masz konta?<a routerLink="/register">Zarejestruj się</a></h3>
                     </div>
                 </form>
             </div>

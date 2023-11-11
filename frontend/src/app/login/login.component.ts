@@ -9,7 +9,6 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 })
 export class LoginComponent {
 
-  // public sign !: FormGroup
 
   sign: FormGroup = new FormGroup({
     email: new FormControl<string>(''),
@@ -20,17 +19,12 @@ export class LoginComponent {
 
 
   }
-  //   ngOnInit(): void {
-  //   this.sign = this.formBuilder.group({
-  //     email: [""],
-  //     password: ["", Validators.required, Validators.minLength(3)]
-  //   })
-  // }
   
 
   login(){
     this.log.auth(this.sign.value.email, this.sign.value.password)
     console.log(this.sign.value)
+    this.sign.reset()
   }
 
 }

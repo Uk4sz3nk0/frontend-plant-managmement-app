@@ -7,6 +7,8 @@ import {MatButtonModule} from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 
+import { GoogleMapsModule } from '@angular/google-maps'
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -16,6 +18,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { HomeComponent } from './home/home.component';
 import {MatListModule} from '@angular/material/list';
+import { PlantationFormComponent } from './plantation-form/plantation-form.component';
+import { OwnerMenuComponent } from './owner-menu/owner-menu.component';
+import { UserMenuComponent } from './user-menu/user-menu.component';
 
 
 
@@ -26,7 +31,10 @@ import {MatListModule} from '@angular/material/list';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    PlantationFormComponent,
+    OwnerMenuComponent,
+    UserMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +49,8 @@ import {MatListModule} from '@angular/material/list';
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    GoogleMapsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

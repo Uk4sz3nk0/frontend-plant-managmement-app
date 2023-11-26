@@ -41,4 +41,7 @@ mat-sidenav .entry {
 mat-sidenav-content {
     padding-top: 3.5rem;
 }
+span{
+    display: block;
+}
 

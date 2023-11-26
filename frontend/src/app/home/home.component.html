@@ -16,12 +16,18 @@
       <mat-sidenav-container autosize>
         <mat-sidenav [opened]="true" mode="side">
           <mat-nav-list>
-            <a mat-list-item>
+            <mat-list-item>
               <span class="entry">
                 <!-- <mat-icon>house</mat-icon> -->
-                <span>Menu</span>
+                <span>Twoje plantacje</span>
+                
               </span>
-            </a>
+            </mat-list-item>
+            <mat-list-item>
+              <span class="entry">
+                <span routerLink="/map">Dodaj plantację</span><mat-icon>add</mat-icon>
+              </span>
+            </mat-list-item>
           </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>

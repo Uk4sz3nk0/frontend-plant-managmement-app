@@ -6,6 +6,13 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
+
+
+
+
 
 import { GoogleMapsModule } from '@angular/google-maps'
 
@@ -21,6 +28,7 @@ import {MatListModule} from '@angular/material/list';
 import { PlantationFormComponent } from './plantation-form/plantation-form.component';
 import { OwnerMenuComponent } from './owner-menu/owner-menu.component';
 import { UserMenuComponent } from './user-menu/user-menu.component';
+import { SectorsFormComponent } from './sectors-form/sectors-form.component';
 
 
 
@@ -34,7 +42,9 @@ import { UserMenuComponent } from './user-menu/user-menu.component';
     HomeComponent,
     PlantationFormComponent,
     OwnerMenuComponent,
-    UserMenuComponent
+    UserMenuComponent,
+    SectorsFormComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -50,7 +60,10 @@ import { UserMenuComponent } from './user-menu/user-menu.component';
     MatToolbarModule,
     MatIconModule,
     MatListModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    MatStepperModule,
+    MatSelectModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

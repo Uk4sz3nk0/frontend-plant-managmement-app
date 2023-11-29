@@ -1,24 +1,31 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-plantation-form',
-  templateUrl: './plantation-form.component.html',
-  styleUrls: ['./plantation-form.component.css']
+  selector: 'app-sectors-form',
+  templateUrl: './sectors-form.component.html',
+  styleUrl: './sectors-form.component.css'
 })
-export class PlantationFormComponent implements OnInit {
-
-
-  
-
+export class SectorsFormComponent implements OnInit{
   map!: google.maps.Map;
   polygons: google.maps.Polygon[] = [];
+  num: any;
 
   constructor(private ngZone: NgZone) { }
 
   ngOnInit() {
     this.loadMap();
-    this.addPolygon()
+    this.addPolygon(false, false, 'green')
+
+
     
+    
+  }
+
+  sectors(){
+    console.log(this.num)
+    for(var i=0; i < this.num; i++){
+      this.addPolygon(true, true, 'blue')
+    }
   }
 
   loadMap() {
@@ -38,11 +45,11 @@ export class PlantationFormComponent implements OnInit {
   }
 
   // Funkcja do dodawania wielokątów
-  addPolygon() {
+  addPolygon(edit: boolean, drag: boolean, color: string ) {
     const polygon = new google.maps.Polygon({
       map: this.map,
-     editable: true, // Ustawienie na true umożliwia edycję wielokąta
-      draggable: true, // Ustawienie na true umożliwia przeciąganie wielokąta
+     editable: edit, // Ustawienie na true umożliwia edycję wielokąta
+      draggable: drag, // Ustawienie na true umożliwia przeciąganie wielokąta
       paths: [
         { lat: 50, lng: 20 },
         { lat: 50.01, lng: 20 },
@@ -50,7 +57,7 @@ export class PlantationFormComponent implements OnInit {
         { lat: 50, lng: 20.01 },
       ],
       strokeColor: '#00FF00',
-      fillColor: '#00FF00'
+      fillColor: color
     });
 
     // Dodaj obsługę przeciągania wielokąta
@@ -67,4 +74,3 @@ export class PlantationFormComponent implements OnInit {
     this.polygons.push(polygon);
   }
 }
-

@@ -1,0 +1,18 @@
+#map{
+    margin: 1vw;
+    width: 1000px;
+    height: 500px;
+}
+#container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1vw;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 1vw;
+    
+  }
+  mat-form-field{
+    width: 1000px;
+  }

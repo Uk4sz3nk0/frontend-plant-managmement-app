@@ -2,14 +2,48 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Map</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
   </head>
   <body>
-  <google-map>
+    <div id="container">
+      <mat-label>Dodaj plantację</mat-label>
+      <br>
+    <mat-form-field>
+      <mat-label>Wpisz nazwę plantacji</mat-label>
+      <input matInput>
+    </mat-form-field>
 
-  </google-map>
+    <mat-form-field>
+      <mat-label>Wybierz owoc</mat-label>
+      <mat-select>
+        <mat-option value="one">First option</mat-option>
+        <mat-option value="two">Second option</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <br>
+    <mat-label>Adres</mat-label>
+    <mat-form-field>
+      <mat-label>Miasto</mat-label>
+      <input matInput>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Ulica</mat-label>
+      <input matInput>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Nr domu</mat-label>
+      <input matInput>
+    </mat-form-field>
+
+    <br>
+    <mat-label>Ustaw obszar plantacji</mat-label>
+<div id="map"></div>
+<button mat-raised-button color="primary">Zapisz</button>
+</div>
   </body>
 </html>

@@ -29,6 +29,8 @@ import { PlantationFormComponent } from './plantation-form/plantation-form.compo
 import { OwnerMenuComponent } from './owner-menu/owner-menu.component';
 import { UserMenuComponent } from './user-menu/user-menu.component';
 import { SectorsFormComponent } from './sectors-form/sectors-form.component';
+import { PlantationListComponent } from './plantation-list/plantation-list.component';
+import { DetailsComponent } from './details/details.component';
 
 
 
@@ -44,6 +46,8 @@ import { SectorsFormComponent } from './sectors-form/sectors-form.component';
     OwnerMenuComponent,
     UserMenuComponent,
     SectorsFormComponent,
+    PlantationListComponent,
+    DetailsComponent,
   
   ],
   imports: [

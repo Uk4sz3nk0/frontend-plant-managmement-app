@@ -1,0 +1,12 @@
+#list{
+    background-color: white;
+    
+}
+.plant{
+    display: inline-block;
+    padding: 1vw;
+    border: 1px solid black;
+    margin: 1vw;
+    height: 20vh;
+   
+}

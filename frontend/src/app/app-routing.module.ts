@@ -5,6 +5,7 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { PlantationFormComponent } from './plantation-form/plantation-form.component';
 import { SectorsFormComponent } from './sectors-form/sectors-form.component';
+import { UserMenuComponent } from './user-menu/user-menu.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'map', component: PlantationFormComponent},
   {path: 'sectors', component: SectorsFormComponent},
+  {path: 'user', component: UserMenuComponent}
 ];
 
 @NgModule({

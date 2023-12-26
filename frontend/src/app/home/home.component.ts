@@ -31,6 +31,7 @@ export class HomeComponent implements AfterViewInit {
   myplant(){
     this.showElement = false
     this.showplants = true
+    this.showdetails = false
   }
 
   det(){

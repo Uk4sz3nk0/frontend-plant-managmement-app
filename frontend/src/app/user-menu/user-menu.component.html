@@ -1,1 +1,43 @@
-<p>user-menu works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <mat-toolbar color="primary">
+        <button mat-icon-button aria-label="Menu icon" (click)="menu()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <h1>Strona główna</h1>
+      </mat-toolbar>
+
+      <mat-sidenav-container autosize>
+        <mat-sidenav [opened]="true" mode="side">
+          <mat-nav-list>
+            <mat-list-item>
+              <span class="entry">
+                <!-- <mat-icon>house</mat-icon> -->
+                <span (click)="myplant()">Twoja plantacja</span>
+                
+              </span>
+            </mat-list-item>
+            <mat-list-item>
+              <span class="entry" >
+                <span (click)="plant()" #dodaj>Zbiory</span>
+              </span>
+            </mat-list-item>
+          </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content>
+          <!-- <h2>[Tu będzie mapa :D]</h2> -->
+            <app-harvest *ngIf="showElement"></app-harvest>
+      
+          <app-details *ngIf="showdetails"></app-details>
+          <router-outlet></router-outlet>
+        </mat-sidenav-content>
+      </mat-sidenav-container>
+      
+</body>
+</html>

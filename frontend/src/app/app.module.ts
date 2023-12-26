@@ -31,6 +31,7 @@ import { UserMenuComponent } from './user-menu/user-menu.component';
 import { SectorsFormComponent } from './sectors-form/sectors-form.component';
 import { PlantationListComponent } from './plantation-list/plantation-list.component';
 import { DetailsComponent } from './details/details.component';
+import { HarvestComponent } from './harvest/harvest.component';
 
 
 
@@ -48,6 +49,7 @@ import { DetailsComponent } from './details/details.component';
     SectorsFormComponent,
     PlantationListComponent,
     DetailsComponent,
+    HarvestComponent,
   
   ],
   imports: [

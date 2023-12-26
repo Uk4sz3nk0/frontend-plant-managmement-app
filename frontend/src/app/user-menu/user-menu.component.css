@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: url('../../assets/images/blueberry.jpg') no-repeat;
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow: hidden;
+    caret-color: transparent;
+}
+h1 {
+    padding: 0 1rem;
+}
+h2 {
+    padding: 1rem;
+}
+mat-toolbar {
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    background-color: #2f3749;
+}
+mat-sidenav-container {
+    height: 100%;
+}
+mat-sidenav {
+    padding-top: 3.5rem;
+}
+@media screen and (min-width: 600px) {
+    mat-sidenav {
+        padding-top: 4rem;
+   }
+}
+mat-sidenav .entry {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+}
+mat-sidenav-content {
+    padding-top: 3.5rem;
+}
+span{
+    display: block;
+}
+

@@ -1,4 +1,5 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-details',
@@ -9,21 +10,29 @@ export class DetailsComponent implements OnInit {
 
 
   map!: google.maps.Map;
+  label!: google.maps.InfoWindow;
   polygons: google.maps.Polygon[] = [];
-
-  constructor(private ngZone: NgZone) { }
+  @ViewChild('statystyki') statystyki!: ElementRef
+  
+  
+  constructor(private ngZone: NgZone, private renderer: Renderer2, private router: Router) { }
 
   ngOnInit() {
     this.loadMap();
     this.addPolygon()
-    console.log('mapa')
+    const stat = document.getElementById('statystyki')
+    console.log(this.statystyki)
+    console.log(stat)
+    const text = this.renderer.createText('plantacja');
+    this.renderer.appendChild(stat, text)
     
   }
 
   loadMap() {
     const mapOptions: google.maps.MapOptions = {
       center: { lat: 50, lng: 20 },
-      zoom: 15
+      zoom: 15,
+      // gestureHandling: 'none'
     };
 
     
@@ -49,7 +58,8 @@ export class DetailsComponent implements OnInit {
         { lat: 50, lng: 20.01 },
       ],
       strokeColor: '#00FF00',
-      fillColor: '#00FF00'
+      fillColor: '#00FF00',
+      
     });
 
     // Dodaj obsługę przeciągania wielokąta
@@ -61,6 +71,32 @@ export class DetailsComponent implements OnInit {
         // Tutaj możesz obsługiwać przeciąganie wielokąta, np. zapisując nowe współrzędne
         console.log('Wielokąt przeciągnięty!', coordinates);
       });
+    });
+
+    const infoWindow = new google.maps.InfoWindow({
+      content: 'Kliknij obszar plantacji aby ustawić sektory'
+    });
+    
+    google.maps.event.addListener(polygon, 'mouseover', (event: any) =>{
+
+      // this.label.setPosition(event.latLng)
+      // this.label.open(this.map)
+      infoWindow.setPosition(event.latLng)
+      infoWindow.open(this.map)
+      console.log(this.map)
+    })
+
+    google.maps.event.addListener(polygon, 'mouseout', () => {
+      infoWindow.close();
+    });
+
+    google.maps.event.addListener(polygon, 'mousedown', () => {
+      // window.location.reload()
+      this.router.navigate(['/sectors'])
+      .then(() => {
+        window.location.reload()
+      })
+      
     });
 
     this.polygons.push(polygon);

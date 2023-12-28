@@ -13,11 +13,13 @@ export class DetailsComponent implements OnInit {
   label!: google.maps.InfoWindow;
   polygons: google.maps.Polygon[] = [];
   @ViewChild('statystyki') statystyki!: ElementRef
+
   
   
   constructor(private ngZone: NgZone, private renderer: Renderer2, private router: Router) { }
 
   ngOnInit() {
+  
     this.loadMap();
     this.addPolygon()
     const stat = document.getElementById('statystyki')
@@ -91,11 +93,16 @@ export class DetailsComponent implements OnInit {
     });
 
     google.maps.event.addListener(polygon, 'mousedown', () => {
-      // window.location.reload()
       this.router.navigate(['/sectors'])
-      .then(() => {
+            .then(() => {
         window.location.reload()
       })
+      // window.location.reload()
+
+      // this.router.navigate(['/home', {param: 'sectors'}])
+      // .then(() => {
+      //   window.location.reload()
+      // })
       
     });
 

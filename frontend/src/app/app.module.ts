@@ -32,6 +32,7 @@ import { SectorsFormComponent } from './sectors-form/sectors-form.component';
 import { PlantationListComponent } from './plantation-list/plantation-list.component';
 import { DetailsComponent } from './details/details.component';
 import { HarvestComponent } from './harvest/harvest.component';
+import { SectorsListComponent } from './sectors-list/sectors-list.component';
 
 
 
@@ -50,6 +51,7 @@ import { HarvestComponent } from './harvest/harvest.component';
     PlantationListComponent,
     DetailsComponent,
     HarvestComponent,
+    SectorsListComponent,
   
   ],
   imports: [

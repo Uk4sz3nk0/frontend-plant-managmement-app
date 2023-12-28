@@ -28,6 +28,11 @@
                 <span (click)="plant()" #dodaj>Dodaj plantację</span><mat-icon>add</mat-icon>
               </span>
             </mat-list-item>
+            <mat-list-item>
+              <span class="entry" >
+                <span (click)="plant()">Sektory</span>
+              </span>
+            </mat-list-item>
           </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>
@@ -37,9 +42,12 @@
         </div>
           <app-plantation-form *ngIf="showElement" ></app-plantation-form>
           <app-details *ngIf="showdetails"></app-details>
+          <app-sectors-form *ngIf="showSector"></app-sectors-form>
           <router-outlet></router-outlet>
         </mat-sidenav-content>
       </mat-sidenav-container>
+  
+      
       
 </body>
 </html>

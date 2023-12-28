@@ -22,6 +22,7 @@ plantDetails(){
   
 console.log('fsdafsdfds')
 console.log(this.det)
+this.router.navigate(['/details'])
   // this.renderer.setStyle(this.dynamic, 'display', 'none')
 
 }

@@ -28,6 +28,10 @@ export class SectorsFormComponent implements OnInit{
     }
   }
 
+  save(){
+  alert('Sektory zostały zapisane')
+  }
+
   loadMap() {
     const mapOptions: google.maps.MapOptions = {
       center: { lat: 50, lng: 20 },

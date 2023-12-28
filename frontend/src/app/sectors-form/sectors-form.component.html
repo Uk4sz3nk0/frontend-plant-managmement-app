@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<app-owner-menu>
     <mat-form-field>
         <mat-label>Wpisz liczbę sektorów</mat-label>
         <input matInput [(ngModel)]="num">
       </mat-form-field>
       <button mat-raised-button color="primary" (click)="sectors()">Stwórz sektory</button>
       <div id="map"></div>
-</body>
-</html>
+      <button mat-raised-button color="primary" (click)="save()">Zapisz</button>
+    </app-owner-menu>

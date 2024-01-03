@@ -33,6 +33,8 @@ import { PlantationListComponent } from './plantation-list/plantation-list.compo
 import { DetailsComponent } from './details/details.component';
 import { HarvestComponent } from './harvest/harvest.component';
 import { SectorsListComponent } from './sectors-list/sectors-list.component';
+import { SectorsDetailsComponent } from './sectors-details/sectors-details.component';
+import { EmployeesListComponent } from './employees-list/employees-list.component';
 
 
 
@@ -52,6 +54,8 @@ import { SectorsListComponent } from './sectors-list/sectors-list.component';
     DetailsComponent,
     HarvestComponent,
     SectorsListComponent,
+    SectorsDetailsComponent,
+    EmployeesListComponent,
   
   ],
   imports: [

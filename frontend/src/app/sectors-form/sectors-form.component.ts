@@ -1,4 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sectors-form',
@@ -10,7 +11,7 @@ export class SectorsFormComponent implements OnInit{
   polygons: google.maps.Polygon[] = [];
   num: any;
 
-  constructor(private ngZone: NgZone) { }
+  constructor(private ngZone: NgZone, private router: Router) { }
 
   ngOnInit() {
     this.loadMap();
@@ -30,6 +31,7 @@ export class SectorsFormComponent implements OnInit{
 
   save(){
   alert('Sektory zostały zapisane')
+  this.router.navigate(['/list'])
   }
 
   loadMap() {

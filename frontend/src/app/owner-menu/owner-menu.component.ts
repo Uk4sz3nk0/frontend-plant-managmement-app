@@ -43,6 +43,10 @@ export class OwnerMenuComponent implements AfterViewInit{
   sec(){
     this.router.navigate(['/seclist'])
    }
+
+   emp(){
+    this.router.navigate(['/seclist'])
+   }
   
 
   ngAfterViewInit(): void {

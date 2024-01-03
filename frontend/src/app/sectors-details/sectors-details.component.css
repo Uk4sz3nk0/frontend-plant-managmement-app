@@ -2,6 +2,11 @@
     background-color: white;
     
 }
+#sector{
+    background-color: lightblue;
+    margin: 1vw;
+    padding: 1vw;
+}
 .plant{
     display: inline-block;
     padding: 1vw;
@@ -27,4 +32,12 @@ button{
     font-size: 14px;
     font-weight: 500;
     padding: 10px 16px;
+}
+mat-icon{
+    background-color: #FFFFFF;
+    color: #2f3749;
+    border-radius: 8px;
+    border-style: none;
+    cursor: pointer;
+    
 }

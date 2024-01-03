@@ -1,3 +1,9 @@
 <app-owner-menu>
-   <p>lorem ipsum</p> 
-</app-owner-menu>
+   <!-- <div #list id="list">
+       <h1 id="test">Lista sektorów</h1>
+   </div> -->
+   <h1 id="test">Lista sektorów</h1>
+   <ng-container *ngFor="let i of generateDetails() let index = index">
+    <app-sectors-details [tekst]="texttest[index]" [employee1]="emp1[index]" [employee]="emp[tab][index]" [liczbaPowtorzen]="generateEmployees()"></app-sectors-details>
+</ng-container>
+   </app-owner-menu>

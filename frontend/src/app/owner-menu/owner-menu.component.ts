@@ -45,7 +45,7 @@ export class OwnerMenuComponent implements AfterViewInit{
    }
 
    emp(){
-    this.router.navigate(['/seclist'])
+    this.router.navigate(['/employees'])
    }
   
 

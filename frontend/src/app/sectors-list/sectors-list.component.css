@@ -12,6 +12,8 @@
 }
 h1{
     padding: 1vw;
+    padding-bottom: 5vh;
+    text-align: center;
 }
 
 p{
@@ -28,3 +30,4 @@ button{
     font-weight: 500;
     padding: 10px 16px;
 }
+

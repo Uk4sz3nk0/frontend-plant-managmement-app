@@ -1,7 +1,17 @@
 <div id="sector">
     <p> {{ tekst }}</p>
-    <p>{{employee1}}</p>
-    <p></p>
-    <button *ngFor="let item of liczbaPowtorzen">{{ employee }}</button>
-    <mat-icon>add</mat-icon>
+    <!-- <button>{{employee1}}</button> -->
+    <!-- <p></p> -->
+    <!-- <button #button *ngFor="let item of generateDetails()">{{ texttest[item] }}	<mat-icon id="cancel" (click) = 'delete(button.innerText)'>cancel</mat-icon></button>
+    <mat-icon (click) = 'add()'>add</mat-icon> -->
+
+
+    <mat-chip-set>
+         <mat-chip *ngFor="let item of generateDetails()"  (removed)="delete(texttest[item])">{{ texttest[item] }}	<button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button></mat-chip>
+          <mat-icon id="add" (click) = 'add()'>add_circle</mat-icon>
+          <!-- <mat-chip id="add" (click) = 'add()'><mat-icon>add_box</mat-icon></mat-chip> -->
+    </mat-chip-set>
+    
 </div>

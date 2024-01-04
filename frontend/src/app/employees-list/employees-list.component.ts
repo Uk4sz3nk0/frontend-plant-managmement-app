@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-employees-list',
@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class EmployeesListComponent {
 
+  @Input() employee: string | undefined
+
+  getEmployees(){
+    
+  }
 }

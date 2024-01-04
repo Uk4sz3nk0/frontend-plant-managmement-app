@@ -35,6 +35,9 @@ import { HarvestComponent } from './harvest/harvest.component';
 import { SectorsListComponent } from './sectors-list/sectors-list.component';
 import { SectorsDetailsComponent } from './sectors-details/sectors-details.component';
 import { EmployeesListComponent } from './employees-list/employees-list.component';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 
 
@@ -75,7 +78,10 @@ import { EmployeesListComponent } from './employees-list/employees-list.componen
     GoogleMapsModule,
     MatStepperModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

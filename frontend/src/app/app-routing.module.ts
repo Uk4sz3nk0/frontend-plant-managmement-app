@@ -10,6 +10,7 @@ import { OwnerMenuComponent } from './owner-menu/owner-menu.component';
 import { PlantationListComponent } from './plantation-list/plantation-list.component';
 import { DetailsComponent } from './details/details.component';
 import { SectorsListComponent } from './sectors-list/sectors-list.component';
+import { EmployeesListComponent } from './employees-list/employees-list.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -22,7 +23,8 @@ const routes: Routes = [
   {path: 'menu', component: OwnerMenuComponent},
   {path: 'list', component: PlantationListComponent},
   {path: 'details', component: DetailsComponent},
-  {path: 'seclist', component: SectorsListComponent}
+  {path: 'seclist', component: SectorsListComponent},
+  {path: 'employees', component: EmployeesListComponent}
 ];
 
 @NgModule({

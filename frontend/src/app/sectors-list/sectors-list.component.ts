@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { DetailsComponent } from '../details/details.component';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-sectors-list',
@@ -8,7 +9,10 @@ import { DetailsComponent } from '../details/details.component';
   styleUrl: './sectors-list.component.css'
 })
 export class SectorsListComponent implements AfterViewInit {
-  constructor(private renderer: Renderer2, private router: Router){}
+  constructor(private renderer: Renderer2, private router: Router, private dateAdapter: DateAdapter<Date>){
+    dateAdapter.setLocale('en-GB')
+  }
+  
 
 
   div = this.renderer.createElement('div');
@@ -18,8 +22,8 @@ dynamic !: ElementRef;
 @ViewChild('details') det!: DetailsComponent
 
 number: number = 2
-liczbaPowtorzen: number = 4
-
+liczbaPowtorzen: number = 1
+cols: number = 0
 texttest: string[] = ['lorem ipsum', 'string 2']
 emp: string[][] = [['Jan Kowalski', 'Anna Nowak'],['Jan Kowalski1', 'Anna Nowak1']]
 emp1: string[] = ['Jan Kowalski, Jan Nowak', 'Anna Nowak']
@@ -35,12 +39,33 @@ generateEmployees(): number[]{
   // this.tab
   
   return Array.from({length: this.liczbaPowtorzen}, (_, index) => {
-  const value = 1
-  console.log(value)
+  const value = index
+  if(value + 1 == this.emp[this.cols].length && this.cols+1 < this.emp.length && index > 0){
+    this.cols++
+    console.log('aaaaaaaa')
+  }
+  
+  this.liczbaPowtorzen = this.emp[this.cols].length
+  console.log(this.cols, index)
   this.rows = value
   return value}
   )
  
+}
+
+change(event: any){
+  console.log(event.value)
+
+const data = new Date(event.value);
+
+const dzien = String(data.getDate()).padStart(2, '0');
+const miesiac = String(data.getMonth() + 1).padStart(2, '0');
+const rok = data.getFullYear();
+
+const sformatowanaData = `${dzien}/${miesiac}/${rok}`;
+
+console.log(sformatowanaData);  // Wyświetli: 10/01/2024
+
 }
 
 // generateEmployees1(): number[][] {

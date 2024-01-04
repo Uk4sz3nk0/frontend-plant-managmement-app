@@ -19,25 +19,36 @@
             <mat-list-item>
               <span class="entry">
                 <!-- <mat-icon>house</mat-icon> -->
-                <span (click)="myplant()">Twoja plantacja</span>
+                <span (click)="myplant()">Twoje plantacje</span>
                 
               </span>
             </mat-list-item>
             <mat-list-item>
               <span class="entry" >
-                <span (click)="plant()" #dodaj>Zbiory</span>
+                <span (click)="plant()" #dodaj>Dodaj plantację</span><mat-icon>add</mat-icon>
+              </span>
+            </mat-list-item>
+            <mat-list-item>
+              <span class="entry" >
+                <span (click)="sec()">Sektory</span>
+              </span>
+            </mat-list-item>
+            <mat-list-item>
+              <span class="entry" >
+                <span (click)="emp()">Pracownicy</span>
               </span>
             </mat-list-item>
           </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>
           <!-- <h2>[Tu będzie mapa :D]</h2> -->
-            <app-harvest *ngIf="showElement"></app-harvest>
-      
-          <app-details *ngIf="showdetails"></app-details>
+            <ng-content></ng-content>
+   
           <router-outlet></router-outlet>
         </mat-sidenav-content>
       </mat-sidenav-container>
+  
+      
       
 </body>
 </html>

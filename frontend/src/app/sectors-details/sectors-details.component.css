@@ -23,7 +23,7 @@ p{
     color: red;
 }
 
-button{
+button1{
     background-color: #2f3749;
     border-radius: 8px;
     border-style: none;
@@ -32,6 +32,7 @@ button{
     font-size: 14px;
     font-weight: 500;
     padding: 10px 16px;
+    cursor: default;
 }
 mat-icon{
     background-color: #FFFFFF;
@@ -40,4 +41,14 @@ mat-icon{
     border-style: none;
     cursor: pointer;
     
+}
+
+#cancel{
+    float: right;
+    margin-left: 1vw;
+}
+
+#add{
+    background: none;
+    align-self: center;
 }

@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-menu',
@@ -19,29 +20,35 @@ export class UserMenuComponent implements AfterViewInit {
   
 
 
-  constructor(private renderer: Renderer2){}
+  constructor(private renderer: Renderer2, private route: ActivatedRoute, private router: Router){}
   menu(){
     this.sidenav.toggle()
   }
 
   plant(){
-    this.showElement = true
-    this.showplants = false
-    this.showdetails = false
+    // console.log('plant')
+    // this.router.navigate(['/map'])
+    // .then(() => {
+    //   window.location.reload()
+    // })
 
   }
 
   myplant(){
-    this.showElement = false
-    this.showplants = true
-    this.showdetails = true
+  //  this.router.navigate(['/list'])
   }
 
   det(){
-    console.log("działa")
-    this.showplants = false
-    this.showdetails = true
+  
   }
+
+  sec(){
+    // this.router.navigate(['/seclist'])
+   }
+
+   emp(){
+    // this.router.navigate(['/employees'])
+   }
   
 
   ngAfterViewInit(): void {

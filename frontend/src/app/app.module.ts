@@ -38,7 +38,7 @@ import { EmployeesListComponent } from './employees-list/employees-list.componen
 import {MatChipsModule} from '@angular/material/chips';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
-
+import {MatMenuModule} from '@angular/material/menu';
 
 
 
@@ -81,7 +81,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatInputModule,
     MatChipsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

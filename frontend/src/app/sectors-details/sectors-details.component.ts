@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-sectors-details',
@@ -6,6 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrl: './sectors-details.component.css'
 })
 export class SectorsDetailsComponent implements OnInit{
+
+  constructor(private location: Location){}
+
   @Input() tekst: string | undefined
   @Input() employee: string | undefined
   @Input() employee1: string | undefined
@@ -13,6 +17,8 @@ export class SectorsDetailsComponent implements OnInit{
 
   number: number = 2
   texttest: string[] = []
+  ava_emp: string[] = ['Jan Kowalski', 'Stanisław Nowak', 'Anna Nowak']
+  available: number = 3
 
 
   generateDetails(): number[]{
@@ -26,12 +32,24 @@ export class SectorsDetailsComponent implements OnInit{
     this.number -=1
   }
 
-  add(){
-      console.log('add')
+  add(): number[]{
+    return Array.from({length: this.available}, (_, index) => index)
   }
 
-  ngOnInit(): void {
-    console.log(this.tekst)
+  addToSector(event:any){
+    const employeeToAdd = event.target.textContent
+    console.log(event.target.textContent)
+    this.texttest.push(employeeToAdd)
+    this.generateDetails()
+
+    
+    this.number++
+  }
+
+  list(){
+
+    console.log('dodano do listy')
+    console.log(this.texttest)
     if(this.tekst == 'lorem ipsum'){
       // this.employee1 = 'Dynamic employee'
       this.texttest =['aaaa', 'bbbb']
@@ -40,6 +58,12 @@ export class SectorsDetailsComponent implements OnInit{
       // this.employee1 = 'Dynamic employee1'
       this.texttest =['cccc', 'ddddd', 'eeeeee']
     }
+
+  }
+
+  ngOnInit(): void {
+this.list()
+
     
 
     

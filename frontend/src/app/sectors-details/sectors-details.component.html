@@ -10,7 +10,15 @@
          <mat-chip *ngFor="let item of generateDetails()"  (removed)="delete(texttest[item])">{{ texttest[item] }}	<button matChipRemove>
             <mat-icon>cancel</mat-icon>
           </button></mat-chip>
-          <mat-icon id="add" (click) = 'add()'>add_circle</mat-icon>
+          <!-- <mat-icon id="add" (click) = 'add()'>add_circle</mat-icon> -->
+          <mat-icon [matMenuTriggerFor]="menu" id="add">add_circle</mat-icon>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngFor="let i of add()" (click) = 'addToSector($event)'>{{ava_emp[i]}}</button>
+           
+          </mat-menu>
+
+
+
           <!-- <mat-chip id="add" (click) = 'add()'><mat-icon>add_box</mat-icon></mat-chip> -->
     </mat-chip-set>
     

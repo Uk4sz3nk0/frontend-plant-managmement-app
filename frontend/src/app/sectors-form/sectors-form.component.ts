@@ -10,22 +10,36 @@ export class SectorsFormComponent implements OnInit{
   map!: google.maps.Map;
   polygons: google.maps.Polygon[] = [];
   num: any;
+  posA: number = 50;
+  posB: number = 50.01;
+  posC: number = 20;
+  posD: number = 20.01;
 
   constructor(private ngZone: NgZone, private router: Router) { }
 
   ngOnInit() {
     this.loadMap();
-    this.addPolygon(false, false, 'green')
+    this.addPolygon(false, false, '#FFFFFF')
 
 
     
     
   }
 
+
   sectors(){
     console.log(this.num)
+
+    const x =(this.posB-this.posA)/this.num
+    const y = this.posA + x
+    this.posB = y
+
+    // const a =(this.posD-this.posC)/this.num
+    // const b = this.posC + a
+    // this.posD = b
+
     for(var i=0; i < this.num; i++){
-      this.addPolygon(true, true, 'blue')
+      this.addPolygon(true, true, '#'+Math.floor(Math.random()*16777215).toString(16))
     }
   }
 
@@ -57,10 +71,10 @@ export class SectorsFormComponent implements OnInit{
      editable: edit, // Ustawienie na true umożliwia edycję wielokąta
       draggable: drag, // Ustawienie na true umożliwia przeciąganie wielokąta
       paths: [
-        { lat: 50, lng: 20 },
-        { lat: 50.01, lng: 20 },
-        { lat: 50.01, lng: 20.01 },
-        { lat: 50, lng: 20.01 },
+        { lat: this.posA, lng: this.posC },
+        { lat: this.posB, lng: this.posC },
+        { lat: this.posB, lng: this.posD },
+        { lat: this.posA, lng: this.posD },
       ],
       strokeColor: '#00FF00',
       fillColor: color
@@ -78,5 +92,6 @@ export class SectorsFormComponent implements OnInit{
     });
 
     this.polygons.push(polygon);
+    console.log(color)
   }
 }

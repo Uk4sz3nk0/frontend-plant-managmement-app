@@ -14,9 +14,15 @@ export class DetailsComponent implements OnInit {
   polygons: google.maps.Polygon[] = [];
   @ViewChild('statystyki') statystyki!: ElementRef
 
+  lat0 = 50
+  lat1 = 50.01
+  lng0 = 20
+  lng1 = 20.01
   
   
   constructor(private ngZone: NgZone, private renderer: Renderer2, private router: Router) { }
+
+  
 
   ngOnInit() {
   
@@ -31,9 +37,16 @@ export class DetailsComponent implements OnInit {
   }
 
   loadMap() {
+    const centerLat = (this.lat1 - this.lat0) / 2 + this.lat0
+    const centerLng = (this.lng1 - this.lng0) / 2 + this.lng0
+
+
+
     const mapOptions: google.maps.MapOptions = {
-      center: { lat: 50, lng: 20 },
+      center: { lat: centerLat, lng: centerLng },
       zoom: 15,
+
+      
       // gestureHandling: 'none'
     };
 
@@ -54,10 +67,10 @@ export class DetailsComponent implements OnInit {
      editable: false, // Ustawienie na true umożliwia edycję wielokąta
       draggable: false, // Ustawienie na true umożliwia przeciąganie wielokąta
       paths: [
-        { lat: 50, lng: 20 },
-        { lat: 50.01, lng: 20 },
-        { lat: 50.01, lng: 20.01 },
-        { lat: 50, lng: 20.01 },
+        { lat: this.lat0, lng: this.lng0 },
+        { lat: this.lat1, lng: this.lng0 },
+        { lat: this.lat1, lng: this.lng1 },
+        { lat: this.lat0, lng: this.lng1},
       ],
       strokeColor: '#00FF00',
       fillColor: '#00FF00',

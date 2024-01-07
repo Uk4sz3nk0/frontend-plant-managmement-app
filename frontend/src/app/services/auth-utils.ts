@@ -1,3 +1,5 @@
+export const USER_DATA_KEY: string = 'userData';
+
 export class User {
 
   constructor(public id: number, public email: string, public firstName: string, public lastName: string,
@@ -12,6 +14,21 @@ export class User {
     return this._token;
   }
 
+  get tokenExpiration() {
+    return this._tokenExpiration;
+  }
+
+  get refreshToken() {
+    return this._refreshToken;
+  }
+
+  get refreshTokenExpiration() {
+    return this._refreshTokenExpiration;
+  }
+
+  get role() {
+    return this._role;
+  }
 }
 
 export interface Role {

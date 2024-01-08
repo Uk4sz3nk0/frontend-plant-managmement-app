@@ -47,6 +47,9 @@ export class OwnerMenuComponent implements AfterViewInit{
    emp(){
     this.router.navigate(['/employees'])
    }
+   harvest(){
+    this.router.navigate(['/harvest'])
+   }
   
 
   ngAfterViewInit(): void {

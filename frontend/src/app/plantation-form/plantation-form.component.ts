@@ -1,4 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
+import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CreatePlantationService } from '../services/create-plantation.service';
 
 @Component({
   selector: 'app-plantation-form',
@@ -6,6 +8,8 @@ import { Component, NgZone, OnInit } from '@angular/core';
   styleUrls: ['./plantation-form.component.css']
 })
 export class PlantationFormComponent implements OnInit {
+
+
 
 
   
@@ -18,11 +22,27 @@ export class PlantationFormComponent implements OnInit {
   lng0 = 20
   lng1 = 20.01
 
-  constructor(private ngZone: NgZone) { }
+  defaultFruit: string = 'one'
+
+
+  formData = {
+    name: '',
+    city: '',
+    street: '',
+    housenumber: 0
+  }
+
+  constructor(private ngZone: NgZone, private formBuilder: FormBuilder, private createplant: CreatePlantationService) { }
+
+
 
   ngOnInit() {
     this.loadMap();
     this.addPolygon()
+
+   
+ 
+
     
   }
 
@@ -75,5 +95,19 @@ export class PlantationFormComponent implements OnInit {
 
     this.polygons.push(polygon);
   }
+
+  save(){
+    console.log(this.formData)
+    // alert('Zapisano plantację')
+    this.createplant.create(this.formData.name, "blueberry", this.formData.city, this.formData.street, this.formData.housenumber)
+    
+  }
+  
+  debug(formularz: NgForm): void {
+    console.log('aaaaa')
+    console.log('Stan formularza:', formularz.form.valid);
+
+  }
+  
 }
 

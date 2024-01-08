@@ -3,7 +3,7 @@
     width: 1000px;
     height: 500px;
 }
-#container{
+#container, form{
     display: flex;
     flex-direction: column;
     align-items: center;

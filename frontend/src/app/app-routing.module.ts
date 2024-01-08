@@ -11,6 +11,7 @@ import { PlantationListComponent } from './plantation-list/plantation-list.compo
 import { DetailsComponent } from './details/details.component';
 import { SectorsListComponent } from './sectors-list/sectors-list.component';
 import { EmployeesListComponent } from './employees-list/employees-list.component';
+import { HarvestComponent } from './harvest/harvest.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -24,7 +25,8 @@ const routes: Routes = [
   {path: 'list', component: PlantationListComponent},
   {path: 'details', component: DetailsComponent},
   {path: 'seclist', component: SectorsListComponent},
-  {path: 'employees', component: EmployeesListComponent}
+  {path: 'employees', component: EmployeesListComponent},
+  {path: 'harvest', component: HarvestComponent}
 ];
 
 @NgModule({

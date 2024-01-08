@@ -1,16 +1,17 @@
 <app-owner-menu>
 
     <div id="container">
+    <form (ngSubmit)="save()" ngNativeValidate  #formularz="ngForm">
       <mat-label>Dodaj plantację</mat-label>
       <br>
     <mat-form-field>
       <mat-label>Wpisz nazwę plantacji</mat-label>
-      <input matInput>
+      <input matInput [(ngModel)]="formData.name" name="name"  required>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Wybierz owoc</mat-label>
-      <mat-select>
+      <mat-select name="fruit" [(value)]="defaultFruit" required>
         <mat-option value="one">First option</mat-option>
         <mat-option value="two">Second option</mat-option>
       </mat-select>
@@ -20,22 +21,24 @@
     <mat-label>Adres</mat-label>
     <mat-form-field>
       <mat-label>Miasto</mat-label>
-      <input matInput>
+      <input matInput [(ngModel)]="formData.city" name="city"  required>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Ulica</mat-label>
-      <input matInput>
+      <input matInput [(ngModel)]="formData.street" name="street"  required>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Nr domu</mat-label>
-      <input matInput>
+      <input matInput [(ngModel)]="formData.housenumber" name="housenumber"  required>
     </mat-form-field>
 
     <br>
     <mat-label>Ustaw obszar plantacji</mat-label>
 <div id="map"></div>
-<button mat-raised-button color="primary">Zapisz</button>
+<button type="submit" mat-raised-button color="primary" (click)="debug(formularz)" [disabled]="!formularz.form.valid">Zapisz</button>
+
+</form>
 </div>
 </app-owner-menu>

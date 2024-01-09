@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { AuthenticationService } from '../services/authentication.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import {Component} from '@angular/core';
+import {AuthenticationService} from '../services/authentication.service';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -15,13 +15,13 @@ export class LoginComponent {
     password: new FormControl<string>('')
   })
 
-  constructor(private log: AuthenticationService, private formBuilder: FormBuilder){
+  constructor(private log: AuthenticationService, private formBuilder: FormBuilder) {
 
 
   }
-  
 
-  login(){
+
+  login() {
     this.log.auth(this.sign.value.email, this.sign.value.password)
     console.log(this.sign.value)
     this.sign.reset()

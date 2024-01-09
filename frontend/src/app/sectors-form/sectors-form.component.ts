@@ -22,8 +22,8 @@ export class SectorsFormComponent implements OnInit{
     this.addPolygon(false, false, '#FFFFFF')
 
 
-    
-    
+
+
   }
 
 
@@ -54,7 +54,7 @@ export class SectorsFormComponent implements OnInit{
       zoom: 15
     };
 
-    
+
 
     const mapElement = document.getElementById('map')!;
 

@@ -1,13 +1,13 @@
-import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
-import { ActivatedRoute, Router } from '@angular/router';
+import {AfterViewInit, Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
+import {MatSidenav} from '@angular/material/sidenav';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-owner-menu',
   templateUrl: './owner-menu.component.html',
   styleUrls: ['./owner-menu.component.css']
 })
-export class OwnerMenuComponent implements AfterViewInit{
+export class OwnerMenuComponent implements AfterViewInit {
   showElement: boolean = false;
   showplants: boolean = true
   showdetails: boolean = false
@@ -15,48 +15,46 @@ export class OwnerMenuComponent implements AfterViewInit{
 
   @ViewChild(MatSidenav) sidenav!: MatSidenav;
   @ViewChild('list') list!: ElementRef
-  
 
 
-  constructor(private renderer: Renderer2, private route: ActivatedRoute, private router: Router){}
-  menu(){
+  constructor(private renderer: Renderer2, private route: ActivatedRoute, private router: Router) {
+  }
+
+  menu() {
     this.sidenav.toggle()
   }
 
-  plant(){
+  plant() {
     console.log('plant')
     this.router.navigate(['/map'])
-    .then(() => {
-      window.location.reload()
-    })
+  }
+
+  myplant() {
+    this.router.navigate(['/list'])
+  }
+
+  det() {
 
   }
 
-  myplant(){
-   this.router.navigate(['/list'])
-  }
-
-  det(){
-  
-  }
-
-  sec(){
+  sec() {
     this.router.navigate(['/seclist'])
-   }
+  }
 
-   emp(){
+  emp() {
     this.router.navigate(['/employees'])
-   }
-   harvest(){
+  }
+
+  harvest() {
     this.router.navigate(['/harvest'])
-   }
-  
+  }
+
 
   ngAfterViewInit(): void {
     console.log(this.list)
     this.route.params.subscribe(params => {
       const sec = params['param']
-      if(sec === 'sectors'){
+      if (sec === 'sectors') {
         console.log('aaaaaaaaa1111a')
         this.showElement = false
         this.showplants = false
@@ -65,9 +63,9 @@ export class OwnerMenuComponent implements AfterViewInit{
 
       }
     })
- //console.log(this.list.nativeElement)
-  //  console.log("dasdfasdfas" +this.list.nativeElement.offsetWidth)
- //   console.log('aaaaaa')
-  // this.renderer.setStyle(this.list.nativeElement, 'display', 'none')
+    //console.log(this.list.nativeElement)
+    //  console.log("dasdfasdfas" +this.list.nativeElement.offsetWidth)
+    //   console.log('aaaaaa')
+    // this.renderer.setStyle(this.list.nativeElement, 'display', 'none')
   }
 }

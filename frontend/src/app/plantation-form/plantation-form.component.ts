@@ -1,6 +1,7 @@
-import { Component, NgZone, OnInit } from '@angular/core';
-import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CreatePlantationService } from '../services/create-plantation.service';
+import {Component, NgZone, OnInit} from '@angular/core';
+import {FormBuilder, NgForm} from '@angular/forms';
+import {CreatePlantationService} from '../services/create-plantation.service';
+import {AuthenticationService} from "../services/authentication.service";
 
 @Component({
   selector: 'app-plantation-form',
@@ -9,10 +10,6 @@ import { CreatePlantationService } from '../services/create-plantation.service';
 })
 export class PlantationFormComponent implements OnInit {
 
-
-
-
-  
 
   map!: google.maps.Map;
   polygons: google.maps.Polygon[] = [];
@@ -32,18 +29,16 @@ export class PlantationFormComponent implements OnInit {
     housenumber: 0
   }
 
-  constructor(private ngZone: NgZone, private formBuilder: FormBuilder, private createplant: CreatePlantationService) { }
-
+  constructor(private ngZone: NgZone, private formBuilder: FormBuilder, private createplant: CreatePlantationService,
+              private _loginService: AuthenticationService) {
+  }
 
 
   ngOnInit() {
     this.loadMap();
     this.addPolygon()
 
-   
- 
 
-    
   }
 
   loadMap() {
@@ -52,11 +47,10 @@ export class PlantationFormComponent implements OnInit {
     const centerLng = (this.lng1 - this.lng0) / 2 + this.lng0
 
     const mapOptions: google.maps.MapOptions = {
-      center: { lat: centerLat, lng: centerLng },
+      center: {lat: centerLat, lng: centerLng},
       zoom: 15
     };
 
-    
 
     const mapElement = document.getElementById('map')!;
 
@@ -70,13 +64,13 @@ export class PlantationFormComponent implements OnInit {
   addPolygon() {
     const polygon = new google.maps.Polygon({
       map: this.map,
-     editable: true, // Ustawienie na true umożliwia edycję wielokąta
+      editable: true, // Ustawienie na true umożliwia edycję wielokąta
       draggable: true, // Ustawienie na true umożliwia przeciąganie wielokąta
       paths: [
-        { lat: this.lat0, lng: this.lng0 },
-        { lat: this.lat1, lng: this.lng0 },
-        { lat: this.lat1, lng: this.lng1 },
-        { lat: this.lat0, lng: this.lng1},
+        {lat: this.lat0, lng: this.lng0},
+        {lat: this.lat1, lng: this.lng0},
+        {lat: this.lat1, lng: this.lng1},
+        {lat: this.lat0, lng: this.lng1},
       ],
       strokeColor: '#00FF00',
       fillColor: '#00FF00'
@@ -86,7 +80,7 @@ export class PlantationFormComponent implements OnInit {
     google.maps.event.addListener(polygon, 'dragend', () => {
       this.ngZone.run(() => {
         const coordinates = polygon.getPath().getArray().map((latLng: any) => {
-          return { lat: latLng.lat(), lng: latLng.lng() };
+          return {lat: latLng.lat(), lng: latLng.lng()};
         });
         // Tutaj możesz obsługiwać przeciąganie wielokąta, np. zapisując nowe współrzędne
         console.log('Wielokąt przeciągnięty!', coordinates);
@@ -96,18 +90,18 @@ export class PlantationFormComponent implements OnInit {
     this.polygons.push(polygon);
   }
 
-  save(){
+  save() {
     console.log(this.formData)
     // alert('Zapisano plantację')
     this.createplant.create(this.formData.name, "blueberry", this.formData.city, this.formData.street, this.formData.housenumber)
-    
+
   }
-  
+
   debug(formularz: NgForm): void {
     console.log('aaaaa')
     console.log('Stan formularza:', formularz.form.valid);
 
   }
-  
+
 }
 

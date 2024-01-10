@@ -54,11 +54,12 @@ export class CreatePlantationService {
   constructor(private http: HttpClient) {
   }
 
-  create(name: string, fruit: string, city: string, street: string, housenumber: number) {
+  create(name: string, fruit: string, city: string, street: string, housenumber: number, coords: any) {
     this.plant.name = name
     this.plant.city = city
     this.plant.street = street
     this.plant.houseNumber = housenumber
+    this.plant.area.coordinates = coords
     // this.plant.area.coordinates = coordinates
     this.http.post('http://localhost:8080/plantation/create-plantation', this.plant).subscribe(data => {
       console.log(data)

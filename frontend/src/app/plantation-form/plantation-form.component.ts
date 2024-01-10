@@ -21,6 +21,8 @@ export class PlantationFormComponent implements OnInit {
 
   defaultFruit: string = 'one'
 
+   coordinatesArray: any
+
 
   formData = {
     name: '',
@@ -80,10 +82,11 @@ export class PlantationFormComponent implements OnInit {
     google.maps.event.addListener(polygon, 'dragend', () => {
       this.ngZone.run(() => {
         const coordinates = polygon.getPath().getArray().map((latLng: any) => {
-          return {lat: latLng.lat(), lng: latLng.lng()};
+          return {latitude: latLng.lat(), longitude: latLng.lng()};
         });
         // Tutaj możesz obsługiwać przeciąganie wielokąta, np. zapisując nowe współrzędne
         console.log('Wielokąt przeciągnięty!', coordinates);
+        this.coordinatesArray = coordinates
       });
     });
 
@@ -93,7 +96,8 @@ export class PlantationFormComponent implements OnInit {
   save() {
     console.log(this.formData)
     // alert('Zapisano plantację')
-    this.createplant.create(this.formData.name, "blueberry", this.formData.city, this.formData.street, this.formData.housenumber)
+    console.log(this.coordinatesArray)
+    this.createplant.create(this.formData.name, "blueberry", this.formData.city, this.formData.street, this.formData.housenumber, this.coordinatesArray)
 
   }
 

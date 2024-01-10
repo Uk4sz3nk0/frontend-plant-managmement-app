@@ -16,8 +16,8 @@ export interface Plantation {
     coordinates: [
       {
         id: number | null;
-        latitude: 0;
-        longitude: 0;
+        latitude: number;
+        longitude: number;
       }
     ];
     isMainArea: true

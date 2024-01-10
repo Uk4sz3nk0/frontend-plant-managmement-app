@@ -26,9 +26,9 @@ export class OwnerMenuComponent implements AfterViewInit{
   plant(){
     console.log('plant')
     this.router.navigate(['/map'])
-    .then(() => {
-      window.location.reload()
-    })
+    // .then(() => {
+    //   window.location.reload()
+    // })
 
   }
 

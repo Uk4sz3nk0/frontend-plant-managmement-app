@@ -55,25 +55,26 @@ export class AuthenticationService {
     // @ts-ignore
     const loadedUser: User = new User(userData.id, userData.email, userData.firstName, userData.lastName, userData.role, userData.token, new Date(userData.tokenExpiration), userData.refreshToken, new Date(userData.refreshTokenExpiration));
     if (loadedUser) {
-      this.autoLogout(new Date(userData.tokenExpiration).getTime() - new Date().getTime())
+    //  this.autoLogout(new Date(userData.tokenExpiration).getTime() - new Date().getTime())
       this.user$.next(loadedUser);
     }
   }
 
   logout(): void {
     // @ts-ignore
-    this.user$.next(null);
-    this._router.navigate(['/login']);
-    localStorage.removeItem(USER_DATA_KEY);
-    if (this._tokenExpirationTimer) {
-      clearTimeout(this._tokenExpirationTimer);
-    }
+    // this.user$.next(null);
+    // this._router.navigate(['/login']);
+    // localStorage.removeItem(USER_DATA_KEY);
+    // if (this._tokenExpirationTimer) {
+    //   clearTimeout(this._tokenExpirationTimer);
+    // }
   }
 
   autoLogout(expirationDuration: number) {
-    this._tokenExpirationTimer = setTimeout(() => {
-      this.logout()
-    }, expirationDuration)
+    // this._tokenExpirationTimer = setTimeout(() => {
+    //   this.logout()
+    // }, expirationDuration)
+    // console.log('logout')
   }
 }
 

@@ -15,4 +15,9 @@ export class EndpointsService {
       map(response => response)  // Zmodyfikuj to zgodnie z rzeczywistą strukturą danych
     ).toPromise();
   }
+
+  getPlantationById(id: number): Promise<any> {
+    return this.http.post('http://localhost:8080/plantation/get-plantation-by-id?id='+id, {})
+      .toPromise();
+  }
 }

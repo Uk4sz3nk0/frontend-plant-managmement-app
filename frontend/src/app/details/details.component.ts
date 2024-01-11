@@ -1,5 +1,7 @@
 import { Component, ElementRef, NgZone, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { EndpointsService } from '../services/endpoints.service';
+
 
 @Component({
   selector: 'app-details',
@@ -19,12 +21,29 @@ export class DetailsComponent implements OnInit {
   lng0 = 20
   lng1 = 20.01
   
+  data: any = ''
   
-  constructor(private ngZone: NgZone, private renderer: Renderer2, private router: Router) { }
+  constructor(private ngZone: NgZone, private renderer: Renderer2, private router: Router, private route: ActivatedRoute, private endpoint: EndpointsService) { }
 
   
 
   ngOnInit() {
+
+    this.route.params.subscribe(params =>{
+      const id = params['id']
+      console.log(id)
+      this.data = id
+      
+    })
+
+    this.endpoint.getPlantationById(this.data).then((plant: any) =>{
+      console.log(plant)
+    })
+
+//     const id = 2; // Twój identyfikator
+// this.endpoint.getPlantationById(id).then(response => {
+//   console.log(response);
+// });
   
     this.loadMap();
     this.addPolygon()

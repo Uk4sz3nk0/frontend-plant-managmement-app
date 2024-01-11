@@ -14,16 +14,18 @@ constructor(private renderer: Renderer2, private router: Router, private endpoin
 div = this.renderer.createElement('div');
 dynamic !: ElementRef;
 
+idnumber !: number
+
 @ViewChild('list') list!: ElementRef
 @ViewChild('details') det!: DetailsComponent
 
 
 
-plantDetails(){
+plantDetails(id: number){
   
-console.log('fsdafsdfds')
+console.log(id)
 console.log(this.det)
-this.router.navigate(['/details'])
+this.router.navigate(['/details', id])
   // this.renderer.setStyle(this.dynamic, 'display', 'none')
 
 }
@@ -36,6 +38,7 @@ ngAfterViewInit(): void {
   const width = (this.list.nativeElement.offsetWidth-5-this.list.nativeElement.offsetWidth*0.1)/1
   this.endpoint.getPlantations().then(data => {
     console.log(data)
+    
    
 
     for(let i = 0; i<data.length; i++){
@@ -62,7 +65,7 @@ ngAfterViewInit(): void {
       this.renderer.appendChild(this.list.nativeElement, newDiv);
       console.log(width+'px')
       console.log(width)
-      this.renderer.listen(newDiv, 'click', () => this.plantDetails())
+      this.renderer.listen(newDiv, 'click', () => this.plantDetails(data[i].id))
       this.dynamic = newDiv
     }
     

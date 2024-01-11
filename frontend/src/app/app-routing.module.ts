@@ -23,7 +23,7 @@ const routes: Routes = [
   {path: 'user', component: UserMenuComponent},
   {path: 'menu', component: OwnerMenuComponent},
   {path: 'list', component: PlantationListComponent},
-  {path: 'details', component: DetailsComponent},
+  {path: 'details/:id', component: DetailsComponent},
   {path: 'seclist', component: SectorsListComponent},
   {path: 'employees', component: EmployeesListComponent},
   {path: 'harvest', component: HarvestComponent}

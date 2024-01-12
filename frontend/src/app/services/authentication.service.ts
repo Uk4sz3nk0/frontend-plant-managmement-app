@@ -4,6 +4,9 @@ import {Router} from '@angular/router';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {User, USER_DATA_KEY} from "./auth-utils";
+import { CookieService } from 'ngx-cookie-service';
+import { Auth } from '../interfaces/auth';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +20,14 @@ export class AuthenticationService {
   // @ts-ignore
   public user$: Observable<User> = this._userSubject.asObservable();
 
-  constructor(private _http: HttpClient, private _router: Router, private _snackbar: MatSnackBar) {
+  constructor(private _http: HttpClient, private _router: Router, private _snackbar: MatSnackBar, private _cookieService: CookieService) {
   }
 
 
   auth(login: string, password: string): void {
     const user = {"email": login, "password": password}
     console.log('LOGGING IN')
-    this._http.post('http://localhost:8080/auth/login', user).subscribe(data => {
+    this._http.post<Auth>('http://localhost:8080/auth/login', user).subscribe(data => {
         console.log(data)
         if (data) {
           // @ts-ignore
@@ -34,7 +37,9 @@ export class AuthenticationService {
           // @ts-ignore
           const newUsr: User = new User(data.user.id, data.user.email, data.user.firstName, data.user.lastName, data.user.role, data.accessToken, expDate, data.refreshToken, refExpDate);
           this._userSubject.next(newUsr);
-          localStorage.setItem(USER_DATA_KEY, JSON.stringify(newUsr));
+          // localStorage.setItem(USER_DATA_KEY, JSON.stringify(newUsr));
+                this._cookieService.set('access_token', data.accessToken, expDate, '/');
+                this._cookieService.set('refresh_token', data.refreshToken, expDate, '/');
           // @ts-ignore
           this.autoLogout(data.accessTokenDuration);
           ;

@@ -51,7 +51,7 @@ export class OwnerMenuComponent implements AfterViewInit {
 
 
   ngAfterViewInit(): void {
-    console.log(this.list)
+    // console.log(this.list)
     this.route.params.subscribe(params => {
       const sec = params['param']
       if (sec === 'sectors') {

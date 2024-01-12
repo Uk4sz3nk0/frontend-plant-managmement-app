@@ -22,6 +22,7 @@ export class DetailsComponent implements OnInit {
   lng1 = 20.01
   
   data: any = ''
+  details: any = ''
   
   constructor(private ngZone: NgZone, private renderer: Renderer2, private router: Router, private route: ActivatedRoute, private endpoint: EndpointsService) { }
 
@@ -38,6 +39,24 @@ export class DetailsComponent implements OnInit {
 
     this.endpoint.getPlantationById(this.data).then((plant: any) =>{
       console.log(plant)
+      console.log(plant.area.coordinates[0])
+      this.details = plant
+      this.lat0 = plant.area.coordinates[0].latitude
+      this.lat1 = plant.area.coordinates[1].latitude
+      this.lng0 = plant.area.coordinates[0].longitude
+      this.lng1 = plant.area.coordinates[2].longitude
+       
+
+
+
+      this.loadMap();
+      this.addPolygon()
+      const stat = document.getElementById('statystyki')
+      console.log(this.statystyki)
+      console.log(stat)
+      const text = this.renderer.createText('plantacja');
+      this.renderer.appendChild(stat, text)
+
     })
 
 //     const id = 2; // Twój identyfikator
@@ -45,13 +64,7 @@ export class DetailsComponent implements OnInit {
 //   console.log(response);
 // });
   
-    this.loadMap();
-    this.addPolygon()
-    const stat = document.getElementById('statystyki')
-    console.log(this.statystyki)
-    console.log(stat)
-    const text = this.renderer.createText('plantacja');
-    this.renderer.appendChild(stat, text)
+
     
   }
 

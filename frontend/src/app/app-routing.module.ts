@@ -16,8 +16,8 @@ import { HarvestComponent } from './harvest/harvest.component';
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'home', component: OwnerMenuComponent},
-  {path: '', component: OwnerMenuComponent},
+  {path: 'home', component: PlantationListComponent},
+  {path: '', component: PlantationListComponent},
   {path: 'map', component: PlantationFormComponent},
   {path: 'sectors', component: SectorsFormComponent},
   {path: 'user', component: UserMenuComponent},

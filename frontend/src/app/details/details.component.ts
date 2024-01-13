@@ -34,10 +34,16 @@ export class DetailsComponent implements OnInit {
       const id = params['id']
       console.log(id)
       this.data = id
+
+
+
+      
       
     })
 
-    this.endpoint.getPlantationById(this.data).then((plant: any) =>{
+    console.log('aaaaaaaaaa')
+
+    this.endpoint.getPlantationById(this.data).subscribe((plant: any) =>{
       console.log(plant)
       console.log(plant.area.coordinates[0])
       this.details = plant

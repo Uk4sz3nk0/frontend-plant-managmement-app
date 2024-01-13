@@ -18,10 +18,15 @@ export class EndpointsService {
   getPlantations(): Observable<any> {
     return this.http.get('http://localhost:8080/plantation/get-plantations')
   }
+
+  getPlantationById(id: number): Observable<any> {
+    return this.http.post('http://localhost:8080/plantation/get-plantation-by-id?id='+id, {})
+     
+  }
   
 
-  getPlantationById(id: number): Promise<any> {
-    return this.http.post('http://localhost:8080/plantation/get-plantation-by-id?id='+id, {})
-      .toPromise();
-  }
+  // getPlantationById(id: number): Promise<any> {
+  //   return this.http.post('http://localhost:8080/plantation/get-plantation-by-id?id='+id, {})
+  //     .toPromise();
+  // }
 }

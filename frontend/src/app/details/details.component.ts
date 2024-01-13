@@ -144,7 +144,8 @@ export class DetailsComponent implements OnInit {
     });
 
     google.maps.event.addListener(polygon, 'mousedown', () => {
-      this.router.navigate(['/sectors'])
+      console.log(this.details)
+      this.router.navigate(['/sectors', this.details.id])
             .then(() => {
         window.location.reload()
       })

@@ -23,6 +23,12 @@ export class EndpointsService {
     return this.http.post('http://localhost:8080/plantation/get-plantation-by-id?id='+id, {})
      
   }
+
+  getAreasById(id: number): Observable<any> {
+    return this.http.post('http://localhost:8080/plantation/get-areas-by-plantation?id='+id, {})
+  }
+
+
   
 
   // getPlantationById(id: number): Promise<any> {

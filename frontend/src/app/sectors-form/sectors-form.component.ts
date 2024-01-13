@@ -1,5 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { EndpointsService } from '../services/endpoints.service';
 
 @Component({
   selector: 'app-sectors-form',
@@ -15,11 +16,47 @@ export class SectorsFormComponent implements OnInit{
   posC: number = 20;
   posD: number = 20.01;
 
-  constructor(private ngZone: NgZone, private router: Router) { }
+
+  data: any
+  plant!: number;
+
+  constructor(private ngZone: NgZone, private router: Router, private route: ActivatedRoute, private endpoint: EndpointsService) { }
 
   ngOnInit() {
-    this.loadMap();
-    this.addPolygon(false, false, '#FFFFFF')
+
+    this.route.params.subscribe(params =>{
+      const id = params['id']
+      console.log(id)
+      this.data = id
+
+
+
+      
+      
+    })
+
+    this.endpoint.getPlantationById(this.data).subscribe((plant: any) =>{
+      console.log(plant)
+      console.log(plant.area.coordinates[0])
+
+
+      this.posA = plant.area.coordinates[0].latitude
+      this.posB = plant.area.coordinates[1].latitude
+      this.posC = plant.area.coordinates[0].longitude
+      this.posD = plant.area.coordinates[2].longitude
+       
+
+      this.loadMap();
+      this.addPolygon(false, false, '#FFFFFF')
+
+
+    })
+
+
+
+
+    
+
 
 
 
@@ -49,8 +86,12 @@ export class SectorsFormComponent implements OnInit{
   }
 
   loadMap() {
+
+    const centerLat = (this.posB - this.posA) / 2 + this.posA
+    const centerLng = (this.posD - this.posC) / 2 + this.posC
+
     const mapOptions: google.maps.MapOptions = {
-      center: { lat: 50, lng: 20 },
+      center: { lat: centerLat, lng: centerLng },
       zoom: 15
     };
 

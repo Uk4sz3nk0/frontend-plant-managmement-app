@@ -19,7 +19,7 @@ const routes: Routes = [
   {path: 'home', component: PlantationListComponent},
   {path: '', component: PlantationListComponent},
   {path: 'map', component: PlantationFormComponent},
-  {path: 'sectors', component: SectorsFormComponent},
+  {path: 'sectors/:id', component: SectorsFormComponent},
   {path: 'user', component: UserMenuComponent},
   {path: 'menu', component: OwnerMenuComponent},
   {path: 'list', component: PlantationListComponent},

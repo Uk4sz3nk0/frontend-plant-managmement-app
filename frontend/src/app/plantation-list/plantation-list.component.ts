@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, Renderer2 } fr
 import { Router } from '@angular/router';
 import { DetailsComponent } from '../details/details.component';
 import { EndpointsService } from '../services/endpoints.service';
+import {AuthenticationService} from '../services/authentication.service';
 
 @Component({
   selector: 'app-plantation-list',
@@ -9,7 +10,7 @@ import { EndpointsService } from '../services/endpoints.service';
   styleUrl: './plantation-list.component.css'
 })
 export class PlantationListComponent implements OnInit, AfterViewInit {
-constructor(private renderer: Renderer2, private router: Router, private endpoint: EndpointsService) {}
+constructor(private renderer: Renderer2, private router: Router, private endpoint: EndpointsService, private auth: AuthenticationService) {}
 
 div = this.renderer.createElement('div');
 dynamic !: ElementRef;
@@ -34,6 +35,9 @@ this.router.navigate(['/details', id])
 
 ngOnInit(): void {
   console.log('aaaaaaaaaa')
+  this.auth.user$.subscribe((user) =>{
+    console.log(user)
+  })
   // this.pobierz()
 }
 

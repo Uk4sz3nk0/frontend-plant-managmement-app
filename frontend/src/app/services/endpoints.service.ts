@@ -16,7 +16,7 @@ export class EndpointsService {
   //   ).toPromise();
   // }
   getPlantations(): Observable<any> {
-    return this.http.get('http://localhost:8080/plantation/get-plantations')
+    return this.http.post('http://localhost:8080/plantation/get-plantations-by-user?userId=2', {})
   }
 
   getPlantationById(id: number): Observable<any> {

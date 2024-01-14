@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
 import {MatSidenav} from '@angular/material/sidenav';
 import {ActivatedRoute, Router} from '@angular/router';
+import {AuthenticationService} from '../services/authentication.service';
 
 @Component({
   selector: 'app-owner-menu',
@@ -17,7 +18,7 @@ export class OwnerMenuComponent implements AfterViewInit {
   @ViewChild('list') list!: ElementRef
 
 
-  constructor(private renderer: Renderer2, private route: ActivatedRoute, private router: Router) {
+  constructor(private renderer: Renderer2, private route: ActivatedRoute, private router: Router, private log: AuthenticationService) {
   }
 
   menu() {
@@ -33,9 +34,6 @@ export class OwnerMenuComponent implements AfterViewInit {
     this.router.navigate(['/list'])
   }
 
-  det() {
-
-  }
 
   sec() {
     this.router.navigate(['/seclist'])
@@ -47,6 +45,10 @@ export class OwnerMenuComponent implements AfterViewInit {
 
   harvest() {
     this.router.navigate(['/harvest'])
+  }
+
+  logout(){
+    this.log.logout()
   }
 
 

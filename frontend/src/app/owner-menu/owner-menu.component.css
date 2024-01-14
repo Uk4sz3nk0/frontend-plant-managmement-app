@@ -20,6 +20,7 @@ mat-toolbar {
     top: 0;
     z-index: 2;
     background-color: #2f3749;
+    overflow: auto;
 }
 mat-sidenav-container {
     height: 100%;
@@ -43,5 +44,12 @@ mat-sidenav-content {
 }
 span{
     display: block;
+}
+#logout{
+    position: fixed;
+    left: 90%;
+    color: white;
+    font-size: 1rem;
+
 }
 

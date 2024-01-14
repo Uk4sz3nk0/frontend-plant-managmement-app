@@ -1,6 +1,7 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EndpointsService } from '../services/endpoints.service';
+import { AddAreaService } from '../services/add-area.service';
 
 @Component({
   selector: 'app-sectors-form',
@@ -20,7 +21,10 @@ export class SectorsFormComponent implements OnInit{
   data: any
   plant!: number;
 
-  constructor(private ngZone: NgZone, private router: Router, private route: ActivatedRoute, private endpoint: EndpointsService) { }
+  coordinatesArray: any
+  coords: any[] = [];
+
+  constructor(private ngZone: NgZone, private router: Router, private route: ActivatedRoute, private endpoint: EndpointsService, private add: AddAreaService) { }
 
   ngOnInit() {
 
@@ -81,7 +85,17 @@ export class SectorsFormComponent implements OnInit{
   }
 
   save(){
-  alert('Sektory zostały zapisane')
+    type Coordinates = { latitude: number; longitude: number };
+  // alert('Sektory zostały zapisane')
+  for( var i = 0; i < this.num; i++){
+    const last = this.polygons[i].getPath().getArray().map((latLng) =>{
+      return {latitude: latLng.lat(), longitude: latLng.lng()}
+    })
+    this.add.addArea(this.data, last)
+   this.coords.push(last)
+  }
+  console.log(this.coords)
+  alert("Sektory zostały dodane")
   this.router.navigate(['/list'])
   }
 
@@ -125,14 +139,19 @@ export class SectorsFormComponent implements OnInit{
     google.maps.event.addListener(polygon, 'dragend', () => {
       this.ngZone.run(() => {
         const coordinates = polygon.getPath().getArray().map((latLng: any) => {
-          return { lat: latLng.lat(), lng: latLng.lng() };
+          return { latitude: latLng.lat(), longitude: latLng.lng() };
         });
         // Tutaj możesz obsługiwać przeciąganie wielokąta, np. zapisując nowe współrzędne
         console.log('Wielokąt przeciągnięty!', coordinates);
+        this.coordinatesArray = coordinates
       });
     });
 
     this.polygons.push(polygon);
     console.log(color)
+    const last = this.polygons[0].getPath().getArray().map((latLng) =>{
+      return {latitude: latLng.lat(), longitude: latLng.lng()}
+    })
+    console.log(last)
   }
 }

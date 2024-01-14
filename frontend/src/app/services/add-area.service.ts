@@ -25,7 +25,11 @@ export class AddAreaService {
   constructor(private http: HttpClient) { }
 
   addArea(id: number, coords: any){
-    
+    this.area.coordinates = coords
+    this.http.post('http://localhost:8080/plantation/add-area?plantationId='+id, this.area).subscribe(data => {
+      console.log(data)
+      console.log("Sektory zostały dodane")
+    })
 
   }
 }

@@ -86,7 +86,8 @@ export class PlantationFormComponent implements OnInit {
         });
         // Tutaj możesz obsługiwać przeciąganie wielokąta, np. zapisując nowe współrzędne
         console.log('Wielokąt przeciągnięty!', coordinates);
-        this.coordinatesArray = coordinates
+    //    this.coordinatesArray += coordinates
+        console.log(this.coordinatesArray)
       });
     });
 

@@ -45,6 +45,7 @@ export class DetailsComponent implements OnInit {
 
     this.endpoint.getPlantationById(this.data).subscribe((plant: any) =>{
       console.log(plant)
+      console.log('sektory:' + plant.sectors.length)
       console.log(plant.area.coordinates[0])
       this.details = plant
       this.lat0 = plant.area.coordinates[0].latitude

@@ -20,7 +20,7 @@
               <span class="entry">
                 <!-- <mat-icon>house</mat-icon> -->
                 <span (click)="myplant()">Twoje plantacje</span>
-                
+
               </span>
             </mat-list-item>
             <mat-list-item>
@@ -33,21 +33,26 @@
                 <span (click)="plant()">Sektory</span>
               </span>
             </mat-list-item>
+            <mat-list-item>
+              <span class="entry">
+                <span (click)="userDetails()">Panel użytkownika</span>
+              </span>
+            </mat-list-item>
           </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>
           <!-- <h2>[Tu będzie mapa :D]</h2> -->
           <div (click)="det()">
-          <app-plantation-list *ngIf="showplants"></app-plantation-list>
+          <app-plantation-list *ngIf="showPlants"></app-plantation-list>
         </div>
           <app-plantation-form *ngIf="showElement" ></app-plantation-form>
-          <app-details *ngIf="showdetails"></app-details>
+          <app-details *ngIf="showDetails"></app-details>
           <app-sectors-form *ngIf="showSector"></app-sectors-form>
           <router-outlet></router-outlet>
         </mat-sidenav-content>
       </mat-sidenav-container>
-  
-      
-      
+
+
+
 </body>
 </html>

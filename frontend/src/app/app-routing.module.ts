@@ -12,13 +12,15 @@ import { DetailsComponent } from './details/details.component';
 import { SectorsListComponent } from './sectors-list/sectors-list.component';
 import { EmployeesListComponent } from './employees-list/employees-list.component';
 import { HarvestComponent } from './harvest/harvest.component';
+import {UserDetailsComponent} from "./components/user-details/user-details.component";
+import {authGuard} from "./AuthGuard";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'home', component: PlantationListComponent},
   {path: '', component: PlantationListComponent},
-  {path: 'map', component: PlantationFormComponent},
+  {path: 'map', component: PlantationFormComponent, canActivate: [authGuard]}, // <== example of login guard
   {path: 'sectors/:id', component: SectorsFormComponent},
   {path: 'user', component: UserMenuComponent},
   {path: 'menu', component: OwnerMenuComponent},
@@ -26,7 +28,8 @@ const routes: Routes = [
   {path: 'details/:id', component: DetailsComponent},
   {path: 'seclist', component: SectorsListComponent},
   {path: 'employees', component: EmployeesListComponent},
-  {path: 'harvest', component: HarvestComponent}
+  {path: 'harvest', component: HarvestComponent},
+  {path: 'user-details', component: UserDetailsComponent}
 ];
 
 @NgModule({

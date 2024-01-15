@@ -1,1 +1,46 @@
-<p>user-details works!</p>
+<div class="mt-2 mx-1">
+  <h1 class="font-weight-bold">Panel użytkownika</h1>
+  <div class="row">
+    <div class="col">
+      <h2 class="font-weight-bold">Dane użytkownika</h2>
+      <div class="">
+        <p>Imię: <span class="font-weight-bold">{{ user().firstName }}</span></p>
+        <p>Nazwisko: <span class="font-weight-bold">{{ user().lastName }}</span></p>
+        <p>Email: <span class="font-weight-bold">{{ user().email }}</span></p>
+        <p>Id użytkownika: <span class="font-weight-bold">{{ user().id }}</span></p>
+      </div>
+    </div>
+    <div class="col">
+      <h2 class="font-weight-bold">Najbliższe zbiory (najbliższe 5 dni)</h2>
+      <div>
+        @if (futureHarvests.length > 0) {
+
+        } @else {
+          <p>Brak zaplanowanych zbiorów</p>
+        }
+      </div>
+    </div>
+    <div class="col">
+      <h2 class="font-weight-bold">Statystki</h2>
+      <div>
+        @if (stats.length > 0) {
+
+        } @else {
+          <p>Brak statystyk</p>
+        }
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h2 class="font-weight-bold">Pracujesz w</h2>
+      <div>
+        @if(workedInPlantations.length > 0) {
+
+        } @else {
+          <p>Nie pracujesz na żadnej plantacji</p>
+        }
+      </div>
+    </div>
+  </div>
+</div>

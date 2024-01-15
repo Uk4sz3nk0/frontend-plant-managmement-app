@@ -9,37 +9,35 @@
 <mat-sidenav-container autosize>
   <mat-sidenav [opened]="true" mode="side">
     <mat-nav-list>
-      <mat-list-item>
+      <mat-list-item (click)="myPlant()" OwnerAccess>
               <span class="entry">
-                <!-- <mat-icon>house</mat-icon> -->
-                <span (click)="myPlant()">Twoje plantacje</span>
-
+                <span>Twoje plantacje</span>
               </span>
       </mat-list-item>
-      <mat-list-item>
+      <mat-list-item (click)="plant()" OwnerAccess>
               <span class="entry">
-                <span (click)="plant()" #dodaj>Dodaj plantację</span><mat-icon>add</mat-icon>
+                <span>Dodaj plantację</span><mat-icon>add</mat-icon>
               </span>
       </mat-list-item>
-      <mat-list-item>
+      <mat-list-item (click)="sec()" OwnerAccess>
               <span class="entry">
-                <span (click)="sec()">Sektory</span>
+                <span>Sektory</span>
               </span>
       </mat-list-item>
-      <mat-list-item>
+      <mat-list-item (click)="emp()" OwnerAccess>
               <span class="entry">
-                <span (click)="emp()">Pracownicy</span>
+                <span>Pracownicy</span>
               </span>
       </mat-list-item>
-      <mat-list-item>
+      <mat-list-item (click)="harvest()">
               <span class="entry">
-                <span (click)="harvest()">Statystyki</span>
+                <span>Statystyki</span>
               </span>
       </mat-list-item>
       @if (user()) {
-        <mat-list-item>
+        <mat-list-item (click)="userDetails()">
           <span class="entry">
-            <span (click)="userDetails()">{{ user().firstName }} {{ user().lastName }}</span>
+              <span>{{ user().firstName }} {{ user().lastName }}</span>
           </span>
         </mat-list-item>
       }

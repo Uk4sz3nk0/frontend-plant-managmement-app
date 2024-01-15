@@ -4,7 +4,7 @@ import {AuthenticationService} from "../../services/authentication.service";
 const OWNER: string = 'ROLE_OWNER';
 
 @Directive({
-    selector: '[appOwnerAccess]',
+    selector: '[OwnerAccess]',
     standalone: true
 })
 export class OwnerAccessDirective implements AfterViewInit {

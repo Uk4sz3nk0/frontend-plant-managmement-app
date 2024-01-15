@@ -35,15 +35,22 @@
               </span>
             </mat-list-item>
             <mat-list-item>
+              <span class="entry">
+                <span >Pracownicy</span>
+              </span>
+            </mat-list-item>
+            <mat-list-item>
               <span class="entry" >
                 <span (click)="harvest()">Statystyki</span>
               </span>
             </mat-list-item>
+            @if (user()) {
             <mat-list-item>
-              <span class="entry">
-                <span>Panel użytkownika</span>
+<span class="entry">
+  <span>{{user() ? user().email : ''}}</span>
               </span>
             </mat-list-item>
+            }
           </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>

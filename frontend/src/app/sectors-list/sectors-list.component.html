@@ -1,20 +1,19 @@
-<app-owner-menu>
-   <!-- <div #list id="list">
-       <h1 id="test">Lista sektorów</h1>
-   </div> -->
-   <h1 id="test">Lista sektorów
+<!-- <div #list id="list">
+    <h1 id="test">Lista sektorów</h1>
+</div> -->
+<h1 id="test">Lista sektorów
 
-    <!-- <mat-form-field>
-        <mat-label>Wybierz datę</mat-label>
-        <input matInput [matDatepicker]="picker" (dateChange)="change($event)">
-        <mat-hint>DD/MM/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field> -->
-   </h1>
+  <!-- <mat-form-field>
+      <mat-label>Wybierz datę</mat-label>
+      <input matInput [matDatepicker]="picker" (dateChange)="change($event)">
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field> -->
+</h1>
 
-  
-   <ng-container *ngFor="let i of generateDetails() let index = index">
-    <app-sectors-details [tekst]="texttest[index]" [employee1]="emp1[index]" ></app-sectors-details>
+
+<ng-container *ngFor="let i of generateDetails() let index = index">
+  <app-sectors-details [tekst]="texttest[index]" [employee1]="emp1[index]"></app-sectors-details>
 </ng-container>
-   </app-owner-menu>
+

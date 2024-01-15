@@ -1,9 +1,7 @@
-<app-owner-menu>
-    <mat-form-field>
-        <mat-label>Wpisz liczbę sektorów</mat-label>
-        <input matInput [(ngModel)]="num">
-      </mat-form-field>
-      <button mat-raised-button color="primary" (click)="sectors()">Stwórz sektory</button>
-      <div id="map"></div>
-      <button mat-raised-button color="primary" (click)="save()">Zapisz</button>
-    </app-owner-menu>
+<mat-form-field>
+  <mat-label>Wpisz liczbę sektorów</mat-label>
+  <input matInput [(ngModel)]="num">
+</mat-form-field>
+<button mat-raised-button color="primary" (click)="sectors()">Stwórz sektory</button>
+<div id="map"></div>
+<button mat-raised-button color="primary" (click)="save()">Zapisz</button>

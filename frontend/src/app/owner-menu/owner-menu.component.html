@@ -1,67 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <mat-toolbar color="primary">
-        <button mat-icon-button aria-label="Menu icon" (click)="menu()">
-          <mat-icon>menu</mat-icon>
-        </button>
-        <h1>Strona główna</h1>
-        <button mat-button color="primary" id="logout" (click)="logout()" >Wyloguj się</button>
-      </mat-toolbar>
+<mat-toolbar color="primary">
+  <button mat-icon-button aria-label="Menu icon" (click)="menu()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1>Strona główna</h1>
+  <button mat-button color="primary" id="logout" (click)="logout()">Wyloguj się</button>
+</mat-toolbar>
 
-      <mat-sidenav-container autosize>
-        <mat-sidenav [opened]="true" mode="side">
-          <mat-nav-list>
-            <mat-list-item>
+<mat-sidenav-container autosize>
+  <mat-sidenav [opened]="true" mode="side">
+    <mat-nav-list>
+      <mat-list-item>
               <span class="entry">
                 <!-- <mat-icon>house</mat-icon> -->
-                <span (click)="myplant()">Twoje plantacje</span>
+                <span (click)="myPlant()">Twoje plantacje</span>
 
               </span>
-            </mat-list-item>
-            <mat-list-item>
-              <span class="entry" >
+      </mat-list-item>
+      <mat-list-item>
+              <span class="entry">
                 <span (click)="plant()" #dodaj>Dodaj plantację</span><mat-icon>add</mat-icon>
               </span>
-            </mat-list-item>
-            <mat-list-item>
-              <span class="entry" >
+      </mat-list-item>
+      <mat-list-item>
+              <span class="entry">
                 <span (click)="sec()">Sektory</span>
               </span>
-            </mat-list-item>
-            <mat-list-item>
+      </mat-list-item>
+      <mat-list-item>
               <span class="entry">
-                <span >Pracownicy</span>
+                <span (click)="emp()">Pracownicy</span>
               </span>
-            </mat-list-item>
-            <mat-list-item>
-              <span class="entry" >
+      </mat-list-item>
+      <mat-list-item>
+              <span class="entry">
                 <span (click)="harvest()">Statystyki</span>
               </span>
-            </mat-list-item>
-            @if (user()) {
-            <mat-list-item>
-<span class="entry">
-  <span>{{user() ? user().email : ''}}</span>
-              </span>
-            </mat-list-item>
-            }
-          </mat-nav-list>
-        </mat-sidenav>
-        <mat-sidenav-content>
-          <!-- <h2>[Tu będzie mapa :D]</h2> -->
-            <ng-content></ng-content>
+      </mat-list-item>
+      @if (user()) {
+        <mat-list-item>
+          <span class="entry">
+            <span (click)="userDetails()">{{ user().firstName }} {{ user().lastName }}</span>
+          </span>
+        </mat-list-item>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!--    <ng-content></ng-content>-->
 
-          <router-outlet></router-outlet>
-        </mat-sidenav-content>
-      </mat-sidenav-container>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 
-
-
-</body>
-</html>

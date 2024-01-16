@@ -2,7 +2,7 @@
    <!-- <div #list id="list">
        <h1 id="test">Lista sektorów</h1>
    </div> -->
-   <h1 id="test">Lista sektorów
+   <h1 id="test">Pracownicy przypisani do plantacji
 
     <!-- <mat-form-field>
         <mat-label>Wybierz datę</mat-label>
@@ -15,6 +15,6 @@
 
   
    <ng-container *ngFor="let i of generateDetails() let index = index">
-    <app-sectors-details [tekst]="texttest[index]" [employee1]="emp1[index]" ></app-sectors-details>
+    <app-sectors-details [tekst]="texttest[index]" [id]="id[index]" [employee1]="emp1[index]" ></app-sectors-details>
 </ng-container>
    </app-owner-menu>

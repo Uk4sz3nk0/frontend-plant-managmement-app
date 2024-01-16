@@ -36,11 +36,17 @@
       <h2 class="font-weight-bold">Pracujesz w</h2>
       <div>
         @if(workedInPlantations.length > 0) {
-
+          @for (plantation of workedInPlantations; track plantation.id) {
+            <div class="bg-secondary-subtle rounded mx-2 my-1 px-1 py-1">
+              <span class="font-weight-bold align-middle">{{plantation.name}}</span>
+            </div>
+          }
         } @else {
           <p>Nie pracujesz na żadnej plantacji</p>
         }
       </div>
     </div>
+    <div class="col"></div>
+    <div class="col"></div>
   </div>
 </div>

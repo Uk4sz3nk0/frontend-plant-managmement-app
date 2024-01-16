@@ -24,8 +24,22 @@ export class EndpointsService {
      
   }
 
-  getAreasById(id: number): Observable<any> {
-    return this.http.post('http://localhost:8080/plantation/get-areas-by-plantation?id='+id, {})
+  getAreasByPlantation(id: number): Observable<any> {
+    return this.http.post('http://localhost:8080/plantation/get-areas-by-plantation?plantationId='+id, {})
+  }
+
+  getEmployees(id: number): Observable<any> {
+    return this.http.post('http://localhost:8080/plantation/get-employees?plantationId='+id, {})
+  }
+
+  getEmployeeByEmail(email: string): Observable<any> {
+    return this.http.post('http://localhost:8080/users/search-employee-by-email?searchPhrase='+email, {})
+  }
+  addEmployeeToPlant(plantationId: number, userId: number){
+    this.http.post('http://localhost:8080/plantation/add-employe?plantationId='+plantationId+'&userId='+userId, {}).subscribe((data=>{
+      alert('Dodano')
+      console.log(data)
+    }))
   }
 
 

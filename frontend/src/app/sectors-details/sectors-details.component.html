@@ -1,5 +1,6 @@
 <div id="sector">
     <p> {{ tekst }}</p>
+    
     <!-- <button>{{employee1}}</button> -->
     <!-- <p></p> -->
     <!-- <button #button *ngFor="let item of generateDetails()">{{ texttest[item] }}	<mat-icon id="cancel" (click) = 'delete(button.innerText)'>cancel</mat-icon></button>
@@ -11,11 +12,18 @@
             <mat-icon>cancel</mat-icon>
           </button></mat-chip>
           <!-- <mat-icon id="add" (click) = 'add()'>add_circle</mat-icon> -->
-          <mat-icon [matMenuTriggerFor]="menu" id="add">add_circle</mat-icon>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item *ngFor="let i of add()" (click) = 'addToSector($event)'>{{ava_emp[i]}}</button>
-           
-          </mat-menu>
+         
+          
+            <input type="text" id="inp" [(ngModel)]="employeetoadd" >
+        
+          <mat-icon id="add" (click) = 'addToSector($event)'>add_circle</mat-icon>
+        <!-- <mat-menu #menu="matMenu"> --> 
+            <!-- <button mat-menu-item *ngFor="let i of add()" (click) = 'addToSector($event)'>{{ava_emp[i]}}</button> -->
+            <!-- <mat-form-field>
+              <mat-label>Input</mat-label>
+              <input matInput>
+            </mat-form-field> -->
+           <!-- </mat-menu> --> 
 
 
 

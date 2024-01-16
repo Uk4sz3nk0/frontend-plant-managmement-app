@@ -1,16 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, OnChanges  } from '@angular/core';
 import { Location } from '@angular/common';
+import { EndpointsService } from '../services/endpoints.service';
 
 @Component({
   selector: 'app-sectors-details',
   templateUrl: './sectors-details.component.html',
   styleUrl: './sectors-details.component.css'
 })
-export class SectorsDetailsComponent implements OnInit{
+export class SectorsDetailsComponent implements OnInit,OnChanges{
 
-  constructor(private location: Location){}
+  constructor(private location: Location, private endpoint: EndpointsService){}
 
   @Input() tekst: string | undefined
+  @Input() id!: number
   @Input() employee: string | undefined
   @Input() employee1: string | undefined
   @Input() liczbaPowtorzen: number[] | undefined
@@ -19,12 +21,16 @@ export class SectorsDetailsComponent implements OnInit{
   texttest: string[] = []
   ava_emp: string[] = ['Jan Kowalski', 'Stanisław Nowak', 'Anna Nowak']
   available: number = 3
+  employeetoadd: string = ''
 
 
   generateDetails(): number[]{
     return Array.from({length: this.number}, (_, index) => index)
     
   }
+  // numOfChips(): number[]{
+  //   return 1
+  // }
 
   delete(tekstPrzycisku: string){
   
@@ -36,11 +42,24 @@ export class SectorsDetailsComponent implements OnInit{
     return Array.from({length: this.available}, (_, index) => index)
   }
 
+  addtoplant(event: any){
+    console.log(this.employeetoadd)
+    console.log(this.id)
+  }
+
   addToSector(event:any){
-    const employeeToAdd = event.target.textContent
+    const employeeToAdd = this.employeetoadd
     console.log(event.target.textContent)
-    this.texttest.push(employeeToAdd)
-    this.generateDetails()
+    this.endpoint.getEmployeeByEmail(employeeToAdd).subscribe((email)=>{
+      console.log(email[0])
+      this.texttest.push(email[0].email)
+      this.generateDetails()
+      console.log(this.id)
+      this.endpoint.addEmployeeToPlant(this.id, email[0].id)
+    })
+  
+
+    
 
     
     this.number++
@@ -50,7 +69,9 @@ export class SectorsDetailsComponent implements OnInit{
 
     console.log('dodano do listy')
     console.log(this.texttest)
-    if(this.tekst == 'lorem ipsum'){
+    console.log(this.tekst)
+    this.endpoint.getEmployees
+    if(this.tekst == 'aaaaaaaaaaa'){
       // this.employee1 = 'Dynamic employee'
       this.texttest =['aaaa', 'bbbb']
     }else{
@@ -62,10 +83,19 @@ export class SectorsDetailsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-this.list()
 
+  
     
+  }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['id'] && changes['id'].currentValue) {
+      console.log(changes['id'].currentValue);
+      this.endpoint.getEmployees(changes['id'].currentValue).subscribe((emp)=>{
+        console.log(emp)
+        this.number=emp.length
+      })
+    }
     
   }
 

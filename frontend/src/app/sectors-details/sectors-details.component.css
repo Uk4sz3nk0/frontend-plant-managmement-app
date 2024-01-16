@@ -42,6 +42,15 @@ mat-icon{
     cursor: pointer;
     
 }
+#inp{
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 80px;
+    height: 32px;
+    align-self: center;
+    margin-left: 1%;
+    padding: 1%;
+}
 
 #cancel{
     float: right;

@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@ang
 import { Router } from '@angular/router';
 import { DetailsComponent } from '../details/details.component';
 import { DateAdapter } from '@angular/material/core';
+import { EndpointsService } from '../services/endpoints.service';
 
 @Component({
   selector: 'app-sectors-list',
@@ -9,7 +10,7 @@ import { DateAdapter } from '@angular/material/core';
   styleUrl: './sectors-list.component.css'
 })
 export class SectorsListComponent implements AfterViewInit {
-  constructor(private renderer: Renderer2, private router: Router, private dateAdapter: DateAdapter<Date>){
+  constructor(private renderer: Renderer2, private router: Router, private dateAdapter: DateAdapter<Date>, private endpoint: EndpointsService){
     dateAdapter.setLocale('en-GB')
   }
   
@@ -21,17 +22,23 @@ dynamic !: ElementRef;
 @ViewChild('list') list!: ElementRef
 @ViewChild('details') det!: DetailsComponent
 
-number: number = 2
+  selectedValue!: string;
+
+number: number = 1
 liczbaPowtorzen: number = 1
 cols: number = 0
-texttest: string[] = ['lorem ipsum', 'string 2']
+texttest: string[] = []
+plants: string[] = []
 emp: string[][] = [['Jan Kowalski', 'Anna Nowak'],['Jan Kowalski1', 'Anna Nowak1']]
 emp1: string[] = ['Jan Kowalski, Jan Nowak', 'Anna Nowak']
 tab: number = 0
 rows:number = 0
+id: number[] = []
+
 
 generateDetails(): number[]{
   return Array.from({length: this.number}, (_, index) => index)
+  
   
 }
 
@@ -68,6 +75,13 @@ console.log(sformatowanaData);  // Wyświetli: 10/01/2024
 
 }
 
+wybranaOpcja(event: any){
+  console.log(event.value)
+  this.endpoint.getAreasByPlantation(6).subscribe((value) =>{
+    console.log(value)
+  })
+}
+
 // generateEmployees1(): number[][] {
 //   const rows = this.liczbaPowtorzen;
 //   const cols = 2;
@@ -82,7 +96,19 @@ console.log(sformatowanaData);  // Wyświetli: 10/01/2024
 // }
 
 ngAfterViewInit(): void {
+  this.endpoint.getPlantations().subscribe(
+    (data) => {
 
+        console.log(data)
+        this.number=data.length
+        for(var i = 0; i < data.length; i++){
+          this.texttest.push(data[i].name)
+          this.id.push(data[i].id)
+        }
+        console.log(this.id)
+        console.log(this.plants)
+      // Tutaj możesz umieścić kod, który operuje na danych po odświeżeniu strony.
+    })
 
 
 

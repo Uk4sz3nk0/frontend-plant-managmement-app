@@ -41,6 +41,16 @@ export class EndpointsService {
       console.log(data)
     }))
   }
+  getHarvests(plantationId: number): Observable<any>{
+    return this.http.post('http://localhost:8080/harvests/get-harvests?plantationId='+plantationId, {})
+  }
+
+  deletePlant(plantationId: number){
+    this.http.post('http://localhost:8080/plantation/delete-plantation?id='+plantationId, {}).subscribe((data=>{
+      alert('Usunięto')
+      console.log(data)
+    }))
+  }
 
 
   

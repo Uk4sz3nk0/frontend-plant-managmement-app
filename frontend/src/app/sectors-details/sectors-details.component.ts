@@ -41,6 +41,21 @@ export class SectorsDetailsComponent implements OnInit, OnChanges {
 
     console.log(tekstPrzycisku.split('\n')[0])
     this.number -= 1
+  //  this.texttest.filter(e=>e !== tekstPrzycisku)
+    console.log(this.plantationId)
+
+    this.endpoint.getEmployeeByEmail(tekstPrzycisku).subscribe((email) => {
+      // if (this.plantationId == null || email[0].id) {
+      //   alert('Error in data')
+      //   return;
+      // }
+
+      console.log(email[0])
+      this.texttest.push(email[0].email)
+      this.generateDetails()
+      console.log(this.id)
+      
+    })
   }
 
   add(): number[] {
@@ -55,6 +70,7 @@ export class SectorsDetailsComponent implements OnInit, OnChanges {
   addToSector(event: any) {
     const employeeToAdd = this.employeetoadd
     console.log(event.target.textContent)
+    console.log(this.id)
     this.endpoint.getEmployeeByEmail(employeeToAdd).subscribe((email) => {
       // if (this.plantationId == null || email[0].id) {
       //   alert('Error in data')
@@ -63,7 +79,7 @@ export class SectorsDetailsComponent implements OnInit, OnChanges {
 
       console.log(email[0])
       this.texttest.push(email[0].email)
-      this.generateDetails()
+     
       console.log(this.id)
       this._plantationService.addEmployee(this.plantationId, email[0].id).subscribe({
         next: () => alert('Employee added to plantation'),
@@ -93,15 +109,31 @@ export class SectorsDetailsComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    
+    
+    console.log(this.plantationId)
+    console.log('aaaaaaaaaa')
 
-
+    this.endpoint.getEmployees(this.plantationId).subscribe((emp) => {
+      console.log(emp)
+      for(var i =0; i < emp.length; i++){
+        this.texttest.push(emp[i].email)
+      }
+      // this.texttest.push(emp)
+      this.number = emp.length
+    })
+    
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['id'] && changes['id'].currentValue) {
-      console.log(changes['id'].currentValue);
-      this.endpoint.getEmployees(changes['id'].currentValue).subscribe((emp) => {
+    if (changes['plantationId'] && changes['plantationId'].currentValue) {
+      console.log(changes['plantationId'].currentValue);
+      this.endpoint.getEmployees(changes['plantationId'].currentValue).subscribe((emp) => {
         console.log(emp)
+        for(var i =0; i < emp.length; i++){
+          this.texttest=[]
+          this.texttest.push(emp[i].email)
+        }
         this.number = emp.length
       })
     }

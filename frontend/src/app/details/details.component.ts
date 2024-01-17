@@ -23,6 +23,9 @@ export class DetailsComponent implements OnInit {
   
   data: any = ''
   details: any = ''
+  sectorsnumber: number
+  employeesnumber: number
+  name: string
   
   constructor(private ngZone: NgZone, private renderer: Renderer2, private router: Router, private route: ActivatedRoute, private endpoint: EndpointsService) { }
 
@@ -45,8 +48,12 @@ export class DetailsComponent implements OnInit {
 
     this.endpoint.getPlantationById(this.data).subscribe((plant: any) =>{
       console.log(plant)
+
       console.log('sektory:' + plant.sectors.length)
-      console.log(plant.area.coordinates[0])
+      this.name = plant.name
+      this.sectorsnumber = plant.sectors.length
+      this.employeesnumber = plant.employeeIds.length
+      console.log(plant.area.coordinates[1])
       this.details = plant
       this.lat0 = plant.area.coordinates[0].latitude
       this.lat1 = plant.area.coordinates[1].latitude
@@ -58,11 +65,7 @@ export class DetailsComponent implements OnInit {
 
       this.loadMap();
       this.addPolygon()
-      const stat = document.getElementById('statystyki')
-      console.log(this.statystyki)
-      console.log(stat)
-      const text = this.renderer.createText('plantacja');
-      this.renderer.appendChild(stat, text)
+ 
 
     })
 
@@ -128,7 +131,7 @@ export class DetailsComponent implements OnInit {
     });
 
     const infoWindow = new google.maps.InfoWindow({
-      content: 'Kliknij obszar plantacji aby ustawić sektory'
+      content: 'Kliknij obszar plantacji aby zarządzać sektorami'
     });
     
     google.maps.event.addListener(polygon, 'mouseover', (event: any) =>{
@@ -146,7 +149,7 @@ export class DetailsComponent implements OnInit {
 
     google.maps.event.addListener(polygon, 'mousedown', () => {
       console.log(this.details)
-      this.router.navigate(['/sectors', this.details.id])
+      this.router.navigate(['/menu/sectors', this.details.id])
             .then(() => {
         window.location.reload()
       })

@@ -28,8 +28,14 @@ plantDetails(id: number){
 
 console.log(id)
 console.log(this.det)
-this.router.navigate(['/details', id])
+this.router.navigate(['menu/details', id])
   // this.renderer.setStyle(this.dynamic, 'display', 'none')
+
+}
+
+deletePlant(id: number){
+  console.log(id)
+  this.endpoint.deletePlant(id)
 
 }
 
@@ -66,17 +72,22 @@ ngAfterViewInit(): void {
 
     for(let i = 0; i<data.length; i++){
       const newDiv = this.renderer.createElement('div');
+      const deletePlant = this.renderer.createElement('button')
       const name = this.renderer.createElement('h1');
       const city = this.renderer.createElement('p');
       const address = this.renderer.createElement('p');
       // const name = this.renderer.createText(data[i].name);
       this.renderer.setProperty(name, 'innerHTML', data[i].name)
+      this.renderer.setProperty(deletePlant, 'innerHTML', 'Usuń plantację')
       this.renderer.setProperty(city, 'innerHTML', data[i].city)
       this.renderer.setProperty(address, 'innerHTML', data[i].street + " " + data[i].houseNumber)
 
+      this.renderer.setStyle(deletePlant, 'border-radius','80px')
+
       this.renderer.setStyle(newDiv, 'background','url("../../assets/images/background.jpg")');
-      this.renderer.setStyle(newDiv, 'width', width+'px')
-      this.renderer.setStyle(newDiv, 'background-size', width+'px'+' 50vh'  )
+      this.renderer.setStyle(newDiv, 'width', '98vw')
+      this.renderer.setStyle(newDiv, 'background-size','98vw'+' 32vh'  )
+      this.renderer.setStyle(newDiv, 'background-repeat', 'no-repeat'  )
 
 
       this.renderer.addClass(newDiv, 'plant')
@@ -85,10 +96,13 @@ ngAfterViewInit(): void {
       this.renderer.appendChild(newDiv, name);
       this.renderer.appendChild(newDiv, city);
       this.renderer.appendChild(newDiv, address);
+      this.renderer.appendChild(newDiv, deletePlant);
       this.renderer.appendChild(this.list.nativeElement, newDiv);
+      
       console.log(width+'px')
       console.log(width)
       this.renderer.listen(newDiv, 'click', () => this.plantDetails(data[i].id))
+      this.renderer.listen(deletePlant, 'click', () => this.deletePlant(data[i].id))
       this.dynamic = newDiv
     }
 

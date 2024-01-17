@@ -45,6 +45,13 @@ export class EndpointsService {
     return this.http.post('http://localhost:8080/harvests/get-harvests?plantationId='+plantationId, {})
   }
 
+  deletePlant(plantationId: number){
+    this.http.post('http://localhost:8080/plantation/delete-plantation?id='+plantationId, {}).subscribe((data=>{
+      alert('Usunięto')
+      console.log(data)
+    }))
+  }
+
 
   
 

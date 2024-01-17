@@ -58,19 +58,41 @@ export class HarvestComponent implements OnInit {
     this.userHarvestForHarvest.forEach(uh => uh.plantationId = this.harvestModel.plantationId);
     this.harvestModel.userHarvests = this.userHarvestForHarvest;
     this.harvestModel.season = parseInt(this.harvestModel.date.split('-')[0]);
-    this._harvestsService.addHarvest(this.harvestModel).subscribe({
-      next: () => {
-        alert('Harvest added');
-        this.harvestModel = {
-          date: this.setDateAsString(),
-          plantationId: null,
-          priceForFullContainer: null,
+    if (!this.harvestModel.id) {
+      this._harvestsService.addHarvest(this.harvestModel).subscribe({
+        next: () => {
+          alert('Harvest added');
+          this.clearHarvestData();
+        },
+        error: err => {
+          console.error(err);
+          alert('Wystąpił błąd podczas zapisu zbioru')
         }
-        this.userHarvestForHarvest = []
-      },
-      error: err => console.error(err)
-    })
+      })
+    } else {
+      this._harvestsService.editHarvest(this.harvestModel).subscribe({
+        next: () => {
+          alert('Harvest edited');
+          this.clearHarvestData();
+        },
+        error: err => {
+          console.error(err);
+          alert('Wystąpił błąd podczas zapisu zbioru')
+        }
+      })
+    }
     console.log(this.harvestModel)
+  }
+
+  private clearHarvestData(): void {
+    this.harvestModel = {
+      date: this.setDateAsString(),
+      plantationId: null,
+      priceForFullContainer: null,
+    }
+    this.userHarvestForHarvest = [];
+    this.plants = [];
+    this.sectors = [];
   }
 
   public addEmptyUserHarvest(): void {
@@ -101,7 +123,6 @@ export class HarvestComponent implements OnInit {
   public getEmployees(): void {
     this._plantationService.getEmployees(this.harvestModel.plantationId).subscribe({
       next: response => {
-        console.log(response)
         this.employees = response;
       },
       error: err => console.error(err)
@@ -133,9 +154,10 @@ export class HarvestComponent implements OnInit {
       page: this.pagination.page,
       size: 10,
       sortColumn: 'date',
-      sortDirection: 'ASC'
+      sortDirection: 'DSC'
     }).subscribe({
       next: response => {
+        console.log(response)
         this.harvests = response.data;
         this.pagination.totalPages = response.page.totalPages;
         this.calcPagination()
@@ -169,6 +191,22 @@ export class HarvestComponent implements OnInit {
   }
 
   public editHarvest(id: number): void {
+    this.clearHarvestData();
+    const editedHarvest = this.harvests.find(h => h.id === id);
+    console.log(editedHarvest)
+    this.harvestModel = {
+      date: this.formatDate(new Date(this.formatDateFromArray(editedHarvest.date))),
+      priceForFullContainer: editedHarvest.priceForFullContainer,
+      id: editedHarvest.id,
+      plantationId: editedHarvest.plantationId,
+      season: editedHarvest.season,
+    }
+    this.userHarvestForHarvest = editedHarvest.userHarvests
+    editedHarvest.userHarvests.forEach((h, index) => {
+      // this.userHarvestForHarvest.push(h);
+      this.getPlants(index);
+    })
+    this.getEmployees()
   }
 
   public deleteHarvest(id: number): void {
@@ -183,7 +221,7 @@ export class HarvestComponent implements OnInit {
     }
   }
 
-  public canEditHarvest = (date: any): boolean => new Date() > new Date(this.formatDateFromArray(date));
+  public canEditHarvest = (date: any): boolean => new Date() < new Date(this.formatDateFromArray(date));
 
 
   private calcPagination(): void {

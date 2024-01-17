@@ -10,8 +10,8 @@ export class AddAreaService {
 
   area: Plantation["area"] = {
     id: null,
-      name: 'string',
-      polygonColor: 'string',
+      name: 'Główny obszar plantacji',
+      polygonColor: 'red',
       coordinates: [
         {
           id: null,

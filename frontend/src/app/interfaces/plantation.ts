@@ -11,8 +11,8 @@ export interface Plantation {
   postCode: '11-111';
   area: {
     id: null;
-    name: 'string';
-    polygonColor: 'string';
+    name: string;
+    polygonColor: string;
     coordinates: [
       {
         id: number | null;

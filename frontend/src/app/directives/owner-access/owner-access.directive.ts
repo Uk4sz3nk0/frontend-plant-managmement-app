@@ -15,7 +15,9 @@ export class OwnerAccessDirective implements AfterViewInit {
 
 
     ngAfterViewInit(): void {
+      console.log(this._loginService.user())
         if (this._loginService.user().role.name !== OWNER) {
+            console.log('THERE IS NOT OWNER')
             this._elementRef.nativeElement.remove();
         }
     }

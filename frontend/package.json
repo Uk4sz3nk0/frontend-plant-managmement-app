@@ -10,7 +10,8 @@
     "generate:authentication-api": "openapi-generator-cli generate -i src/specs/authentication-specification.yaml -g typescript-angular -o src/app/core/authentication -p=removeOperationIdPrefix=true,modelNameSuffix=Dto",
     "generate:plantation-api": "openapi-generator-cli generate -i src/specs/plantation-specification.yaml -g typescript-angular -o src/app/core/plantations -p=removeOperationIdPrefix=true,modelNameSuffix=Dto",
     "generate:harvests-api": "openapi-generator-cli generate -i src/specs/harvests-specification.yaml -g typescript-angular -o src/app/core/harvests -p=removeOperationIdPrefix=true,modelNameSuffix=Dto",
-    "generate:user-stats-api": "openapi-generator-cli generate -i src/specs/user-stats.yaml -g typescript-angular -o src/app/core/user-stats -p=removeOperationIdPrefix=true,modelNameSuffix=Dto"
+    "generate:user-stats-api": "openapi-generator-cli generate -i src/specs/user-stats.yaml -g typescript-angular -o src/app/core/user-stats -p=removeOperationIdPrefix=true,modelNameSuffix=Dto",
+    "generate:plants-api": "openapi-generator-cli generate -i src/specs/plants-specification.yaml -g typescript-angular -o src/app/core/plants -p=removeOperationIdPrefix=true,modelNameSuffix=Dto"
   },
   "private": true,
   "dependencies": {

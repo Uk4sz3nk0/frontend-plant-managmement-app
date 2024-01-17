@@ -1,5 +1,5 @@
 import {AfterViewInit, Directive, ElementRef} from '@angular/core';
-import {AuthenticationService} from "../../services/authentication.service";
+import {LoginService} from "../../services/login.service";
 
 const OWNER: string = 'ROLE_OWNER';
 
@@ -10,7 +10,7 @@ const OWNER: string = 'ROLE_OWNER';
 export class OwnerAccessDirective implements AfterViewInit {
 
 
-    constructor(private _elementRef: ElementRef, private _loginService: AuthenticationService) {
+    constructor(private _elementRef: ElementRef, private _loginService: LoginService) {
     }
 
 

@@ -1,7 +1,7 @@
 import {Component, NgZone, OnInit} from '@angular/core';
 import {FormBuilder, NgForm} from '@angular/forms';
 import {CreatePlantationService} from '../services/create-plantation.service';
-import {AuthenticationService} from "../services/authentication.service";
+import {LoginService} from "../services/login.service";
 
 @Component({
   selector: 'app-plantation-form',
@@ -32,7 +32,7 @@ export class PlantationFormComponent implements OnInit {
   }
 
   constructor(private ngZone: NgZone, private formBuilder: FormBuilder, private createplant: CreatePlantationService,
-              private _loginService: AuthenticationService) {
+              private _loginService: LoginService) {
   }
 
 

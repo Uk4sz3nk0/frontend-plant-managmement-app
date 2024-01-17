@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AuthenticationService} from '../services/authentication.service';
+import {LoginService} from '../services/login.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
@@ -15,7 +15,7 @@ export class LoginComponent {
     password: new FormControl<string>('')
   })
 
-  constructor(private log: AuthenticationService, private formBuilder: FormBuilder) {
+  constructor(private log: LoginService, private formBuilder: FormBuilder) {
 
 
   }

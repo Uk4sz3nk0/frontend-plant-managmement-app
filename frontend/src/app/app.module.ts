@@ -28,7 +28,7 @@ import {UserMenuComponent} from './user-menu/user-menu.component';
 import {SectorsFormComponent} from './sectors-form/sectors-form.component';
 import {PlantationListComponent} from './plantation-list/plantation-list.component';
 import {DetailsComponent} from './details/details.component';
-import {HarvestComponent} from './harvest/harvest.component';
+import {HarvestComponent} from './components/harvest/harvest.component';
 import {SectorsListComponent} from './sectors-list/sectors-list.component';
 import {SectorsDetailsComponent} from './sectors-details/sectors-details.component';
 import {EmployeesListComponent} from './employees-list/employees-list.component';

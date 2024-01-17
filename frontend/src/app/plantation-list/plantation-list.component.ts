@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, Renderer2 } fr
 import { Router } from '@angular/router';
 import { DetailsComponent } from '../details/details.component';
 import { EndpointsService } from '../services/endpoints.service';
-import {AuthenticationService} from '../services/authentication.service';
+import {LoginService} from '../services/login.service';
 
 @Component({
   selector: 'app-plantation-list',
@@ -10,7 +10,7 @@ import {AuthenticationService} from '../services/authentication.service';
   styleUrl: './plantation-list.component.css'
 })
 export class PlantationListComponent implements OnInit, AfterViewInit {
-constructor(private renderer: Renderer2, private router: Router, private endpoint: EndpointsService, private auth: AuthenticationService) {}
+constructor(private renderer: Renderer2, private router: Router, private endpoint: EndpointsService, private auth: LoginService) {}
 
 div = this.renderer.createElement('div');
 dynamic !: ElementRef;

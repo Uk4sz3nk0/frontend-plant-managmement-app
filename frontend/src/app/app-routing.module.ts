@@ -10,7 +10,7 @@ import {PlantationListComponent} from './plantation-list/plantation-list.compone
 import {DetailsComponent} from './details/details.component';
 import {SectorsListComponent} from './sectors-list/sectors-list.component';
 import {EmployeesListComponent} from './employees-list/employees-list.component';
-import {HarvestComponent} from './harvest/harvest.component';
+import {HarvestComponent} from './components/harvest/harvest.component';
 import {UserDetailsComponent} from "./components/user-details/user-details.component";
 import {authGuard} from "./AuthGuard";
 

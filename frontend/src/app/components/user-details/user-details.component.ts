@@ -1,7 +1,7 @@
 import {Component, OnInit, Signal} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {User} from "../../services/auth-utils";
-import {AuthenticationService} from "../../services/authentication.service";
+import {LoginService} from "../../services/login.service";
 import {HttpClient} from "@angular/common/http";
 import {forkJoin, map, Observable} from "rxjs";
 import {PlantationService} from "../../core/plantations";
@@ -22,7 +22,7 @@ export class UserDetailsComponent implements OnInit {
   public futureHarvests: Array<any> = [];
   public userStats: Array<any> = [];
 
-  constructor(private _loginService: AuthenticationService, private _httpClient: HttpClient, private _plantationsService: PlantationService,
+  constructor(private _loginService: LoginService, private _httpClient: HttpClient, private _plantationsService: PlantationService,
               private _harvestService: HarvestsService, private _userStatsService: UserStatsService) {
     this.user = this._loginService.user;
   }
@@ -82,7 +82,7 @@ export class UserDetailsComponent implements OnInit {
       response.forEach(harvest => {
         this.getPlantationName(harvest.plantationId).subscribe(name => {
           this.futureHarvests.push({
-            date: `${harvest['date'][0]}.${parseInt(harvest['date'][1]) < 10 ? '0' + harvest['date'][1] : harvest['date'][1]}.${parseInt(harvest['date'][2]) < 10 ? '0' + harvest['date'][2] : harvest['date'][2]}`,
+            date: `${harvest['date'][0]}-${parseInt(harvest['date'][1]) < 10 ? '0' + harvest['date'][1] : harvest['date'][1]}-${parseInt(harvest['date'][2]) < 10 ? '0' + harvest['date'][2] : harvest['date'][2]}`,
             plantationName: name
           })
         })

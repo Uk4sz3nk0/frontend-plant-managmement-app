@@ -68,7 +68,7 @@ export class DetailsComponent implements OnInit {
 
       this.loadMap();
       this.addPolygon(false, false, '#00FF00')
-     // this.sectors()
+      this.sectors()
  
 
     })
@@ -111,12 +111,12 @@ export class DetailsComponent implements OnInit {
     
     for(var i=0; i < this.details.sectors.length; i++){
 
-      // this.lat0 = plant.area.coordinates[0].latitude
-      // this.lat1 = plant.area.coordinates[1].latitude
-      // this.lng0 = plant.area.coordinates[0].longitude
-      // this.lng1 = plant.area.coordinates[2].longitude
+      this.lat0 = this.details.sectors[i].coordinates[0].latitude
+      this.lat1 = this.details.sectors[i].coordinates[1].latitude
+      this.lng0 = this.details.sectors[i].coordinates[0].longitude
+      this.lng1 = this.details.sectors[i].coordinates[2].longitude
 
-      this.addPolygon(false, false, '#'+Math.floor(Math.random()*16777215).toString(16))
+     this.addPolygon(false, false, '#'+Math.floor(Math.random()*16777215).toString(16))
     }
   }
 
@@ -166,7 +166,7 @@ export class DetailsComponent implements OnInit {
     });
 
     const infoWindow = new google.maps.InfoWindow({
-      content: 'Kliknij obszar plantacji aby zarządzać sektorami'
+      content: 'Kliknij obszar plantacji aby ustawić nowe sektory'
     });
     
     google.maps.event.addListener(polygon, 'mouseover', (event: any) =>{

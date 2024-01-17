@@ -31,6 +31,8 @@ export class HarvestComponent implements OnInit {
   }
   public leftButton: boolean = true;
   public rightButton: boolean = true;
+  public userHarvests: Array<UserHarvestDto>;
+  public todayPlantationId: number
 
   public harvestModel: HarvestDto = {
     date: this.setDateAsString(),
@@ -135,13 +137,25 @@ export class HarvestComponent implements OnInit {
   }
 
   private getPlantations(): void {
-    this._plantationService.getPlantationsByUser(this._loginService.user().id).subscribe({
-      next: response => {
-        this.plantations = response;
-        this.plantationSectors = this.plantations[0].sectors
-      },
-      error: err => console.error(err)
-    })
+    if (this._loginService.user().role.name == 'ROLE_OWNER') {
+      this._plantationService.getPlantationsByUser(this._loginService.user().id).subscribe({
+        next: response => {
+          this.plantations = response;
+          this.plantationSectors = this.plantations[0].sectors
+          this.todayPlantationId = response[0].id
+        },
+        error: err => console.error(err)
+      })
+    } else {
+      this._plantationService.getUserWorkedInPlantations().subscribe({
+        next: response => {
+          this.plantations = response;
+          this.plantationSectors = this.plantations[0].sectors
+          this.todayPlantationId = response[0].id
+        },
+        error: err => console.error(err)
+      })
+    }
   }
 
   private setDateAsString(): string {
@@ -203,7 +217,6 @@ export class HarvestComponent implements OnInit {
     }
     this.userHarvestForHarvest = editedHarvest.userHarvests
     editedHarvest.userHarvests.forEach((h, index) => {
-      // this.userHarvestForHarvest.push(h);
       this.getPlants(index);
     })
     this.getEmployees()
@@ -227,5 +240,14 @@ export class HarvestComponent implements OnInit {
   private calcPagination(): void {
     this.leftButton = !((this.pagination.page - 1) >= 0);
     this.rightButton = !((this.pagination.page + 1) < this.pagination.totalPages);
+  }
+
+  public getTodayUserHarvest(): void {
+    this._harvestsService.getUserHarvestByDate(this.formatDate(new Date()), this.todayPlantationId).subscribe({
+      next: response => {
+        console.log(response)
+      },
+      error: err => console.error(err)
+    })
   }
 }

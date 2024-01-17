@@ -263,6 +263,31 @@ paths:
       responses:
         "200":
           description: Ok. Successful response will return OK status.
+  /plantation/delete-employe:
+    description: |
+      Endpoint for deleting employees to plantation.
+    post:
+      tags:
+        - "Plantation"
+      operationId: deleteEmployee
+      parameters:
+        - name: plantationId
+          in: query
+          required: true
+          allowEmptyValue: true
+          schema:
+            type: integer
+            format: int64
+        - name: userId
+          in: query
+          required: true
+          allowEmptyValue: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Ok. Successful response will return OK status.
   /plantation/get-employees:
     description: |
       Endpoint for getting list of employees from specific plantation.

@@ -38,6 +38,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatMenuModule} from '@angular/material/menu';
 import {AuthInterceptorService} from "./services/auth-interceptor.service";
 import {OwnerAccessDirective} from "./directives/owner-access/owner-access.directive";
+import {EmployeeAccessDirective} from "./directives/employee-access/employee-access.directive";
 
 
 
@@ -59,30 +60,31 @@ import {OwnerAccessDirective} from "./directives/owner-access/owner-access.direc
     EmployeesListComponent,
 
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        MatFormFieldModule,
-        MatSnackBarModule,
-        MatSidenavModule,
-        MatButtonModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatListModule,
-        GoogleMapsModule,
-        MatStepperModule,
-        MatSelectModule,
-        MatInputModule,
-        MatChipsModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatMenuModule,
-        OwnerAccessDirective
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatSnackBarModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatListModule,
+    GoogleMapsModule,
+    MatStepperModule,
+    MatSelectModule,
+    MatInputModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatMenuModule,
+    OwnerAccessDirective,
+    EmployeeAccessDirective
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

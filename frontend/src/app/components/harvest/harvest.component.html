@@ -73,10 +73,19 @@
   </div>
 
   <!-- Active harvest for example today -->
-  <div>
+  <div EmployeeAccess>
     <h2>Aktywne zbiory</h2>
     <div>
-      CONTENT
+      <label for="plantation-harvest-id">Wybierz plantacje:</label>
+      <select id="plantation-harvest-id" [(ngModel)]="todayPlantationId" [ngModelOptions]="{standalone: true}">
+        @for (plantation of plantations; track plantation.id) {
+          <option [ngValue]="plantation.id">{{plantation.name}}</option>
+        }
+      </select>
+      <button class="btn btn-sm btn-primary py-1 px-2" (click)="getTodayUserHarvest()">Sprawdź zbiory</button>
+    </div>
+    <div>
+
     </div>
   </div>
 

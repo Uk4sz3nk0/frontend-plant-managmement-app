@@ -55,8 +55,10 @@ export class AuthenticationService {
     if (!userData) {
       return;
     }
-    console.log(userData)
-    const loadedUser: User = new User(userData.id, userData.email, userData.firstName, userData.lastName, {...userData.role}, userData._token, new Date(userData.tokenExpiration), userData.refreshToken, new Date(userData.refreshTokenExpiration));
+    const loadedUser: User = new User(userData.id, userData.email, userData.firstName, userData.lastName, {
+      name: userData._role.name,
+      permissions: userData._role.permissions
+    }, userData._token, new Date(userData.tokenExpiration), userData.refreshToken, new Date(userData.refreshTokenExpiration));
     if (loadedUser) {
       this.autoLogout(new Date(userData.tokenExpiration).getTime() - new Date().getTime())
       this.user.set(loadedUser);

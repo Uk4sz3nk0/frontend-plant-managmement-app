@@ -13,7 +13,13 @@
 </h1>
 
 
-<ng-container *ngFor="let i of generateDetails() let index = index">
-  <app-sectors-details [tekst]="texttest[index]" [employee1]="emp1[index]"></app-sectors-details>
+<!--<ng-container *ngFor="let i of generateDetails(); let index = index">-->
+<!--  <app-sectors-details [tekst]="texttest[index]" [employee1]="emp1[index]"></app-sectors-details>-->
+<!--</ng-container>-->
+
+<ng-container>
+  @for (plant of plantations; track plant.id; let index = $index) {
+    <app-sectors-details [plantationId]="plant.id" [tekst]="plant.name" [employee1]="emp1[index]"></app-sectors-details>
+  }
 </ng-container>
 

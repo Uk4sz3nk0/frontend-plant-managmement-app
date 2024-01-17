@@ -26,6 +26,7 @@ export class SectorsDetailsComponent implements OnInit, OnChanges {
   ava_emp: string[] = ['Jan Kowalski', 'Stanisław Nowak', 'Anna Nowak']
   available: number = 3
   employeetoadd: string = ''
+  email: number = 0
 
 
   generateDetails(): number[] {
@@ -54,6 +55,8 @@ export class SectorsDetailsComponent implements OnInit, OnChanges {
       this.texttest.push(email[0].email)
       this.generateDetails()
       console.log(this.id)
+
+      this.endpoint.deleteEmployee(this.plantationId, email[0].id)
       
     })
   }
@@ -68,7 +71,7 @@ export class SectorsDetailsComponent implements OnInit, OnChanges {
   }
 
   addToSector(event: any) {
-    const employeeToAdd = this.employeetoadd
+    let employeeToAdd = this.employeetoadd
     console.log(event.target.textContent)
     console.log(this.id)
     this.endpoint.getEmployeeByEmail(employeeToAdd).subscribe((email) => {
@@ -76,6 +79,14 @@ export class SectorsDetailsComponent implements OnInit, OnChanges {
       //   alert('Error in data')
       //   return;
       // }
+      if(email[0] === undefined){
+        alert("Nie znaleziono pracownika")
+        this.employeetoadd = 'b'
+        this.email = 0
+       
+      }else{
+
+        this.email = 1
 
       console.log(email[0])
       this.texttest.push(email[0].email)
@@ -85,28 +96,16 @@ export class SectorsDetailsComponent implements OnInit, OnChanges {
         next: () => alert('Employee added to plantation'),
         error: err => console.error(err)
       })
+    }
     })
 
-
-    this.number++
-  }
-
-  list() {
-
-    console.log('dodano do listy')
-    console.log(this.texttest)
-    console.log(this.tekst)
-    this.endpoint.getEmployees
-    if (this.tekst == 'aaaaaaaaaaa') {
-      // this.employee1 = 'Dynamic employee'
-      this.texttest = ['aaaa', 'bbbb']
-    } else {
-      this.number = 3
-      // this.employee1 = 'Dynamic employee1'
-      this.texttest = ['cccc', 'ddddd', 'eeeeee']
+    if(this.email == 1){
+      this.number++
     }
-
+    
   }
+
+
 
   ngOnInit(): void {
     
@@ -126,6 +125,7 @@ export class SectorsDetailsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log
     if (changes['plantationId'] && changes['plantationId'].currentValue) {
       console.log(changes['plantationId'].currentValue);
       this.endpoint.getEmployees(changes['plantationId'].currentValue).subscribe((emp) => {

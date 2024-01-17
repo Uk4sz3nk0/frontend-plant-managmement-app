@@ -51,6 +51,12 @@ export class EndpointsService {
       console.log(data)
     }))
   }
+  deleteEmployee(plantationId: number, userId: number){
+    this.http.post('http://localhost:8080/plantation/delete-plantation?id='+plantationId +'&userId='+userId, {}).subscribe((data=>{
+      alert('Usunięto')
+      console.log(data)
+    }))
+  }
 
 
   

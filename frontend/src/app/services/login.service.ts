@@ -11,7 +11,7 @@ import {Auth} from '../interfaces/auth';
   providedIn: 'root'
 })
 
-export class AuthenticationService {
+export class LoginService {
 
 
   private _tokenExpirationTimer: any;

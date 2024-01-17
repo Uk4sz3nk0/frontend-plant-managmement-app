@@ -1,6 +1,6 @@
 /**
- * Plantation specification
- * Plantation specification
+ * Plant specification
+ * Plant specification
  *
  * The version of the OpenAPI document: 1.0.0
  * 
@@ -19,11 +19,15 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
-import { AreaDto } from '../model/area';
+import { PageRequestDto } from '../model/pageRequest';
 // @ts-ignore
-import { PlantationDto } from '../model/plantation';
+import { PagedPlantVarietiesDto } from '../model/pagedPlantVarieties';
 // @ts-ignore
-import { UserDto } from '../model/user';
+import { PagedPlantsDto } from '../model/pagedPlants';
+// @ts-ignore
+import { PlantDto } from '../model/plant';
+// @ts-ignore
+import { PlantVarietyDto } from '../model/plantVariety';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -34,7 +38,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class PlantationService {
+export class PlantsService {
 
     protected basePath = 'http://localhost:8080';
     public defaultHeaders = new HttpHeaders();
@@ -96,26 +100,16 @@ export class PlantationService {
     }
 
     /**
-     * @param plantationId 
-     * @param areaDto 
+     * @param plantDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addArea(plantationId: number, areaDto: AreaDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public addArea(plantationId: number, areaDto: AreaDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public addArea(plantationId: number, areaDto: AreaDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public addArea(plantationId: number, areaDto: AreaDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
-        if (plantationId === null || plantationId === undefined) {
-            throw new Error('Required parameter plantationId was null or undefined when calling addArea.');
-        }
-        if (areaDto === null || areaDto === undefined) {
-            throw new Error('Required parameter areaDto was null or undefined when calling addArea.');
-        }
-
-        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
-        if (plantationId !== undefined && plantationId !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>plantationId, 'plantationId');
+    public addPlant(plantDto: PlantDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
+    public addPlant(plantDto: PlantDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
+    public addPlant(plantDto: PlantDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
+    public addPlant(plantDto: PlantDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+        if (plantDto === null || plantDto === undefined) {
+            throw new Error('Required parameter plantDto was null or undefined when calling addPlant.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -157,12 +151,11 @@ export class PlantationService {
             }
         }
 
-        let localVarPath = `/plantation/add-area`;
+        let localVarPath = `/plants/add-plant`;
         return this.httpClient.request<any>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: areaDto,
-                params: localVarQueryParameters,
+                body: plantDto,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -173,87 +166,26 @@ export class PlantationService {
     }
 
     /**
-     * @param plantationId 
-     * @param userId 
+     * @param plantId 
+     * @param plantVarietyDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addEmployee(plantationId: number, userId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public addEmployee(plantationId: number, userId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public addEmployee(plantationId: number, userId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public addEmployee(plantationId: number, userId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
-        if (plantationId === null || plantationId === undefined) {
-            throw new Error('Required parameter plantationId was null or undefined when calling addEmployee.');
+    public addVariety(plantId: number, plantVarietyDto: PlantVarietyDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
+    public addVariety(plantId: number, plantVarietyDto: PlantVarietyDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
+    public addVariety(plantId: number, plantVarietyDto: PlantVarietyDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
+    public addVariety(plantId: number, plantVarietyDto: PlantVarietyDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+        if (plantId === null || plantId === undefined) {
+            throw new Error('Required parameter plantId was null or undefined when calling addVariety.');
         }
-        if (userId === null || userId === undefined) {
-            throw new Error('Required parameter userId was null or undefined when calling addEmployee.');
+        if (plantVarietyDto === null || plantVarietyDto === undefined) {
+            throw new Error('Required parameter plantVarietyDto was null or undefined when calling addVariety.');
         }
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
-        if (plantationId !== undefined && plantationId !== null) {
+        if (plantId !== undefined && plantId !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>plantationId, 'plantationId');
-        }
-        if (userId !== undefined && userId !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>userId, 'userId');
-        }
-
-        let localVarHeaders = this.defaultHeaders;
-
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-            ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
-        }
-
-        let localVarHttpContext: HttpContext | undefined = options && options.context;
-        if (localVarHttpContext === undefined) {
-            localVarHttpContext = new HttpContext();
-        }
-
-
-        let responseType_: 'text' | 'json' | 'blob' = 'json';
-        if (localVarHttpHeaderAcceptSelected) {
-            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
-                responseType_ = 'text';
-            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
-                responseType_ = 'json';
-            } else {
-                responseType_ = 'blob';
-            }
-        }
-
-        let localVarPath = `/plantation/add-employe`;
-        return this.httpClient.request<any>('post', `${this.configuration.basePath}${localVarPath}`,
-            {
-                context: localVarHttpContext,
-                params: localVarQueryParameters,
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: localVarHeaders,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * @param plantationDto 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public createPlantation(plantationDto: PlantationDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public createPlantation(plantationDto: PlantationDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public createPlantation(plantationDto: PlantationDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public createPlantation(plantationDto: PlantationDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
-        if (plantationDto === null || plantationDto === undefined) {
-            throw new Error('Required parameter plantationDto was null or undefined when calling createPlantation.');
+            <any>plantId, 'plantId');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -295,11 +227,12 @@ export class PlantationService {
             }
         }
 
-        let localVarPath = `/plantation/create-plantation`;
+        let localVarPath = `/plants/add-varitiey`;
         return this.httpClient.request<any>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: plantationDto,
+                body: plantVarietyDto,
+                params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -310,22 +243,22 @@ export class PlantationService {
     }
 
     /**
-     * @param areaId 
+     * @param plantId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteArea(areaId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public deleteArea(areaId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public deleteArea(areaId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public deleteArea(areaId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
-        if (areaId === null || areaId === undefined) {
-            throw new Error('Required parameter areaId was null or undefined when calling deleteArea.');
+    public deletePlant(plantId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
+    public deletePlant(plantId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
+    public deletePlant(plantId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
+    public deletePlant(plantId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+        if (plantId === null || plantId === undefined) {
+            throw new Error('Required parameter plantId was null or undefined when calling deletePlant.');
         }
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
-        if (areaId !== undefined && areaId !== null) {
+        if (plantId !== undefined && plantId !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>areaId, 'areaId');
+            <any>plantId, 'plantId');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -358,7 +291,7 @@ export class PlantationService {
             }
         }
 
-        let localVarPath = `/plantation/delete-area`;
+        let localVarPath = `/plants/delete-plant`;
         return this.httpClient.request<any>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -373,30 +306,22 @@ export class PlantationService {
     }
 
     /**
-     * @param plantationId 
-     * @param userId 
+     * @param varietyId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteEmployee(plantationId: number, userId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public deleteEmployee(plantationId: number, userId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public deleteEmployee(plantationId: number, userId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public deleteEmployee(plantationId: number, userId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
-        if (plantationId === null || plantationId === undefined) {
-            throw new Error('Required parameter plantationId was null or undefined when calling deleteEmployee.');
-        }
-        if (userId === null || userId === undefined) {
-            throw new Error('Required parameter userId was null or undefined when calling deleteEmployee.');
+    public deleteVariety(varietyId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
+    public deleteVariety(varietyId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
+    public deleteVariety(varietyId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
+    public deleteVariety(varietyId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+        if (varietyId === null || varietyId === undefined) {
+            throw new Error('Required parameter varietyId was null or undefined when calling deleteVariety.');
         }
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
-        if (plantationId !== undefined && plantationId !== null) {
+        if (varietyId !== undefined && varietyId !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>plantationId, 'plantationId');
-        }
-        if (userId !== undefined && userId !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>userId, 'userId');
+            <any>varietyId, 'varietyId');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -429,7 +354,7 @@ export class PlantationService {
             }
         }
 
-        let localVarPath = `/plantation/delete-employe`;
+        let localVarPath = `/plants/delete-varitey`;
         return this.httpClient.request<any>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -444,76 +369,16 @@ export class PlantationService {
     }
 
     /**
-     * @param id 
+     * @param plantDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deletePlantation(id?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public deletePlantation(id?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public deletePlantation(id?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public deletePlantation(id?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
-
-        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
-        if (id !== undefined && id !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>id, 'id');
-        }
-
-        let localVarHeaders = this.defaultHeaders;
-
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-            ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
-        }
-
-        let localVarHttpContext: HttpContext | undefined = options && options.context;
-        if (localVarHttpContext === undefined) {
-            localVarHttpContext = new HttpContext();
-        }
-
-
-        let responseType_: 'text' | 'json' | 'blob' = 'json';
-        if (localVarHttpHeaderAcceptSelected) {
-            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
-                responseType_ = 'text';
-            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
-                responseType_ = 'json';
-            } else {
-                responseType_ = 'blob';
-            }
-        }
-
-        let localVarPath = `/plantation/delete-plantation`;
-        return this.httpClient.request<any>('post', `${this.configuration.basePath}${localVarPath}`,
-            {
-                context: localVarHttpContext,
-                params: localVarQueryParameters,
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: localVarHeaders,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * @param areaDto 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public editArea(areaDto: AreaDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public editArea(areaDto: AreaDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public editArea(areaDto: AreaDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public editArea(areaDto: AreaDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
-        if (areaDto === null || areaDto === undefined) {
-            throw new Error('Required parameter areaDto was null or undefined when calling editArea.');
+    public editPlant(plantDto: PlantDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
+    public editPlant(plantDto: PlantDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
+    public editPlant(plantDto: PlantDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
+    public editPlant(plantDto: PlantDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+        if (plantDto === null || plantDto === undefined) {
+            throw new Error('Required parameter plantDto was null or undefined when calling editPlant.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -555,11 +420,11 @@ export class PlantationService {
             }
         }
 
-        let localVarPath = `/plantation/edit-area`;
+        let localVarPath = `/plants/edit-plant`;
         return this.httpClient.request<any>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: areaDto,
+                body: plantDto,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -570,16 +435,23 @@ export class PlantationService {
     }
 
     /**
-     * @param plantationDto 
+     * @param plantVarietyDto 
+     * @param plantId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public editPlantation(plantationDto: PlantationDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public editPlantation(plantationDto: PlantationDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public editPlantation(plantationDto: PlantationDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public editPlantation(plantationDto: PlantationDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
-        if (plantationDto === null || plantationDto === undefined) {
-            throw new Error('Required parameter plantationDto was null or undefined when calling editPlantation.');
+    public editVariety(plantVarietyDto: PlantVarietyDto, plantId?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
+    public editVariety(plantVarietyDto: PlantVarietyDto, plantId?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
+    public editVariety(plantVarietyDto: PlantVarietyDto, plantId?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
+    public editVariety(plantVarietyDto: PlantVarietyDto, plantId?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+        if (plantVarietyDto === null || plantVarietyDto === undefined) {
+            throw new Error('Required parameter plantVarietyDto was null or undefined when calling editVariety.');
+        }
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (plantId !== undefined && plantId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>plantId, 'plantId');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -621,11 +493,12 @@ export class PlantationService {
             }
         }
 
-        let localVarPath = `/plantation/edit-plantation`;
+        let localVarPath = `/plants/edit-varitey`;
         return this.httpClient.request<any>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: plantationDto,
+                body: plantVarietyDto,
+                params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -636,22 +509,100 @@ export class PlantationService {
     }
 
     /**
-     * @param areaId 
+     * @param searchPhrase 
+     * @param pageRequestDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAreaById(areaId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<AreaDto>;
-    public getAreaById(areaId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<AreaDto>>;
-    public getAreaById(areaId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<AreaDto>>;
-    public getAreaById(areaId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (areaId === null || areaId === undefined) {
-            throw new Error('Required parameter areaId was null or undefined when calling getAreaById.');
+    public findPlants(searchPhrase: string, pageRequestDto: PageRequestDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<PagedPlantsDto>;
+    public findPlants(searchPhrase: string, pageRequestDto: PageRequestDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<PagedPlantsDto>>;
+    public findPlants(searchPhrase: string, pageRequestDto: PageRequestDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<PagedPlantsDto>>;
+    public findPlants(searchPhrase: string, pageRequestDto: PageRequestDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (searchPhrase === null || searchPhrase === undefined) {
+            throw new Error('Required parameter searchPhrase was null or undefined when calling findPlants.');
+        }
+        if (pageRequestDto === null || pageRequestDto === undefined) {
+            throw new Error('Required parameter pageRequestDto was null or undefined when calling findPlants.');
         }
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
-        if (areaId !== undefined && areaId !== null) {
+        if (searchPhrase !== undefined && searchPhrase !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>areaId, 'areaId');
+            <any>searchPhrase, 'searchPhrase');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/plants/find-plants`;
+        return this.httpClient.request<PagedPlantsDto>('post', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                body: pageRequestDto,
+                params: localVarQueryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param plantId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getPlantById(plantId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<PlantDto>;
+    public getPlantById(plantId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<PlantDto>>;
+    public getPlantById(plantId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<PlantDto>>;
+    public getPlantById(plantId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (plantId === null || plantId === undefined) {
+            throw new Error('Required parameter plantId was null or undefined when calling getPlantById.');
+        }
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (plantId !== undefined && plantId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>plantId, 'plantId');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -685,8 +636,8 @@ export class PlantationService {
             }
         }
 
-        let localVarPath = `/plantation/get-area-by-id`;
-        return this.httpClient.request<AreaDto>('post', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/plants/get-plant-by-id`;
+        return this.httpClient.request<PlantDto>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 params: localVarQueryParameters,
@@ -700,13 +651,17 @@ export class PlantationService {
     }
 
     /**
+     * @param pageRequestDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAreas(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<AreaDto>>;
-    public getAreas(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<AreaDto>>>;
-    public getAreas(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<AreaDto>>>;
-    public getAreas(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public getPlants(pageRequestDto: PageRequestDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<PagedPlantsDto>;
+    public getPlants(pageRequestDto: PageRequestDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<PagedPlantsDto>>;
+    public getPlants(pageRequestDto: PageRequestDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<PagedPlantsDto>>;
+    public getPlants(pageRequestDto: PageRequestDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (pageRequestDto === null || pageRequestDto === undefined) {
+            throw new Error('Required parameter pageRequestDto was null or undefined when calling getPlants.');
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -728,6 +683,15 @@ export class PlantationService {
         }
 
 
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+        }
+
         let responseType_: 'text' | 'json' | 'blob' = 'json';
         if (localVarHttpHeaderAcceptSelected) {
             if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
@@ -739,10 +703,11 @@ export class PlantationService {
             }
         }
 
-        let localVarPath = `/plantation/get-areas`;
-        return this.httpClient.request<Array<AreaDto>>('get', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/plants/get-plants`;
+        return this.httpClient.request<PagedPlantsDto>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
+                body: pageRequestDto,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -753,22 +718,26 @@ export class PlantationService {
     }
 
     /**
-     * @param plantationId 
+     * @param plantType 
+     * @param pageRequestDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAreasByPlantation(plantationId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<AreaDto>>;
-    public getAreasByPlantation(plantationId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<AreaDto>>>;
-    public getAreasByPlantation(plantationId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<AreaDto>>>;
-    public getAreasByPlantation(plantationId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (plantationId === null || plantationId === undefined) {
-            throw new Error('Required parameter plantationId was null or undefined when calling getAreasByPlantation.');
+    public getPlantsByType(plantType: number, pageRequestDto: PageRequestDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<PagedPlantsDto>;
+    public getPlantsByType(plantType: number, pageRequestDto: PageRequestDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<PagedPlantsDto>>;
+    public getPlantsByType(plantType: number, pageRequestDto: PageRequestDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<PagedPlantsDto>>;
+    public getPlantsByType(plantType: number, pageRequestDto: PageRequestDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (plantType === null || plantType === undefined) {
+            throw new Error('Required parameter plantType was null or undefined when calling getPlantsByType.');
+        }
+        if (pageRequestDto === null || pageRequestDto === undefined) {
+            throw new Error('Required parameter pageRequestDto was null or undefined when calling getPlantsByType.');
         }
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
-        if (plantationId !== undefined && plantationId !== null) {
+        if (plantType !== undefined && plantType !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>plantationId, 'plantationId');
+            <any>plantType, 'plantType');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -791,6 +760,15 @@ export class PlantationService {
         }
 
 
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+        }
+
         let responseType_: 'text' | 'json' | 'blob' = 'json';
         if (localVarHttpHeaderAcceptSelected) {
             if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
@@ -802,10 +780,11 @@ export class PlantationService {
             }
         }
 
-        let localVarPath = `/plantation/get-areas-by-plantation`;
-        return this.httpClient.request<Array<AreaDto>>('post', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/plants/get-plants-by-type`;
+        return this.httpClient.request<PagedPlantsDto>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
+                body: pageRequestDto,
                 params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
@@ -817,22 +796,26 @@ export class PlantationService {
     }
 
     /**
-     * @param plantationId 
+     * @param plantId 
+     * @param pageRequestDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getEmployees(plantationId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<UserDto>>;
-    public getEmployees(plantationId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<UserDto>>>;
-    public getEmployees(plantationId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<UserDto>>>;
-    public getEmployees(plantationId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (plantationId === null || plantationId === undefined) {
-            throw new Error('Required parameter plantationId was null or undefined when calling getEmployees.');
+    public getVarietiesByPlant(plantId: number, pageRequestDto: PageRequestDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<PagedPlantVarietiesDto>;
+    public getVarietiesByPlant(plantId: number, pageRequestDto: PageRequestDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<PagedPlantVarietiesDto>>;
+    public getVarietiesByPlant(plantId: number, pageRequestDto: PageRequestDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<PagedPlantVarietiesDto>>;
+    public getVarietiesByPlant(plantId: number, pageRequestDto: PageRequestDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (plantId === null || plantId === undefined) {
+            throw new Error('Required parameter plantId was null or undefined when calling getVarietiesByPlant.');
+        }
+        if (pageRequestDto === null || pageRequestDto === undefined) {
+            throw new Error('Required parameter pageRequestDto was null or undefined when calling getVarietiesByPlant.');
         }
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
-        if (plantationId !== undefined && plantationId !== null) {
+        if (plantId !== undefined && plantId !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>plantationId, 'plantationId');
+            <any>plantId, 'plantId');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -855,6 +838,15 @@ export class PlantationService {
         }
 
 
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+        }
+
         let responseType_: 'text' | 'json' | 'blob' = 'json';
         if (localVarHttpHeaderAcceptSelected) {
             if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
@@ -866,10 +858,11 @@ export class PlantationService {
             }
         }
 
-        let localVarPath = `/plantation/get-employees`;
-        return this.httpClient.request<Array<UserDto>>('post', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/plants/get-varieties-by-plant`;
+        return this.httpClient.request<PagedPlantVarietiesDto>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
+                body: pageRequestDto,
                 params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
@@ -881,22 +874,22 @@ export class PlantationService {
     }
 
     /**
-     * @param id 
+     * @param varietyId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getPlantationById(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<PlantationDto>;
-    public getPlantationById(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<PlantationDto>>;
-    public getPlantationById(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<PlantationDto>>;
-    public getPlantationById(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getPlantationById.');
+    public getVarietyById(varietyId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<PlantVarietyDto>;
+    public getVarietyById(varietyId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<PlantVarietyDto>>;
+    public getVarietyById(varietyId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<PlantVarietyDto>>;
+    public getVarietyById(varietyId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (varietyId === null || varietyId === undefined) {
+            throw new Error('Required parameter varietyId was null or undefined when calling getVarietyById.');
         }
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
-        if (id !== undefined && id !== null) {
+        if (varietyId !== undefined && varietyId !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>id, 'id');
+            <any>varietyId, 'varietyId');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -930,181 +923,11 @@ export class PlantationService {
             }
         }
 
-        let localVarPath = `/plantation/get-plantation-by-id`;
-        return this.httpClient.request<PlantationDto>('post', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/plants/get-variety-by-id`;
+        return this.httpClient.request<PlantVarietyDto>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 params: localVarQueryParameters,
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: localVarHeaders,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getPlantations(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<PlantationDto>>;
-    public getPlantations(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<PlantationDto>>>;
-    public getPlantations(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<PlantationDto>>>;
-    public getPlantations(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-
-        let localVarHeaders = this.defaultHeaders;
-
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
-        }
-
-        let localVarHttpContext: HttpContext | undefined = options && options.context;
-        if (localVarHttpContext === undefined) {
-            localVarHttpContext = new HttpContext();
-        }
-
-
-        let responseType_: 'text' | 'json' | 'blob' = 'json';
-        if (localVarHttpHeaderAcceptSelected) {
-            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
-                responseType_ = 'text';
-            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
-                responseType_ = 'json';
-            } else {
-                responseType_ = 'blob';
-            }
-        }
-
-        let localVarPath = `/plantation/get-plantations`;
-        return this.httpClient.request<Array<PlantationDto>>('get', `${this.configuration.basePath}${localVarPath}`,
-            {
-                context: localVarHttpContext,
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: localVarHeaders,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * @param userId 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getPlantationsByUser(userId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<PlantationDto>>;
-    public getPlantationsByUser(userId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<PlantationDto>>>;
-    public getPlantationsByUser(userId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<PlantationDto>>>;
-    public getPlantationsByUser(userId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (userId === null || userId === undefined) {
-            throw new Error('Required parameter userId was null or undefined when calling getPlantationsByUser.');
-        }
-
-        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
-        if (userId !== undefined && userId !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>userId, 'userId');
-        }
-
-        let localVarHeaders = this.defaultHeaders;
-
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
-        }
-
-        let localVarHttpContext: HttpContext | undefined = options && options.context;
-        if (localVarHttpContext === undefined) {
-            localVarHttpContext = new HttpContext();
-        }
-
-
-        let responseType_: 'text' | 'json' | 'blob' = 'json';
-        if (localVarHttpHeaderAcceptSelected) {
-            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
-                responseType_ = 'text';
-            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
-                responseType_ = 'json';
-            } else {
-                responseType_ = 'blob';
-            }
-        }
-
-        let localVarPath = `/plantation/get-plantations-by-user`;
-        return this.httpClient.request<Array<PlantationDto>>('post', `${this.configuration.basePath}${localVarPath}`,
-            {
-                context: localVarHttpContext,
-                params: localVarQueryParameters,
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: localVarHeaders,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getUserWorkedInPlantations(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<PlantationDto>>;
-    public getUserWorkedInPlantations(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<PlantationDto>>>;
-    public getUserWorkedInPlantations(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<PlantationDto>>>;
-    public getUserWorkedInPlantations(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-
-        let localVarHeaders = this.defaultHeaders;
-
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
-        }
-
-        let localVarHttpContext: HttpContext | undefined = options && options.context;
-        if (localVarHttpContext === undefined) {
-            localVarHttpContext = new HttpContext();
-        }
-
-
-        let responseType_: 'text' | 'json' | 'blob' = 'json';
-        if (localVarHttpHeaderAcceptSelected) {
-            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
-                responseType_ = 'text';
-            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
-                responseType_ = 'json';
-            } else {
-                responseType_ = 'blob';
-            }
-        }
-
-        let localVarPath = `/plantation/get-user-worked-in-plantations`;
-        return this.httpClient.request<Array<PlantationDto>>('post', `${this.configuration.basePath}${localVarPath}`,
-            {
-                context: localVarHttpContext,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

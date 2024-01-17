@@ -1,0 +1,164 @@
+<div class="w-100 h-100 mt-2 ms-2">
+  <h1>Zbiory</h1>
+
+  <!-- Adding harvests -->
+  <div OwnerAccess>
+    <h2>Zaplanuj zbiory</h2>
+    <!--    <button (click)="getPlantationsForForm()">Zaplanuj</button>-->
+    <div>
+      <div id="date-pick">
+        <label for="harvest-date">Wybierz datę:</label>
+        <input id="harvest-date" type="date" [(ngModel)]="harvestModel.date" required>
+      </div>
+      <div id="plantation-pick">
+        <label for="plantation">Wybierz plantację:</label>
+        <select id="plantation" [(ngModel)]="harvestModel.plantationId" (ngModelChange)="changePlantation()" required>
+          @for (plantation of plantations; track plantation.id; let i = $index) {
+            <option [ngValue]="plantation.id" [defaultSelected]="i == 0">{{ plantation.name }}</option>
+          }
+        </select>
+      </div>
+      <div id="price-pick">
+        <label for="price">Cena za pojemnik (w zł):</label>
+        <input id="price" type="number" [(ngModel)]="harvestModel.priceForFullContainer"
+               [ngModelOptions]="{standalone: true}" required>
+      </div>
+      <div id="user-harvests">
+        <button (click)="addEmptyUserHarvest()" [disabled]="harvestModel.plantationId == null">Przypisz pracownika do
+          zbioru:
+        </button>
+        <div [style.height]="userHarvestForHarvest.length > 2 ? '20vh' : '7vh'" style="overflow: auto;">
+          @for (userHarvest of userHarvestForHarvest; track userHarvest; let index = $index) {
+            <div>
+              <div id="plant-pick" class="d-inline">
+                <label for="plant-type">Wybierz typ rośliny:</label>
+                <select id="plant-type" [(ngModel)]="plantType" [ngModelOptions]="{standalone: true}"
+                        (ngModelChange)="getPlants(index)">
+                  <option [ngValue]="0">Owoce</option>
+                  <option [ngValue]="1">Warzywa</option>
+                </select>
+                <label for="plant">Wybierz {{ plantType == 0 ? 'owoc' : 'warzywo' }}:</label>
+                <select id="plant" [(ngModel)]="userHarvestForHarvest[index].plantId">
+                  @for (plant of plants[index]; track plant.id) {
+                    <option [ngValue]="plant.id">{{ plant.name }}</option>
+                  }
+                </select>
+                <label for="sector">Wybierz sektor:</label>
+                <select id="sector" [(ngModel)]="userHarvestForHarvest[index].sectorId"
+                        [ngModelOptions]="{standalone: true}">
+                  @for (sector of plantationSectors; track sector) {
+                    <option [ngValue]="sector.id">{{ sector.name }}</option>
+                  }
+                </select>
+                <label for="row">Wybierz rząd:</label>
+                <input id="row" type="number" [(ngModel)]="userHarvestForHarvest[index].row">
+                <label for="employee">Wybierz pracownika:</label>
+                <select id="employee" [(ngModel)]="userHarvestForHarvest[index].userId">
+                  @for (employee of employees; track employee) {
+                    <option [ngValue]="employee.id">{{ employee.firstName }} {{ employee.lastName }}</option>
+                  }
+                </select>
+              </div>
+              <div class="d-inline">
+                <button class="btn btn-sm py-1 px-2 btn-danger" (click)="deleteUserHarvest(index)">X</button>
+              </div>
+            </div>
+          }
+        </div>
+        <button class="btn btn-sm btn-success py-1 px-2" (click)="saveHarvest()"
+                [disabled]="harvestModel.plantationId == null">Zapisz zbiór
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active harvest for example today -->
+  <div EmployeeAccess>
+    <h2>Aktywne zbiory</h2>
+    <div>
+      <label for="plantation-harvest-id">Wybierz plantacje:</label>
+      <select id="plantation-harvest-id" [(ngModel)]="todayPlantationId" [ngModelOptions]="{standalone: true}" (ngModelChange)="getTodayUserHarvest()">
+        @for (plantation of plantations; track plantation.id) {
+          <option [ngValue]="plantation.id">{{ plantation.name }}</option>
+        }
+      </select>
+<!--      <button class="btn btn-sm btn-primary py-1 px-2" (click)="getTodayUserHarvest()">Sprawdź zbiory</button>-->
+    </div>
+    <div>
+      @for (userHarvest of userHarvests; track userHarvest.id) {
+        <div class="bg-secondary-subtle rounded px-2 py-2 d-flex flex-row">
+          <p class="mb-0 mt-1">Zbiory w:<span class="font-weight-bold">{{ getPlantationName(todayPlantationId) }}</span></p>
+          <button class="mx-2 btn btn-sm btn-success py-1 px-2" (click)="startUserHarvest(userHarvest.id)" [disabled]="userHarvest.harvestStart != null">Rozpocznij
+            zbiory
+          </button>
+          <button class="mx-2 btn btn-sm btn-primary py-1 px-2" (click)="reportCollectedContainer(userHarvest.harvestId)"
+                  [disabled]="userHarvest.harvestStart == null || userHarvest.harvestEnd != null">Zgłoś pełną skrzynkę
+          </button>
+          <button class="mx-2 btn btn-sm btn-danger py-1 px-2" (click)="endUserHarvest(userHarvest.id)"
+                  [disabled]="userHarvest.harvestStart == null || userHarvest.harvestEnd != null">Zakończ zbiór
+          </button>
+        </div>
+      } @empty {
+        <p>Dzisiaj nie czekają cię żadne zbiory ;)</p>
+      }
+    </div>
+  </div>
+
+  <!-- History -->
+  <div OwnerAccess>
+    <h2>Zbiory</h2>
+    <div style="height: 45vh; overflow: auto">
+      <label for="plantation-harvests">Wybierz plantacje:</label>
+      <select id="plantation-harvests" [(ngModel)]="plantationId">
+        @for (plantation of plantations; track plantation.id) {
+          <option [ngValue]="plantation.id">{{ plantation.name }}</option>
+        }
+      </select>
+      <label>Wybierz zakres dat:</label>
+      <label for="date-range-start">Od:</label>
+      <input id="date-range-start" type="date" [(ngModel)]="dateRange.start" [ngModelOptions]="{standalone: true}">
+      <label for="date-range-end">do</label>
+      <input id="date-range-end" type="date" [(ngModel)]="dateRange.end" [ngModelOptions]="{standalone: true}">
+      <button class="btn btn-sm btn-primary py-1 px-2" (click)="getHarvests()" [disabled]="plantationId == null">
+        Szukaj
+      </button>
+      <div>
+        @for (harvest of harvests; track harvest.id) {
+          <div class="d-flex flex-row">
+            <p class="mb-0 mt-1">Id zbioru:<span class="font-weight-bold">{{ harvest.id }}</span></p>
+            <p class="mb-0 mt-1">Plantacja:<span
+              class="font-weight-bold">{{ getPlantationName(harvest.plantationId) }}</span></p>
+            <p class="mb-0 mt-1">Data:<span class="font-weight-bold">{{ formatDateFromArray(harvest.date) }}</span></p>
+            <p class="mb-0 mt-1">Cena za pojemnik:<span class="font-weight-bold">{{ harvest.priceForFullContainer }}
+              zł</span></p>
+            <div class="row">
+              <!--              <div class="col" style="width: 75px">-->
+              <!--                @if (canEditHarvest(harvest.date)) {-->
+              <!--                  <button class="btn btn-sm btn-warning py-1 px-2" (click)="editHarvest(harvest.id)">Edytuj</button>-->
+              <!--                }-->
+              <!--              </div>-->
+              <div class="col" style="width: 75px">
+                <button class="btn btn-sm btn-danger py-1 px-2" (click)="deleteHarvest(harvest.id)">Usuń</button>
+              </div>
+            </div>
+          </div>
+        } @empty {
+          <p>Brak zbiorów</p>
+        }
+      </div>
+      @if (harvests.length > 0) {
+        <div class="d-flex flex-row">
+          <button class="btn btn-sm btn-primary rounded-circle py-0 px-2"
+                  (click)="changePageInHarvests(pagination.page - 1)" [disabled]="leftButton"><
+          </button>
+          <p class="mb-0 mt-1">strona {{ pagination.page + 1 }} z {{ pagination.totalPages }}</p>
+          <button class="btn btn-sm btn-primary rounded-circle py-0 px-2"
+                  (click)="changePageInHarvests(pagination.page + 1)" [disabled]="rightButton">>
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+
+

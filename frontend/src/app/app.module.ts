@@ -28,7 +28,7 @@ import {UserMenuComponent} from './user-menu/user-menu.component';
 import {SectorsFormComponent} from './sectors-form/sectors-form.component';
 import {PlantationListComponent} from './plantation-list/plantation-list.component';
 import {DetailsComponent} from './details/details.component';
-import {HarvestComponent} from './harvest/harvest.component';
+import {HarvestComponent} from './components/harvest/harvest.component';
 import {SectorsListComponent} from './sectors-list/sectors-list.component';
 import {SectorsDetailsComponent} from './sectors-details/sectors-details.component';
 import {EmployeesListComponent} from './employees-list/employees-list.component';
@@ -38,6 +38,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatMenuModule} from '@angular/material/menu';
 import {AuthInterceptorService} from "./services/auth-interceptor.service";
 import {OwnerAccessDirective} from "./directives/owner-access/owner-access.directive";
+import {EmployeeAccessDirective} from "./directives/employee-access/employee-access.directive";
 
 
 
@@ -59,30 +60,31 @@ import {OwnerAccessDirective} from "./directives/owner-access/owner-access.direc
     EmployeesListComponent,
 
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        MatFormFieldModule,
-        MatSnackBarModule,
-        MatSidenavModule,
-        MatButtonModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatListModule,
-        GoogleMapsModule,
-        MatStepperModule,
-        MatSelectModule,
-        MatInputModule,
-        MatChipsModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatMenuModule,
-        OwnerAccessDirective
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatSnackBarModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatListModule,
+    GoogleMapsModule,
+    MatStepperModule,
+    MatSelectModule,
+    MatInputModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatMenuModule,
+    OwnerAccessDirective,
+    EmployeeAccessDirective
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

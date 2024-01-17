@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, Signal, ViewChild} from '@angular/core';
 import {MatSidenav} from '@angular/material/sidenav';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AuthenticationService} from '../services/authentication.service';
+import {LoginService} from '../services/login.service';
 import {User} from "../services/auth-utils";
 
 @Component({
@@ -21,8 +21,8 @@ export class OwnerMenuComponent implements AfterViewInit {
 
   public readonly user: Signal<User>;
 
-  constructor(private route: ActivatedRoute, private router: Router, private log: AuthenticationService,
-              private _authService: AuthenticationService) {
+  constructor(private route: ActivatedRoute, private router: Router, private log: LoginService,
+              private _authService: LoginService) {
     this.user = this._authService.user;
   }
 
@@ -54,6 +54,10 @@ export class OwnerMenuComponent implements AfterViewInit {
 
   userDetails() {
     this.router.navigate(['/menu/user-details']).then();
+  }
+
+  harvests() {
+    this.router.navigate(['/menu/harvests'])
   }
 
   logout() {

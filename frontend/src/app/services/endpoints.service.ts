@@ -41,6 +41,9 @@ export class EndpointsService {
       console.log(data)
     }))
   }
+  getHarvests(plantationId: number): Observable<any>{
+    return this.http.post('http://localhost:8080/harvests/get-harvests?plantationId='+plantationId, {})
+  }
 
 
   

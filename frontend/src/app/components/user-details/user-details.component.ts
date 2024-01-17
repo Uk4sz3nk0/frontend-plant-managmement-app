@@ -2,9 +2,11 @@ import {Component, OnInit, Signal} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {User} from "../../services/auth-utils";
 import {AuthenticationService} from "../../services/authentication.service";
-import {HttpClient, HttpParams} from "@angular/common/http";
-import {BASE_URL, HARVEST, PLANTATION, USER_STATS} from "../../ApiCalls";
-import {catchError, map} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import {forkJoin, map, Observable} from "rxjs";
+import {PlantationService} from "../../core/plantations";
+import {HarvestsService} from "../../core/harvests";
+import {UserStatsService} from "../../core/user-stats";
 
 @Component({
   selector: 'app-user-details',
@@ -18,9 +20,10 @@ export class UserDetailsComponent implements OnInit {
   public readonly user: Signal<User>;
   public workedInPlantations: Array<any> = [];
   public futureHarvests: Array<any> = [];
-  public stats: Array<any> = [];
+  public userStats: Array<any> = [];
 
-  constructor(private _loginService: AuthenticationService, private _httpClient: HttpClient) {
+  constructor(private _loginService: AuthenticationService, private _httpClient: HttpClient, private _plantationsService: PlantationService,
+              private _harvestService: HarvestsService, private _userStatsService: UserStatsService) {
     this.user = this._loginService.user;
   }
 
@@ -31,50 +34,66 @@ export class UserDetailsComponent implements OnInit {
   }
 
   private getStats(): void {
-    const params = new HttpParams().set('userId', this.user().id);
-    this._httpClient.post(BASE_URL + USER_STATS + '/get-stats-by-user', {
-      "page": 0,
-      "size": 100,
-      "sortColumn": "id",
-      "sortDirection": "ASC"
-    }, {params: params}).subscribe({
-      next: response => {
-        console.log(response)
+    this.userStats = [];
+    this._userStatsService.getStatsByUser(this.user().id, {
+      page: 0,
+      size: 100,
+      sortColumn: 'id',
+      sortDirection: 'ASC'
+    }).subscribe(response => {
+      // forkJoin, aby poczekać na zakończenie wszystkich asynchronicznych operacji
+      const harvestObservables = response.data.map(stats => this.getHarvestById(stats.harvestId));
 
-      },
-      error: err => console.error(err)
-    })
+      forkJoin(harvestObservables).subscribe(harvests => {
+        for (let i = 0; i < response.data.length; i++) {
+          const stats = response.data[i];
+          const harvest = harvests[i];
+
+          this._plantationsService.getPlantationById(harvest.plantationId).subscribe(plantation => {
+            console.log(`There is plantation: ${plantation.name} and harvest object ${harvest.season}`);
+            this.userStats.push({
+              season: harvest.season,
+              plantation: plantation.name,
+              collectedContainers: stats.collectedContainers,
+              earned: stats.collectedContainers * harvest.priceForFullContainer
+            });
+          });
+        }
+      });
+    });
+  }
+
+  private getHarvestById(harvestId: number): Observable<any> {
+    return this._harvestService.getHarvestById(harvestId).pipe(map(harvest => {
+      return harvest;
+    }));
   }
 
   private getWorkedInPlantations(): void {
-    this._httpClient.post(BASE_URL + PLANTATION + '', {})
-  }
-
-  private getFutureHarvests(): void {
-    this._httpClient.post(BASE_URL + HARVEST + '/get-future-harvests', {}).subscribe({
-      next: response => {
-        // console.log(response);
-        const harvests = response as any[];
-        harvests.forEach(harvest => {
-          // this.getPlantationName(harvest.id).subscribe(plantationName => {
-          //   console.log(plantationName)
-          // })
-          console.log(harvest)
-        })
-      },
-      error: err => console.error(err)
+    this._plantationsService.getUserWorkedInPlantations().subscribe(response => {
+      this.workedInPlantations = response;
     })
   }
 
-  private getPlantationName(userHarvestId: number): any {
-    const params = new HttpParams().set('id', userHarvestId)
-    return this._httpClient.post(BASE_URL + PLANTATION + '/get-plantation-by-id', {}, {params: params}).pipe(
-      map(response => response['plantationName']),
-      catchError(error => {
-        console.error(error);
-        throw error;  // Rzucanie błędu w przypadku niepowodzenia
+  private getFutureHarvests(): void {
+    this.futureHarvests = [];
+    this._harvestService.getFutureHarvests().subscribe(response => {
+      console.log(response)
+      response.forEach(harvest => {
+        this.getPlantationName(harvest.plantationId).subscribe(name => {
+          this.futureHarvests.push({
+            date: `${harvest['date'][0]}.${parseInt(harvest['date'][1]) < 10 ? '0' + harvest['date'][1] : harvest['date'][1]}.${parseInt(harvest['date'][2]) < 10 ? '0' + harvest['date'][2] : harvest['date'][2]}`,
+            plantationName: name
+          })
+        })
       })
-    );
+    })
+  }
+
+  private getPlantationName(plantationId: number): Observable<any> {
+    return this._plantationsService.getPlantationById(plantationId).pipe(map((plantation) => {
+      return plantation.name;
+    }));
   }
 
 }

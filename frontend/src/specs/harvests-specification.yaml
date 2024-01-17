@@ -1,0 +1,531 @@
+openapi: 3.0.3
+info:
+  title: Harvests specification
+  description: Harvests specification
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /harvests/add-harvest:
+    description: |
+      Endpoint for setting new planned plants harvest.
+    post:
+      tags:
+        - "Harvests"
+      operationId: addHarvest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Harvest"
+      responses:
+        "200":
+          description: Ok. Successful response will return OK status.
+  /harvests/edit-harvest:
+    description: |
+      Endpoint for editing existing harvests.
+    post:
+      tags:
+        - "Harvests"
+      operationId: editHarvest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Harvest"
+      responses:
+        "200":
+          description: Ok. Successful response will return OK status.
+  /harvests/delete-harvest:
+    description: |
+      Endpoint for deleting harvest by given id.
+    post:
+      tags:
+        - "Harvests"
+      operationId: deleteHarvest
+      parameters:
+        - name: harvestId
+          in: query
+          allowEmptyValue: false
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Ok. Successful response will return OK status.
+  /harvests/add-user-harvest:
+    description: |
+      Endpoint for adding new user harvest to exising harvest.
+    post:
+      tags:
+        - "Harvests"
+      operationId: addUserHarvest
+      parameters:
+        - name: harvestId
+          in: query
+          required: true
+          allowEmptyValue: false
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserHarvest"
+      responses:
+        "200":
+          description: Ok. Successful response will return OK status.
+  /harvests/edit-user-harvest:
+    description: |
+      Endpoint for editing existing user harvest.
+    post:
+      tags:
+        - "Harvests"
+      operationId: editUserHarvest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserHarvest"
+      responses:
+        "200":
+          description: Ok. Successful response will return OK status.
+  /harvests/delete-user-harvest:
+    description: |
+      Endpoint for deleting user harvest by id.
+    post:
+      tags:
+        - "Harvests"
+      operationId: deleteUserHarvest
+      parameters:
+        - name: userHarvestId
+          in: query
+          required: true
+          allowEmptyValue: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Ok. Successful response will return OK status.
+  /harvests/get-harvests:
+    description: |
+      Endpoint for getting list of all harvests assigned for specific plantation.
+    post:
+      tags:
+        - "Harvests"
+      operationId: getHarvests
+      parameters:
+        - name: plantationId
+          in: query
+          required: true
+          allowEmptyValue: false
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PaginationRequest"
+      responses:
+        "200":
+          description: Ok. Successful response will return OK status and list of HarvestDto objects.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedHarvest"
+  /harvests/get-harvests-by-season:
+    description: |
+      Endpoint for getting list of harvest in specific plantation by season.
+    post:
+      tags:
+        - "Harvests"
+      operationId: getHarvestsBySeason
+      parameters:
+        - name: plantationId
+          in: query
+          required: true
+          allowEmptyValue: false
+          schema:
+            type: integer
+            format: int64
+        - name: season
+          in: query
+          required: true
+          allowEmptyValue: false
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PaginationRequest"
+      responses:
+        "200":
+          description: Ok. Successful response will return OK status and page object with list of HarvestDto objects.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedHarvest"
+  /harvests/get-harvests-in-date-range:
+    description: |
+      Endpoint for getting list of HarvestDto objects in dates range.
+    post:
+      tags:
+        - "Harvests"
+      operationId: getHarvestsInDateRange
+      parameters:
+        - name: plantationId
+          in: query
+          required: true
+          allowEmptyValue: false
+          schema:
+            type: integer
+            format: int64
+        - name: startDate
+          in: query
+          required: true
+          allowEmptyValue: false
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          required: true
+          allowEmptyValue: false
+          schema:
+            type: string
+            format: date
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PaginationRequest"
+      responses:
+        "200":
+          description: Ok. Successful response will return OK status and page object with list od HarvestDto objects.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedHarvest"
+  /harvests/get-harvest-by-id:
+    description: |
+      Endpoint for getting specific HarvestDto object by id
+    post:
+      tags:
+        - "Harvests"
+      operationId: getHarvestById
+      parameters:
+        - name: id
+          in: query
+          required: true
+          allowEmptyValue: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Ok. Successful response will return OK status and specific HarvestDto object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Harvest"
+  /harvests/get-harvests-by-date:
+    description: |
+      Endpoint for getting list of harvests by specific date in specific plantation
+    post:
+      tags:
+        - "Harvests"
+      operationId: getHarvestsByDate
+      parameters:
+        - name: plantationId
+          in: query
+          required: true
+          allowEmptyValue: false
+          schema:
+            type: integer
+            format: int64
+        - name: date
+          in: query
+          required: true
+          allowEmptyValue: false
+          schema:
+            type: string
+            format: date
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PaginationRequest"
+      responses:
+        "200":
+          description: Ok. Successful response will return OK status and Page object with list of HarvestDto objects.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedHarvest"
+  /harvests/get-user-harvests:
+    description: |
+      Endpoint for getting list of user harvests.
+    post:
+      tags:
+        - "Harvests"
+      operationId: getUserHarvests
+      parameters:
+        - name: userId
+          in: query
+          required: true
+          allowEmptyValue: false
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PaginationRequest"
+      responses:
+        "200":
+          description: Ok. Successful respone will return OK status and list of UserHarvestDto objects in Page object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedUserHarvest"
+  /harvests/get-user-harvests-by-plantation:
+    description: |
+      Endpoint for getting list of UserHarvestDto objects by specific user and plantation
+    post:
+      tags:
+        - "Harvests"
+      operationId: getUserHarvestsByPlantation
+      parameters:
+        - name: userId
+          in: query
+          required: true
+          allowEmptyValue: false
+          schema:
+            type: integer
+            format: int64
+        - name: plantationId
+          in: query
+          required: true
+          allowEmptyValue: false
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PaginationRequest"
+      responses:
+        "200":
+          description: Ok. Successful response will return OK status and list of UserHarvestObjects in Page object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedUserHarvest"
+  /harvests/get-user-harvest-by-id:
+    description: |
+      Endpoint for getting UserHarvestDto object by id.
+    post:
+      tags:
+        - "Harvests"
+      operationId: getUserHarvestById
+      parameters:
+        - name: harvestId
+          in: query
+          required: true
+          allowEmptyValue: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Ok. Successful response will return OK status and UserHarvestDto object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserHarvest"
+  /harvests/set-plant-for-user-harvest:
+    description: |
+      Endpoint for setting plant for UserHarvest.
+    post:
+      tags:
+        - "Harvests"
+      operationId: setPlantForUserHarvest
+      parameters:
+        - name: plantId
+          in: query
+          required: true
+          allowEmptyValue: false
+          schema:
+            type: integer
+            format: int64
+        - name: userHarvestId
+          in: query
+          required: true
+          allowEmptyValue: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Ok. Successful response will return OK status.
+  /harvests/start-user-harvest:
+    description: |
+      Endpoint for announcing user harvest start
+    post:
+      tags:
+        - "Harvests"
+      operationId: startUserHarvest
+      parameters:
+        - name: userHarvestId
+          in: query
+          required: true
+          allowEmptyValue: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Ok. Successful response will return OK status.
+  /harvests/stop-user-harvest:
+    description: |
+      Endpoint for announcing harvest end
+    post:
+      tags:
+        - "Harvests"
+      operationId: endUserHarvest
+      parameters:
+        - name: userHarvestId
+          in: query
+          required: true
+          allowEmptyValue: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Ok. Successful response will return OK status.
+  /harvest/get-future-harvests:
+    description: |
+      Endpoint for getting first future 5 harvests
+    post:
+      tags:
+        - "Harvests"
+      operationId: getFutureHarvests
+      responses:
+        "200":
+          description: Ok. Successful response will return OK status and list of HarvestDto objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Harvest"
+components:
+  schemas:
+    Harvest:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        season:
+          type: integer
+        date:
+          type: string
+          format: date
+        plantationId:
+          type: integer
+          format: int64
+        userHarvests:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserHarvest"
+        priceForFullContainer:
+          type: number
+          format: double
+    UserHarvest:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        plantId:
+          type: integer
+          format: int64
+        row:
+          type: integer
+        harvestStart:
+          type: string
+          format: date-time
+        harvestEnd:
+          type: string
+          format: date-time
+        harvestId:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+        sectorId:
+          type: integer
+          format: int64
+        plantationId:
+          type: integer
+          format: int64
+    Page:
+      type: object
+      properties:
+        page:
+          type: integer
+        size:
+          type: integer
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+    PaginationRequest:
+      type: object
+      properties:
+        page:
+          type: integer
+        size:
+          type: integer
+        sortDirection:
+          type: string
+        sortColumn:
+          type: string
+    PagedHarvest:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Harvest"
+        page:
+          $ref: "#/components/schemas/Page"
+    PagedUserHarvest:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserHarvest"
+        page:
+          $ref: "#/components/schemas/Page"

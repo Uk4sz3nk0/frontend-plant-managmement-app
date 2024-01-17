@@ -1,0 +1,113 @@
+openapi: 3.0.3
+info:
+  title: Authentication specification
+  description: Authentication specification
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /auth/register:
+    description: |
+      Endpoint for registering new users
+    post:
+      tags:
+        - "Authentication"
+      operationId: registerUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+      responses:
+        "200":
+          description: Ok. Successful response contains AuthenticationResponseDto object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthenticationResponse"
+  /auth/login:
+    description: |
+      Endpoint for logging user
+    post:
+      tags:
+        - "Authentication"
+      operationId: loginUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthenticationRequest"
+      responses:
+        "200":
+          description: Ok. Successful response contains AuthenticationResponseDto object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthenticationResponse"
+components:
+  schemas:
+    Permission:
+      type: object
+      properties:
+        permission:
+          type: string
+    Role:
+      type: object
+      properties:
+        name:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Permission"
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        role:
+          $ref: "#/components/schemas/Role"
+    AuthenticationRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    AuthenticationResponse:
+      type: object
+      properties:
+        user:
+          $ref: "#/components/schemas/User"
+        accessToken:
+          type: string
+        accessTokenDuration:
+          type: integer
+          format: int64
+        refreshToken:
+          type: string
+        refreshTokenDuration:
+          type: integer
+          format: int64
+    RegisterRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        role:
+          type: string

@@ -1,0 +1,66 @@
+<div class="mt-2 mx-1">
+  <h1 class="font-weight-bold">Panel użytkownika</h1>
+  <div class="row">
+    <div class="col">
+      <h2 class="font-weight-bold">Dane użytkownika</h2>
+      <div class="">
+        <p>Imię: <span class="font-weight-bold">{{ user().firstName }}</span></p>
+        <p>Nazwisko: <span class="font-weight-bold">{{ user().lastName }}</span></p>
+        <p>Email: <span class="font-weight-bold">{{ user().email }}</span></p>
+        <p>Id użytkownika: <span class="font-weight-bold">{{ user().id }}</span></p>
+      </div>
+    </div>
+    <div class="col">
+      <h2 class="font-weight-bold">Najbliższe zbiory (najbliższe 5 dni)</h2>
+      <div>
+        @if (futureHarvests.length > 0) {
+          @for (harvests of futureHarvests; track futureHarvests) {
+            <div class="bg-secondary-subtle rounded my-1 mx-2 py-1 px-1 d-flex flex-row">
+              <p class="me-2 mb-0 aligned-self-center">Plantacja: <span
+                class="font-weight-bold">{{ harvests.plantationName }}</span></p>
+              <p class="mb-0">Data: <span class="font-weight-bold">{{ harvests.date }}</span></p>
+            </div>
+          }
+        } @else {
+          <p>Brak zaplanowanych zbiorów</p>
+        }
+      </div>
+    </div>
+    <div class="col">
+      <h2 class="font-weight-bold">Statystki</h2>
+      <div style="overflow: auto">
+        @if (userStats.length > 0) {
+          @for (stats of userStats; track userStats) {
+            <div class="bg-secondary-subtle rounded mx-2 my-1 py-1 px-1 d-flex flex-row">
+              <p class="mb-0 ms-1">Sezon: <span class="font-weight-bold">{{ stats.season }}</span></p>
+              <p class="mb-0 ms-1">Plantacja: <span class="font-weight-bold">{{ stats.plantation }}</span></p>
+              <p class="mb-0 ms-1">Ilość zebranych pojemników: <span
+                class="font-weight-bold">{{ stats.collectedContainers }}</span></p>
+              <p class="mb-0 ms-1">Zarobiono: <span class="font-weight-bold">{{ stats.earned }}zł</span></p>
+            </div>
+          }
+        } @else {
+          <p>Brak statystyk</p>
+        }
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h2 class="font-weight-bold">Pracujesz w</h2>
+      <div>
+        @if (workedInPlantations.length > 0) {
+          @for (plantation of workedInPlantations; track plantation.id) {
+            <div class="bg-secondary-subtle rounded mx-2 my-1 px-1 py-1">
+              <span class="font-weight-bold align-middle">{{ plantation.name }}</span>
+            </div>
+          }
+        } @else {
+          <p>Nie pracujesz na żadnej plantacji</p>
+        }
+      </div>
+    </div>
+    <div class="col"></div>
+    <div class="col"></div>
+  </div>
+</div>

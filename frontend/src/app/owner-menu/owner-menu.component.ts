@@ -1,7 +1,8 @@
-import {AfterViewInit, Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Signal, ViewChild} from '@angular/core';
 import {MatSidenav} from '@angular/material/sidenav';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../services/authentication.service';
+import {User} from "../services/auth-utils";
 
 @Component({
   selector: 'app-owner-menu',
@@ -9,16 +10,20 @@ import {AuthenticationService} from '../services/authentication.service';
   styleUrls: ['./owner-menu.component.css']
 })
 export class OwnerMenuComponent implements AfterViewInit {
-  showElement: boolean = false;
-  showplants: boolean = true
-  showdetails: boolean = false
-  showSector: boolean = false
 
   @ViewChild(MatSidenav) sidenav!: MatSidenav;
   @ViewChild('list') list!: ElementRef
 
+  showElement: boolean = false;
+  showPlants: boolean = true
+  showDetails: boolean = false
+  showSector: boolean = false
 
-  constructor(private renderer: Renderer2, private route: ActivatedRoute, private router: Router, private log: AuthenticationService) {
+  public readonly user: Signal<User>;
+
+  constructor(private route: ActivatedRoute, private router: Router, private log: AuthenticationService,
+              private _authService: AuthenticationService) {
+    this.user = this._authService.user;
   }
 
   menu() {
@@ -27,27 +32,31 @@ export class OwnerMenuComponent implements AfterViewInit {
 
   plant() {
     console.log('plant')
-    this.router.navigate(['/map'])
+    this.router.navigate(['/menu/map']).then();
   }
 
-  myplant() {
-    this.router.navigate(['/list'])
+  myPlant() {
+    this.router.navigate(['/menu/list']).then();
   }
 
 
   sec() {
-    this.router.navigate(['/seclist'])
+    this.router.navigate(['/menu/seclist']).then();
   }
 
   emp() {
-    this.router.navigate(['/employees'])
+    this.router.navigate(['/menu/employees']).then();
   }
 
   harvest() {
-    this.router.navigate(['/harvest'])
+    this.router.navigate(['/menu/harvest']).then();
   }
 
-  logout(){
+  userDetails() {
+    this.router.navigate(['/menu/user-details']).then();
+  }
+
+  logout() {
     this.log.logout()
   }
 
@@ -57,10 +66,9 @@ export class OwnerMenuComponent implements AfterViewInit {
     this.route.params.subscribe(params => {
       const sec = params['param']
       if (sec === 'sectors') {
-        console.log('aaaaaaaaa1111a')
         this.showElement = false
-        this.showplants = false
-        this.showdetails = false
+        this.showPlants = false
+        this.showDetails = false
         this.showSector = true
 
       }

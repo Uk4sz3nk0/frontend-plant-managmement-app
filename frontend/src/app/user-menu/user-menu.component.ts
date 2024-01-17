@@ -17,7 +17,7 @@ export class UserMenuComponent implements AfterViewInit {
   @ViewChild('list') list!: ElementRef
   // @ViewChild(MatSidenav) sidenav!: MatSidenav;
   // @ViewChild('list') list!: ElementRef
-  
+
 
 
   constructor(private renderer: Renderer2, private route: ActivatedRoute, private router: Router){}
@@ -39,7 +39,7 @@ export class UserMenuComponent implements AfterViewInit {
   }
 
   det(){
-  
+
   }
 
   sec(){
@@ -49,7 +49,7 @@ export class UserMenuComponent implements AfterViewInit {
    emp(){
     // this.router.navigate(['/employees'])
    }
-  
+
 
   ngAfterViewInit(): void {
     console.log(this.list)

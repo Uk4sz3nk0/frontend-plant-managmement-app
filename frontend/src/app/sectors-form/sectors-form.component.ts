@@ -35,8 +35,8 @@ export class SectorsFormComponent implements OnInit{
 
 
 
-      
-      
+
+
     })
 
     this.endpoint.getPlantationById(this.data).subscribe((plant: any) =>{
@@ -48,7 +48,7 @@ export class SectorsFormComponent implements OnInit{
       this.posB = plant.area.coordinates[1].latitude
       this.posC = plant.area.coordinates[0].longitude
       this.posD = plant.area.coordinates[2].longitude
-       
+
 
       this.loadMap();
       this.addPolygon(false, false, '#FFFFFF')
@@ -59,7 +59,7 @@ export class SectorsFormComponent implements OnInit{
 
 
 
-    
+
 
 
 
@@ -96,7 +96,7 @@ export class SectorsFormComponent implements OnInit{
   }
   console.log(this.coords)
   alert("Sektory zostały dodane")
-  this.router.navigate(['/list'])
+  this.router.navigate(['/menu/list'])
   }
 
   loadMap() {

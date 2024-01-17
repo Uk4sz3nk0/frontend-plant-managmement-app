@@ -29,6 +29,10 @@ export class User {
   get role() {
     return this._role;
   }
+
+  public setRole(role: Role) {
+    this._role = role;
+  }
 }
 
 export interface Role {

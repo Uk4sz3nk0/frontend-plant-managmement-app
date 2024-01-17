@@ -37,6 +37,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatMenuModule} from '@angular/material/menu';
 import {AuthInterceptorService} from "./services/auth-interceptor.service";
+import {OwnerAccessDirective} from "./directives/owner-access/owner-access.directive";
 
 
 
@@ -58,29 +59,30 @@ import {AuthInterceptorService} from "./services/auth-interceptor.service";
     EmployeesListComponent,
 
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatSnackBarModule,
-    MatSidenavModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatListModule,
-    GoogleMapsModule,
-    MatStepperModule,
-    MatSelectModule,
-    MatInputModule,
-    MatChipsModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatMenuModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatSnackBarModule,
+        MatSidenavModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatListModule,
+        GoogleMapsModule,
+        MatStepperModule,
+        MatSelectModule,
+        MatInputModule,
+        MatChipsModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatMenuModule,
+        OwnerAccessDirective
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

@@ -25,7 +25,7 @@ idnumber !: number
 
 
 plantDetails(id: number){
-  
+
 console.log(id)
 console.log(this.det)
 this.router.navigate(['/details', id])
@@ -35,9 +35,7 @@ this.router.navigate(['/details', id])
 
 ngOnInit(): void {
   console.log('aaaaaaaaaa')
-  this.auth.user$.subscribe((user) =>{
-    console.log(user)
-  })
+
   // this.pobierz()
 }
 
@@ -55,7 +53,7 @@ pobierz() {
 
 ngAfterViewInit(): void {
 
- 
+
  console.log(this.list.nativeElement.offsetWidth)
 
   //this.pobierz()
@@ -63,8 +61,8 @@ ngAfterViewInit(): void {
 
   this.endpoint.getPlantations().subscribe(data => {
     console.log(data)
-    
-   
+
+
 
     for(let i = 0; i<data.length; i++){
       const newDiv = this.renderer.createElement('div');
@@ -75,14 +73,14 @@ ngAfterViewInit(): void {
       this.renderer.setProperty(name, 'innerHTML', data[i].name)
       this.renderer.setProperty(city, 'innerHTML', data[i].city)
       this.renderer.setProperty(address, 'innerHTML', data[i].street + " " + data[i].houseNumber)
-     
+
       this.renderer.setStyle(newDiv, 'background','url("../../assets/images/background.jpg")');
       this.renderer.setStyle(newDiv, 'width', width+'px')
       this.renderer.setStyle(newDiv, 'background-size', width+'px'+' 50vh'  )
-      
-      
+
+
       this.renderer.addClass(newDiv, 'plant')
-      
+
       // this.renderer.appendChild(newDiv, name);
       this.renderer.appendChild(newDiv, name);
       this.renderer.appendChild(newDiv, city);
@@ -93,16 +91,16 @@ ngAfterViewInit(): void {
       this.renderer.listen(newDiv, 'click', () => this.plantDetails(data[i].id))
       this.dynamic = newDiv
     }
-    
 
-    
+
+
   })
 
 
   // this.endpoint.getPlantations().then(data => {
   //   console.log(data)
-    
-   
+
+
 
   //   for(let i = 0; i<data.length; i++){
   //     const newDiv = this.renderer.createElement('div');
@@ -113,14 +111,14 @@ ngAfterViewInit(): void {
   //     this.renderer.setProperty(name, 'innerHTML', data[i].name)
   //     this.renderer.setProperty(city, 'innerHTML', data[i].city)
   //     this.renderer.setProperty(address, 'innerHTML', data[i].street + " " + data[i].houseNumber)
-     
+
   //     this.renderer.setStyle(newDiv, 'background','url("../../assets/images/background.jpg")');
   //     this.renderer.setStyle(newDiv, 'width', width+'px')
   //     this.renderer.setStyle(newDiv, 'background-size', width+'px'+' 50vh'  )
-      
-      
+
+
   //     this.renderer.addClass(newDiv, 'plant')
-      
+
   //     // this.renderer.appendChild(newDiv, name);
   //     this.renderer.appendChild(newDiv, name);
   //     this.renderer.appendChild(newDiv, city);
@@ -131,15 +129,15 @@ ngAfterViewInit(): void {
   //     this.renderer.listen(newDiv, 'click', () => this.plantDetails(data[i].id))
   //     this.dynamic = newDiv
   //   }
-    
 
-    
+
+
   // })
-  
- 
 
-  
-  
+
+
+
+
 }
 
 }

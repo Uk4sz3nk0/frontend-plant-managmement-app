@@ -77,15 +77,30 @@
     <h2>Aktywne zbiory</h2>
     <div>
       <label for="plantation-harvest-id">Wybierz plantacje:</label>
-      <select id="plantation-harvest-id" [(ngModel)]="todayPlantationId" [ngModelOptions]="{standalone: true}">
+      <select id="plantation-harvest-id" [(ngModel)]="todayPlantationId" [ngModelOptions]="{standalone: true}" (ngModelChange)="getTodayUserHarvest()">
         @for (plantation of plantations; track plantation.id) {
-          <option [ngValue]="plantation.id">{{plantation.name}}</option>
+          <option [ngValue]="plantation.id">{{ plantation.name }}</option>
         }
       </select>
-      <button class="btn btn-sm btn-primary py-1 px-2" (click)="getTodayUserHarvest()">Sprawdź zbiory</button>
+<!--      <button class="btn btn-sm btn-primary py-1 px-2" (click)="getTodayUserHarvest()">Sprawdź zbiory</button>-->
     </div>
     <div>
-
+      @for (userHarvest of userHarvests; track userHarvest.id) {
+        <div class="bg-secondary-subtle rounded px-2 py-2 d-flex flex-row">
+          <p class="mb-0 mt-1">Zbiory w:<span class="font-weight-bold">{{ getPlantationName(todayPlantationId) }}</span></p>
+          <button class="mx-2 btn btn-sm btn-success py-1 px-2" (click)="startUserHarvest(userHarvest.id)" [disabled]="userHarvest.harvestStart != null">Rozpocznij
+            zbiory
+          </button>
+          <button class="mx-2 btn btn-sm btn-primary py-1 px-2" (click)="reportCollectedContainer(userHarvest.harvestId)"
+                  [disabled]="userHarvest.harvestStart == null || userHarvest.harvestEnd != null">Zgłoś pełną skrzynkę
+          </button>
+          <button class="mx-2 btn btn-sm btn-danger py-1 px-2" (click)="endUserHarvest(userHarvest.id)"
+                  [disabled]="userHarvest.harvestStart == null || userHarvest.harvestEnd != null">Zakończ zbiór
+          </button>
+        </div>
+      } @empty {
+        <p>Dzisiaj nie czekają cię żadne zbiory ;)</p>
+      }
     </div>
   </div>
 
@@ -111,15 +126,17 @@
         @for (harvest of harvests; track harvest.id) {
           <div class="d-flex flex-row">
             <p class="mb-0 mt-1">Id zbioru:<span class="font-weight-bold">{{ harvest.id }}</span></p>
-            <p class="mb-0 mt-1">Plantacja:<span class="font-weight-bold">{{ getPlantationName(harvest.plantationId) }}</span></p>
+            <p class="mb-0 mt-1">Plantacja:<span
+              class="font-weight-bold">{{ getPlantationName(harvest.plantationId) }}</span></p>
             <p class="mb-0 mt-1">Data:<span class="font-weight-bold">{{ formatDateFromArray(harvest.date) }}</span></p>
-            <p class="mb-0 mt-1">Cena za pojemnik:<span class="font-weight-bold">{{ harvest.priceForFullContainer }}zł</span></p>
+            <p class="mb-0 mt-1">Cena za pojemnik:<span class="font-weight-bold">{{ harvest.priceForFullContainer }}
+              zł</span></p>
             <div class="row">
-              <div class="col" style="width: 75px">
-                @if (canEditHarvest(harvest.date)) {
-                  <button class="btn btn-sm btn-warning py-1 px-2" (click)="editHarvest(harvest.id)">Edytuj</button>
-                }
-              </div>
+              <!--              <div class="col" style="width: 75px">-->
+              <!--                @if (canEditHarvest(harvest.date)) {-->
+              <!--                  <button class="btn btn-sm btn-warning py-1 px-2" (click)="editHarvest(harvest.id)">Edytuj</button>-->
+              <!--                }-->
+              <!--              </div>-->
               <div class="col" style="width: 75px">
                 <button class="btn btn-sm btn-danger py-1 px-2" (click)="deleteHarvest(harvest.id)">Usuń</button>
               </div>

@@ -3,6 +3,8 @@ import {HarvestDto, HarvestsService, UserHarvestDto} from "../../core/harvests";
 import {PlantDto, PlantsService} from "../../core/plants";
 import {PlantationService} from "../../core/plantations";
 import {LoginService} from "../../services/login.service";
+import {UserStatsService} from "../../core/user-stats";
+import {map} from "rxjs";
 
 
 @Component({
@@ -41,7 +43,8 @@ export class HarvestComponent implements OnInit {
   }
 
   constructor(private _harvestsService: HarvestsService, private _plantsService: PlantsService,
-              private _plantationService: PlantationService, private _loginService: LoginService) {
+              private _plantationService: PlantationService, private _loginService: LoginService,
+              private _statsService: UserStatsService) {
 
   }
 
@@ -152,6 +155,7 @@ export class HarvestComponent implements OnInit {
           this.plantations = response;
           this.plantationSectors = this.plantations[0].sectors
           this.todayPlantationId = response[0].id
+          this.getTodayUserHarvest();
         },
         error: err => console.error(err)
       })
@@ -246,8 +250,35 @@ export class HarvestComponent implements OnInit {
     this._harvestsService.getUserHarvestByDate(this.formatDate(new Date()), this.todayPlantationId).subscribe({
       next: response => {
         console.log(response)
+        this.userHarvests = response
       },
       error: err => console.error(err)
+    })
+  }
+
+  public startUserHarvest(id: number): void {
+    this._harvestsService.startUserHarvest(id).subscribe({
+      next: () => {
+        alert('Rozpoczęto zbiór');
+        this.getTodayUserHarvest();
+      }
+    })
+  }
+
+  public reportCollectedContainer(id: number): void {
+    this._statsService.reportCollected(this._loginService.user().id, id).subscribe({
+      next: () => {
+        alert('Zgłoszono skrzynkę');
+      }
+    })
+  }
+
+  public endUserHarvest(id: number): void {
+    this._harvestsService.endUserHarvest(id).subscribe({
+      next: () => {
+        alert('Zakończono zbiór');
+        this.getTodayUserHarvest();
+      }
     })
   }
 }

@@ -27,7 +27,7 @@
         <button (click)="addEmptyUserHarvest()" [disabled]="harvestModel.plantationId == null">Przypisz pracownika do
           zbioru:
         </button>
-        <div style="height: 20vh; overflow: auto;">
+        <div [style.height]="userHarvestForHarvest.length > 2 ? '20vh' : '7vh'" style="overflow: auto;">
           @for (userHarvest of userHarvestForHarvest; track userHarvest; let index = $index) {
             <div>
               <div id="plant-pick" class="d-inline">
@@ -81,10 +81,56 @@
   </div>
 
   <!-- History -->
-  <div>
-    <h2>Poprzednie zbiory</h2>
-    <div>
-      CONTENT
+  <div OwnerAccess>
+    <h2>Zbiory</h2>
+    <div style="height: 45vh; overflow: auto">
+      <label for="plantation-harvests">Wybierz plantacje:</label>
+      <select id="plantation-harvests" [(ngModel)]="plantationId">
+        @for (plantation of plantations; track plantation.id) {
+          <option [ngValue]="plantation.id">{{ plantation.name }}</option>
+        }
+      </select>
+      <label>Wybierz zakres dat:</label>
+      <label for="date-range-start">Od:</label>
+      <input id="date-range-start" type="date" [(ngModel)]="dateRange.start" [ngModelOptions]="{standalone: true}">
+      <label for="date-range-end">do</label>
+      <input id="date-range-end" type="date" [(ngModel)]="dateRange.end" [ngModelOptions]="{standalone: true}">
+      <button class="btn btn-sm btn-primary py-1 px-2" (click)="getHarvests()" [disabled]="plantationId == null">
+        Szukaj
+      </button>
+      <div>
+        @for (harvest of harvests; track harvest.id) {
+          <div class="d-flex flex-row">
+            <p class="mb-0 mt-1">Id zbioru:<span class="font-weight-bold">{{ harvest.id }}</span></p>
+            <p class="mb-0 mt-1">Plantacja:<span class="font-weight-bold">{{ getPlantationName(harvest.plantationId) }}</span></p>
+            <p class="mb-0 mt-1">Data:<span class="font-weight-bold">{{ formatDateFromArray(harvest.date) }}</span></p>
+            <p class="mb-0 mt-1">Cena za pojemnik:<span class="font-weight-bold">{{ harvest.priceForFullContainer }}zł</span></p>
+            <div class="row">
+              <div class="col" style="width: 75px">
+                @if (canEditHarvest(harvest.date)) {
+                  <button class="btn btn-sm btn-warning py-1 px-2" (click)="editHarvest(harvest.id)">Edytuj</button>
+                }
+              </div>
+              <div class="col" style="width: 75px">
+                <button class="btn btn-sm btn-danger py-1 px-2" (click)="deleteHarvest(harvest.id)">Usuń</button>
+              </div>
+            </div>
+          </div>
+        } @empty {
+          <p>Brak zbiorów</p>
+        }
+      </div>
+      @if (harvests.length > 0) {
+        <div class="d-flex flex-row">
+          <button class="btn btn-sm btn-primary rounded-circle py-0 px-2"
+                  (click)="changePageInHarvests(pagination.page - 1)" [disabled]="leftButton"><
+          </button>
+          <p class="mb-0 mt-1">strona {{ pagination.page + 1 }} z {{ pagination.totalPages }}</p>
+          <button class="btn btn-sm btn-primary rounded-circle py-0 px-2"
+                  (click)="changePageInHarvests(pagination.page + 1)" [disabled]="rightButton">>
+          </button>
+        </div>
+      }
     </div>
   </div>
 </div>

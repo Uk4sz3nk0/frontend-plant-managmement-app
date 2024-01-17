@@ -56,7 +56,12 @@ export class SectorsDetailsComponent implements OnInit, OnChanges {
       this.generateDetails()
       console.log(this.id)
 
-      this.endpoint.deleteEmployee(this.plantationId, email[0].id)
+      this._plantationService.deleteEmployee(this.plantationId, email[0].id).subscribe({
+        next: () => {
+          console.log('Uzytkownik usuniety')
+        },
+        error: er => console.error(er)
+      })
       
     })
   }
@@ -74,6 +79,7 @@ export class SectorsDetailsComponent implements OnInit, OnChanges {
     let employeeToAdd = this.employeetoadd
     console.log(event.target.textContent)
     console.log(this.id)
+    console.log(this.texttest)
     this.endpoint.getEmployeeByEmail(employeeToAdd).subscribe((email) => {
       // if (this.plantationId == null || email[0].id) {
       //   alert('Error in data')
@@ -81,10 +87,12 @@ export class SectorsDetailsComponent implements OnInit, OnChanges {
       // }
       if(email[0] === undefined){
         alert("Nie znaleziono pracownika")
-        this.employeetoadd = 'b'
+        this.employeetoadd = ''
         this.email = 0
        
       }else{
+        console.log(email)
+        if(!this.texttest.includes(email[0].email)){
 
         this.email = 1
 
@@ -92,10 +100,17 @@ export class SectorsDetailsComponent implements OnInit, OnChanges {
       this.texttest.push(email[0].email)
      
       console.log(this.id)
-      this._plantationService.addEmployee(this.plantationId, email[0].id).subscribe({
-        next: () => alert('Employee added to plantation'),
-        error: err => console.error(err)
-      })
+      // this._plantationService.addEmployee(this.plantationId, email[0].id).subscribe({
+      //   next: () => alert('Employee added to plantation'),
+      //   error: err => console.error(err)
+      // })
+      this.endpoint.addEmployeeToPlant(this.plantationId, email[0].id)
+      this.employeetoadd = ''
+      this.number++
+    }else{
+      alert("Ten pracownik jest już dodany do tej plantacji!")
+      this.employeetoadd = ''
+    }
     }
     })
 
@@ -115,6 +130,7 @@ export class SectorsDetailsComponent implements OnInit, OnChanges {
 
     this.endpoint.getEmployees(this.plantationId).subscribe((emp) => {
       console.log(emp)
+      this.texttest = []
       for(var i =0; i < emp.length; i++){
         this.texttest.push(emp[i].email)
       }

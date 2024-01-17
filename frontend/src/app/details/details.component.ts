@@ -1,6 +1,7 @@
 import { Component, ElementRef, NgZone, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EndpointsService } from '../services/endpoints.service';
+import {PlantationService} from "../core/plantations";
 
 
 @Component({
@@ -27,11 +28,13 @@ export class DetailsComponent implements OnInit {
   employeesnumber: number
   name: string
   
-  constructor(private ngZone: NgZone, private renderer: Renderer2, private router: Router, private route: ActivatedRoute, private endpoint: EndpointsService) { }
+  constructor(private ngZone: NgZone, private renderer: Renderer2, private router: Router, private route: ActivatedRoute, 
+    private endpoint: EndpointsService, private _plantationService: PlantationService) { }
 
   
 
   ngOnInit() {
+    
 
     this.route.params.subscribe(params =>{
       const id = params['id']
@@ -64,7 +67,8 @@ export class DetailsComponent implements OnInit {
 
 
       this.loadMap();
-      this.addPolygon()
+      this.addPolygon(false, false, '#00FF00')
+     // this.sectors()
  
 
     })
@@ -102,12 +106,43 @@ export class DetailsComponent implements OnInit {
 
   }
 
+  sectors(){
+    console.log(this.details.sectors.length)
+    
+    for(var i=0; i < this.details.sectors.length; i++){
+
+      // this.lat0 = plant.area.coordinates[0].latitude
+      // this.lat1 = plant.area.coordinates[1].latitude
+      // this.lng0 = plant.area.coordinates[0].longitude
+      // this.lng1 = plant.area.coordinates[2].longitude
+
+      this.addPolygon(false, false, '#'+Math.floor(Math.random()*16777215).toString(16))
+    }
+  }
+
+  delete(){
+    console.log(this.details)
+    if(this.details.employeeIds.length == 0){
+
+    
+    this._plantationService.deletePlantation(this.data).subscribe({
+      next: () => {
+        console.log('Plantacja usunięta')
+        this.router.navigate(['menu/list'])
+      },
+      error: er => console.error(er)
+    })
+  }else{
+    alert("Przed usunięciem plantacji należy usunąć wszystkich pracowników do niej przypisanych")
+  }
+  }
+
   // Funkcja do dodawania wielokątów
-  addPolygon() {
+  addPolygon(edit: boolean, drag: boolean, color: string) {
     const polygon = new google.maps.Polygon({
       map: this.map,
-     editable: false, // Ustawienie na true umożliwia edycję wielokąta
-      draggable: false, // Ustawienie na true umożliwia przeciąganie wielokąta
+     editable: edit, // Ustawienie na true umożliwia edycję wielokąta
+      draggable: drag, // Ustawienie na true umożliwia przeciąganie wielokąta
       paths: [
         { lat: this.lat0, lng: this.lng0 },
         { lat: this.lat1, lng: this.lng0 },
@@ -115,7 +150,7 @@ export class DetailsComponent implements OnInit {
         { lat: this.lat0, lng: this.lng1},
       ],
       strokeColor: '#00FF00',
-      fillColor: '#00FF00',
+      fillColor: color,
       
     });
 

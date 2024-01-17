@@ -18,6 +18,7 @@ export class HarvestComponent implements OnInit {
   public plantationSectors: Array<any> = [];
   public userHarvestForHarvest: Array<UserHarvestDto> = [];
   public plantType: number = 0;
+  plantTypes: number[] = [];
   public plants: Array<Array<PlantDto>> = [];
   public sectors: Array<Array<any>> = [];
   public employees: Array<any> = [];

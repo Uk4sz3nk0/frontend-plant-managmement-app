@@ -74,8 +74,8 @@ ngAfterViewInit(): void {
       const newDiv = this.renderer.createElement('div');
       const deletePlant = this.renderer.createElement('button')
       const name = this.renderer.createElement('h1');
-      const city = this.renderer.createElement('p');
-      const address = this.renderer.createElement('p');
+      const city = this.renderer.createElement('h2');
+      const address = this.renderer.createElement('h3');
       // const name = this.renderer.createText(data[i].name);
       this.renderer.setProperty(name, 'innerHTML', data[i].name)
       this.renderer.setProperty(deletePlant, 'innerHTML', 'Usuń plantację')
@@ -96,7 +96,7 @@ ngAfterViewInit(): void {
       this.renderer.appendChild(newDiv, name);
       this.renderer.appendChild(newDiv, city);
       this.renderer.appendChild(newDiv, address);
-      this.renderer.appendChild(newDiv, deletePlant);
+     
       this.renderer.appendChild(this.list.nativeElement, newDiv);
       
       console.log(width+'px')

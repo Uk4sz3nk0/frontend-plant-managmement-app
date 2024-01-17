@@ -41,6 +41,9 @@ export class SectorsFormComponent implements OnInit{
 
     this.endpoint.getPlantationById(this.data).subscribe((plant: any) =>{
       console.log(plant)
+      for(var i =0; i<plant.sectors.length; i++){
+        this.endpoint.deleteArea(plant.sectors[i].id)
+      }
       console.log(plant.area.coordinates[0])
 
 

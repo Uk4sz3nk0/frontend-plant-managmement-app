@@ -85,7 +85,7 @@ ngAfterViewInit(): void {
       this.renderer.setStyle(deletePlant, 'border-radius','80px')
 
       this.renderer.setStyle(newDiv, 'background','url("../../assets/images/background.jpg")');
-      this.renderer.setStyle(newDiv, 'width', '98vw')
+      this.renderer.setStyle(newDiv, 'width', '85vw')
       this.renderer.setStyle(newDiv, 'background-size','98vw'+' 32vh'  )
       this.renderer.setStyle(newDiv, 'background-repeat', 'no-repeat'  )
 

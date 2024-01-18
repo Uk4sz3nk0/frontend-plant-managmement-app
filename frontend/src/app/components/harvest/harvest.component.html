@@ -32,7 +32,7 @@
             <div>
               <div id="plant-pick" class="d-inline">
                 <label for="plant-type">Wybierz typ rośliny:</label>
-                <select id="plant-type" [(ngModel)]="plantType" [ngModelOptions]="{standalone: true}"
+                <select id="plant-type" [(ngModel)]="plantTypes[index]" [ngModelOptions]="{standalone: true}"
                         (ngModelChange)="getPlants(index)">
                   <option [ngValue]="0">Owoce</option>
                   <option [ngValue]="1">Warzywa</option>
@@ -125,11 +125,11 @@
       <div>
         @for (harvest of harvests; track harvest.id) {
           <div class="d-flex flex-row">
-            <p class="mb-0 mt-1">Id zbioru:<span class="font-weight-bold">{{ harvest.id }}</span></p>
-            <p class="mb-0 mt-1">Plantacja:<span
+            <p class="mb-0 mt-1">Id zbioru: <span class="font-weight-bold">{{ harvest.id }}</span></p>
+            <p class="mb-0 mt-1">  Plantacja: <span
               class="font-weight-bold">{{ getPlantationName(harvest.plantationId) }}</span></p>
-            <p class="mb-0 mt-1">Data:<span class="font-weight-bold">{{ formatDateFromArray(harvest.date) }}</span></p>
-            <p class="mb-0 mt-1">Cena za pojemnik:<span class="font-weight-bold">{{ harvest.priceForFullContainer }}
+            <p class="mb-0 mt-1">  Data: <span class="font-weight-bold">{{ formatDateFromArray(harvest.date) }}</span></p>
+            <p class="mb-0 mt-1">  Cena za pojemnik: <span class="font-weight-bold">{{ harvest.priceForFullContainer }}
               zł</span></p>
             <div class="row">
               <!--              <div class="col" style="width: 75px">-->

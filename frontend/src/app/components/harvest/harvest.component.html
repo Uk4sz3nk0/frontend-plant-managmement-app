@@ -151,9 +151,12 @@
     </div>
   </div>
 
+
   <!-- Active harvest for example today -->
   <div EmployeeAccess>
     <h2>Aktywne zbiory</h2>
+ 
+    
     <div>
       <label for="plantation-harvest-id">Wybierz plantacje:</label>
       <select id="plantation-harvest-id" [(ngModel)]="todayPlantationId" [ngModelOptions]="{standalone: true}" (ngModelChange)="getTodayUserHarvest()">
@@ -163,6 +166,9 @@
       </select>
 <!--      <button class="btn btn-sm btn-primary py-1 px-2" (click)="getTodayUserHarvest()">Sprawdź zbiory</button>-->
     </div>
+
+    <div id="map"></div>
+
     <div>
       @for (userHarvest of userHarvests; track userHarvest.id) {
         <div class="bg-secondary-subtle rounded px-2 py-2 d-flex flex-row">
@@ -183,6 +189,7 @@
     </div>
   </div>
 
+
   <!-- History -->
   <div OwnerAccess>
     <h2>Zbiory</h2>
@@ -202,6 +209,8 @@
       
         </mat-select>
       </mat-form-field>
+
+    
 
       <!-- <label>Wybierz zakres dat:</label>
       <label for="date-range-start">Od:</label>

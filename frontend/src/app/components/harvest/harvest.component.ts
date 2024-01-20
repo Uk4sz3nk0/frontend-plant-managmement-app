@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, NgZone} from '@angular/core';
 import {HarvestDto, HarvestsService, UserHarvestDto} from "../../core/harvests";
 import {PlantDto, PlantsService} from "../../core/plants";
 import {PlantationService} from "../../core/plantations";
 import {LoginService} from "../../services/login.service";
 import {UserStatsService} from "../../core/user-stats";
 import {map} from "rxjs";
+import { EndpointsService } from '../../services/endpoints.service';
+import { DetailsComponent } from 'src/app/details/details.component';
 
 
 @Component({
@@ -13,6 +15,25 @@ import {map} from "rxjs";
   styleUrl: './harvest.component.css'
 })
 export class HarvestComponent implements OnInit {
+
+
+  map!: google.maps.Map;
+  label!: google.maps.InfoWindow;
+  polygons: google.maps.Polygon[] = [];
+
+
+  lat0 = 50
+  lat1 = 50.01
+  lng0 = 20
+  lng1 = 20.01
+  
+  data: any = ''
+  details: any = ''
+  sectorsnumber: number
+  employeesnumber: number
+  name: string
+  
+
 
   public plantations: Array<any> = [];
   public plantationSectors: Array<any> = [];
@@ -45,7 +66,7 @@ export class HarvestComponent implements OnInit {
 
   constructor(private _harvestsService: HarvestsService, private _plantsService: PlantsService,
               private _plantationService: PlantationService, private _loginService: LoginService,
-              private _statsService: UserStatsService) {
+              private _statsService: UserStatsService, private endpoint: EndpointsService, private ngZone: NgZone) {
 
   }
 
@@ -53,7 +74,108 @@ export class HarvestComponent implements OnInit {
     this.getPlantations();
     this.getHarvests();
     console.log(this.plantations)
+
+    
+
   }
+
+
+  
+getPlantById(id: number){
+
+  this.endpoint.getPlantationById(id).subscribe((plant: any) =>{
+    console.log(plant)
+
+    console.log('sektory:' + plant.sectors.length)
+    this.name = plant.name
+    this.sectorsnumber = plant.sectors.length
+    this.employeesnumber = plant.employeeIds.length
+    console.log(plant.area.coordinates[1])
+    this.details = plant
+    this.lat0 = plant.area.coordinates[0].latitude
+    this.lat1 = plant.area.coordinates[1].latitude
+    this.lng0 = plant.area.coordinates[0].longitude
+    this.lng1 = plant.area.coordinates[2].longitude
+     
+
+
+
+   this.loadMap();
+   this.addPolygon(false, false, '#00FF00')
+   this.sectors1()
+
+
+  })
+
+}
+
+loadMap() {
+  const centerLat = (this.lat1 - this.lat0) / 2 + this.lat0
+  const centerLng = (this.lng1 - this.lng0) / 2 + this.lng0
+
+  const mapOptions: google.maps.MapOptions = {
+    center: { lat: centerLat, lng: centerLng },
+    zoom: 15,
+
+  };
+
+
+  const mapElement = document.getElementById('map')!;
+
+  this.map = new google.maps.Map(mapElement, mapOptions);
+  console.log(mapElement)
+
+}
+
+sectors1(){
+  console.log(this.details.sectors.length)
+  
+  for(var i=0; i < this.details.sectors.length; i++){
+
+    this.lat0 = this.details.sectors[i].coordinates[0].latitude
+    this.lat1 = this.details.sectors[i].coordinates[1].latitude
+    this.lng0 = this.details.sectors[i].coordinates[0].longitude
+    this.lng1 = this.details.sectors[i].coordinates[2].longitude
+
+  this.addPolygon(false, false, '#'+Math.floor(Math.random()*16777215).toString(16))
+  }
+}
+
+
+addPolygon(edit: boolean, drag: boolean, color: string) {
+  const polygon = new google.maps.Polygon({
+    map: this.map,
+   editable: edit, // Ustawienie na true umożliwia edycję wielokąta
+    draggable: drag, // Ustawienie na true umożliwia przeciąganie wielokąta
+    paths: [
+      { lat: this.lat0, lng: this.lng0 },
+      { lat: this.lat1, lng: this.lng0 },
+      { lat: this.lat1, lng: this.lng1 },
+      { lat: this.lat0, lng: this.lng1},
+    ],
+    strokeColor: '#00FF00',
+    fillColor: color,
+    
+  });
+
+  // Dodaj obsługę przeciągania wielokąta
+  google.maps.event.addListener(polygon, 'dragend', () => {
+    this.ngZone.run(() => {
+      const coordinates = polygon.getPath().getArray().map((latLng: any) => {
+        return { lat: latLng.lat(), lng: latLng.lng() };
+      });
+      // Tutaj możesz obsługiwać przeciąganie wielokąta, np. zapisując nowe współrzędne
+      console.log('Wielokąt przeciągnięty!', coordinates);
+    });
+  });
+
+
+  this.polygons.push(polygon);
+}
+
+
+
+
 
   public deleteUserHarvest(index: number): void {
     this.userHarvestForHarvest.splice(index, 1);
@@ -258,6 +380,7 @@ export class HarvestComponent implements OnInit {
       },
       error: err => console.error(err)
     })
+    this.getPlantById(this.todayPlantationId)
   }
 
   public startUserHarvest(id: number): void {

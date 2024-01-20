@@ -6,58 +6,135 @@
     <h2>Zaplanuj zbiory</h2>
     <!--    <button (click)="getPlantationsForForm()">Zaplanuj</button>-->
     <div>
-      <div id="date-pick">
+        <mat-form-field>
+      <mat-label>Wybierz datę</mat-label>
+      <input matInput [matDatepicker]="picker"  [(ngModel)]="harvestModel.date" required>
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+      <!-- <div id="date-pick">
         <label for="harvest-date">Wybierz datę:</label>
         <input id="harvest-date" type="date" [(ngModel)]="harvestModel.date" required>
-      </div>
-      <div id="plantation-pick">
+      </div> -->
+      <!-- <div id="plantation-pick">
         <label for="plantation">Wybierz plantację:</label>
         <select id="plantation" [(ngModel)]="harvestModel.plantationId" (ngModelChange)="changePlantation()" required>
           @for (plantation of plantations; track plantation.id; let i = $index) {
             <option [ngValue]="plantation.id" [defaultSelected]="i == 0">{{ plantation.name }}</option>
           }
         </select>
-      </div>
-      <div id="price-pick">
+      </div> -->
+      <mat-form-field>
+        <mat-label>Wybierz plantację</mat-label>
+        <mat-select [(ngModel)]="harvestModel.plantationId" (ngModelChange)="changePlantation()"  required>
+          
+            <mat-option *ngFor="let plantation of plantations" [value]="plantation">{{ plantation.name}}</mat-option>
+      
+        </mat-select>
+      </mat-form-field>
+      <!-- @for (plantation of plantations; track plantation.id; let i = $index) 
+      *ngFor="let i of generateDetails(); let index = index -->
+      <!-- <div id="price-pick">
         <label for="price">Cena za pojemnik (w zł):</label>
         <input id="price" type="number" [(ngModel)]="harvestModel.priceForFullContainer"
                [ngModelOptions]="{standalone: true}" required>
-      </div>
+      </div> -->
+      <mat-form-field floatLabel="always">
+        <mat-label>Cena za pojemnik</mat-label>
+        <input matInput type="number" class="example-right-align" placeholder="0" [(ngModel)]="harvestModel.priceForFullContainer"
+        [ngModelOptions]="{standalone: true}" required >
+        <span matTextPrefix>Zł&nbsp;</span>
+        <span matTextSuffix>.00</span>
+      </mat-form-field>
       <div id="user-harvests">
-        <button (click)="addEmptyUserHarvest()" [disabled]="harvestModel.plantationId == null">Przypisz pracownika do
+        <!-- <button (click)="addEmptyUserHarvest()" [disabled]="harvestModel.plantationId == null">Przypisz pracownika do
           zbioru:
-        </button>
+        </button> -->
+        <button mat-raised-button color="primary" (click)="addEmptyUserHarvest()" [disabled]="harvestModel.plantationId == null">Przypisz pracownika do
+          zbioru</button>
         <div [style.height]="userHarvestForHarvest.length > 2 ? '20vh' : '7vh'" style="overflow: auto;">
           @for (userHarvest of userHarvestForHarvest; track userHarvest; let index = $index) {
             <div>
               <div id="plant-pick" class="d-inline">
-                <label for="plant-type">Wybierz typ rośliny:</label>
+                <!-- <label for="plant-type">Wybierz typ rośliny:</label>
                 <select id="plant-type" [(ngModel)]="plantTypes[index]" [ngModelOptions]="{standalone: true}"
                         (ngModelChange)="getPlants(index)">
                   <option [ngValue]="0">Owoce</option>
                   <option [ngValue]="1">Warzywa</option>
-                </select>
-                <label for="plant">Wybierz {{ plantType == 0 ? 'owoc' : 'warzywo' }}:</label>
+                </select> -->
+
+                <mat-form-field>
+                  <mat-label>Wybierz typ rośliny</mat-label>
+                  <mat-select  [(ngModel)]="plantTypes[index]" [ngModelOptions]="{standalone: true}"
+                  (ngModelChange)="getPlants(index)">
+                    
+                      <mat-option [value]="0">Owoce</mat-option>
+                      <mat-option [value]="1">Warzywa</mat-option>
+                
+                  </mat-select>
+                </mat-form-field>
+
+                <!-- <label for="plant">Wybierz {{ plantType == 0 ? 'owoc' : 'warzywo' }}:</label>
                 <select id="plant" [(ngModel)]="userHarvestForHarvest[index].plantId">
                   @for (plant of plants[index]; track plant.id) {
                     <option [ngValue]="plant.id">{{ plant.name }}</option>
                   }
-                </select>
-                <label for="sector">Wybierz sektor:</label>
+                </select> -->
+
+                <mat-form-field>
+                  <mat-label>Wybierz {{ plantType == 0 ? 'owoc' : 'warzywo' }}</mat-label>
+                  <mat-select [(ngModel)]="userHarvestForHarvest[index].plantId">
+                    
+                      <mat-option *ngFor="let plant of plants[index]" [value]="plant.id">{{ plant.name}}</mat-option>
+                
+                  </mat-select>
+                </mat-form-field>
+
+                <!-- <label for="sector">Wybierz sektor:</label>
                 <select id="sector" [(ngModel)]="userHarvestForHarvest[index].sectorId"
                         [ngModelOptions]="{standalone: true}">
                   @for (sector of plantationSectors; track sector) {
                     <option [ngValue]="sector.id">{{ sector.name }}</option>
                   }
-                </select>
-                <label for="row">Wybierz rząd:</label>
-                <input id="row" type="number" [(ngModel)]="userHarvestForHarvest[index].row">
+                </select> -->
+
+                <mat-form-field>
+                  <mat-label>Wybierz sektor</mat-label>
+                  <mat-select [(ngModel)]="userHarvestForHarvest[index].sectorId"
+                  [ngModelOptions]="{standalone: true}">
+                    
+                      <mat-option *ngFor="let sector of plantationSectors" [value]="sector.id">{{ sector.name}}</mat-option>
+                
+                  </mat-select>
+                </mat-form-field>
+
+                <!-- <label for="row">Wybierz rząd:</label>
+                <input id="row" type="number" [(ngModel)]="userHarvestForHarvest[index].row"> -->
+
+                <mat-form-field floatLabel="always">
+                  <mat-label>Wybierz rząd:</mat-label>
+                  <input matInput type="number" class="example-right-align" placeholder="0" [(ngModel)]="userHarvestForHarvest[index].row">
+                  <!-- <span matTextPrefix>$&nbsp;</span>
+                  <span matTextSuffix>.00</span> -->
+                </mat-form-field>
+<!-- 
                 <label for="employee">Wybierz pracownika:</label>
                 <select id="employee" [(ngModel)]="userHarvestForHarvest[index].userId">
                   @for (employee of employees; track employee) {
                     <option [ngValue]="employee.id">{{ employee.firstName }} {{ employee.lastName }}</option>
                   }
-                </select>
+                </select> -->
+
+                <mat-form-field>
+                  <mat-label>Wybierz pracownika</mat-label>
+                  <mat-select [(ngModel)]="userHarvestForHarvest[index].userId">
+                    
+                      <mat-option *ngFor="let employee of employees" [value]="employee.id">{{ employee.firstName }} {{ employee.lastName }}</mat-option>
+                
+                  </mat-select>
+                </mat-form-field>
+
               </div>
               <div class="d-inline">
                 <button class="btn btn-sm py-1 px-2 btn-danger" (click)="deleteUserHarvest(index)">X</button>
@@ -65,9 +142,11 @@
             </div>
           }
         </div>
-        <button class="btn btn-sm btn-success py-1 px-2" (click)="saveHarvest()"
+        <!-- <button class="btn btn-sm btn-success py-1 px-2" (click)="saveHarvest()"
                 [disabled]="harvestModel.plantationId == null">Zapisz zbiór
-        </button>
+        </button> -->
+
+        <button mat-raised-button color="primary" (click)="saveHarvest()" [disabled]="harvestModel.plantationId == null">Zapisz zbiór</button>
       </div>
     </div>
   </div>
@@ -108,20 +187,48 @@
   <div OwnerAccess>
     <h2>Zbiory</h2>
     <div style="height: 45vh; overflow: auto">
-      <label for="plantation-harvests">Wybierz plantacje:</label>
+      <!-- <label for="plantation-harvests">Wybierz plantacje:</label>
       <select id="plantation-harvests" [(ngModel)]="plantationId">
         @for (plantation of plantations; track plantation.id) {
           <option [ngValue]="plantation.id">{{ plantation.name }}</option>
         }
-      </select>
-      <label>Wybierz zakres dat:</label>
+      </select> -->
+
+      <mat-form-field>
+        <mat-label>Wybierz plantację</mat-label>
+        <mat-select [(ngModel)]="plantationId">
+          
+            <mat-option *ngFor="let plantation of plantations" [value]="plantation.id">{{ plantation.name}}</mat-option>
+      
+        </mat-select>
+      </mat-form-field>
+
+      <!-- <label>Wybierz zakres dat:</label>
       <label for="date-range-start">Od:</label>
       <input id="date-range-start" type="date" [(ngModel)]="dateRange.start" [ngModelOptions]="{standalone: true}">
       <label for="date-range-end">do</label>
       <input id="date-range-end" type="date" [(ngModel)]="dateRange.end" [ngModelOptions]="{standalone: true}">
-      <button class="btn btn-sm btn-primary py-1 px-2" (click)="getHarvests()" [disabled]="plantationId == null">
+ -->
+
+      <mat-form-field>
+        <mat-label>Wybierz datę od</mat-label>
+        <input matInput [matDatepicker]="picker"  [(ngModel)]="dateRange.start" [ngModelOptions]="{standalone: true}">
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Wybierz datę do</mat-label>
+        <input matInput [matDatepicker]="picker"  [(ngModel)]="dateRange.end" [ngModelOptions]="{standalone: true}">
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <!-- <button class="btn btn-sm btn-primary py-1 px-2" (click)="getHarvests()" [disabled]="plantationId == null">
         Szukaj
-      </button>
+      </button> -->
+      <button mat-raised-button color="primary" (click)="getHarvests()" [disabled]="plantationId == null">Szukaj</button>
       <div>
         @for (harvest of harvests; track harvest.id) {
           <div class="d-flex flex-row">

@@ -52,6 +52,7 @@ export class HarvestComponent implements OnInit {
   ngOnInit(): void {
     this.getPlantations();
     this.getHarvests();
+    console.log(this.plantations)
   }
 
   public deleteUserHarvest(index: number): void {
@@ -125,6 +126,8 @@ export class HarvestComponent implements OnInit {
       error: error => console.error(error)
     })
   }
+
+  
 
   public getEmployees(): void {
     this._plantationService.getEmployees(this.harvestModel.plantationId).subscribe({

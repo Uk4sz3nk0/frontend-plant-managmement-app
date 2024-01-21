@@ -188,7 +188,23 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
   public saveHarvest(): void {
     this.userHarvestForHarvest.forEach(uh => uh.plantationId = this.harvestModel.plantationId);
     this.harvestModel.userHarvests = this.userHarvestForHarvest;
-    this.harvestModel.season = parseInt(this.harvestModel.date.split('-')[0]);
+    console.log(this.harvestModel.date)
+   
+  
+      const data = new Date(this.harvestModel.date);
+  
+      const dzien = String(data.getDate()).padStart(2, '0');
+      const miesiac = String(data.getMonth() + 1).padStart(2, '0');
+      const rok = data.getFullYear();
+  
+      const sformatowanaData = `${rok}-${miesiac}-${dzien}`;
+  
+      console.log(sformatowanaData);  // Wyświetli: 10/01/2024
+      this.harvestModel.date=sformatowanaData
+    
+
+      this.harvestModel.season=rok
+    //this.harvestModel.season = parseInt(this.harvestModel.date.split('-')[0]);
     if (!this.harvestModel.id) {
       this._harvestsService.addHarvest(this.harvestModel).subscribe({
         next: () => {
@@ -315,6 +331,7 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
 
   private setDateAsString(): string {
     const date: Date = new Date();
+    console.log('data')
     return `${date.getFullYear()}.${date.getMonth() + 1 < 10 ? '0' + date.getMonth() + 1 : date.getMonth() + 1}.${date.getDate() < 10 ? '0' + date.getDate() : date.getDate()}`;
   }
 
@@ -355,6 +372,7 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
   }
 
   public formatDateFromArray(date: any): string {
+   
     return `${date[0]}-${date[1] < 10 ? '0' + date[1] : date[1]}-${date[2] < 10 ? '0' + date[2] : date[2]}`;
 
   }

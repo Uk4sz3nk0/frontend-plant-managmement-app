@@ -1,15 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import {Plantation} from '../interfaces/plantation';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AddAreaService {
-
-  nazwa: string = ''
-
   area: Plantation["area"] = {
     id: null,
       name: null,
@@ -33,6 +29,5 @@ export class AddAreaService {
       console.log(data)
       console.log("Sektory zostały dodane")
     })
-
   }
 }

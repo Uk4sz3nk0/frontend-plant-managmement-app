@@ -7,6 +7,7 @@ import {UserStatsService} from "../../core/user-stats";
 import {map} from "rxjs";
 import { EndpointsService } from '../../services/endpoints.service';
 import { DetailsComponent } from 'src/app/details/details.component';
+import {DateAdapter} from '@angular/material/core';
 
 
 @Component({
@@ -66,7 +67,9 @@ export class HarvestComponent implements OnInit {
 
   constructor(private _harvestsService: HarvestsService, private _plantsService: PlantsService,
               private _plantationService: PlantationService, private _loginService: LoginService,
-              private _statsService: UserStatsService, private endpoint: EndpointsService, private ngZone: NgZone) {
+              private _statsService: UserStatsService, private endpoint: EndpointsService, private ngZone: NgZone,
+              private dataAdapter: DateAdapter<Date>) {
+                dataAdapter.setLocale('en-GB')
 
   }
 

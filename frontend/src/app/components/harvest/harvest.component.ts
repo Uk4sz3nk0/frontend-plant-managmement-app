@@ -4,11 +4,8 @@ import {PlantDto, PlantsService} from "../../core/plants";
 import {PlantationService} from "../../core/plantations";
 import {LoginService} from "../../services/login.service";
 import {UserStatsService} from "../../core/user-stats";
-import {map} from "rxjs";
 import { EndpointsService } from '../../services/endpoints.service';
-import { DetailsComponent } from 'src/app/details/details.component';
 import {DateAdapter} from '@angular/material/core';
-
 
 @Component({
   selector: 'app-harvest',
@@ -17,11 +14,9 @@ import {DateAdapter} from '@angular/material/core';
 })
 export class HarvestComponent implements OnInit {
 
-
   map!: google.maps.Map;
   label!: google.maps.InfoWindow;
   polygons: google.maps.Polygon[] = [];
-
 
   lat0 = 50
   lat1 = 50.01
@@ -34,8 +29,6 @@ export class HarvestComponent implements OnInit {
   employeesnumber: number
   name: string
   
-
-
   public plantations: Array<any> = [];
   public plantationSectors: Array<any> = [];
   public userHarvestForHarvest: Array<UserHarvestDto> = [];
@@ -68,45 +61,30 @@ export class HarvestComponent implements OnInit {
   constructor(private _harvestsService: HarvestsService, private _plantsService: PlantsService,
               private _plantationService: PlantationService, private _loginService: LoginService,
               private _statsService: UserStatsService, private endpoint: EndpointsService, private ngZone: NgZone,
-              private dataAdapter: DateAdapter<Date>) {
-                dataAdapter.setLocale('en-GB')
-
-  }
+              private dataAdapter: DateAdapter<Date>) 
+              { dataAdapter.setLocale('en-GB') }
 
   ngOnInit(): void {
     this.getPlantations();
     this.getHarvests();
-    console.log(this.plantations)
-
-    
-
   }
 
-
-  
 getPlantById(id: number){
 
   this.endpoint.getPlantationById(id).subscribe((plant: any) =>{
-    console.log(plant)
 
-    console.log('sektory:' + plant.sectors.length)
     this.name = plant.name
     this.sectorsnumber = plant.sectors.length
     this.employeesnumber = plant.employeeIds.length
-    console.log(plant.area.coordinates[1])
     this.details = plant
     this.lat0 = plant.area.coordinates[0].latitude
     this.lat1 = plant.area.coordinates[1].latitude
     this.lng0 = plant.area.coordinates[0].longitude
     this.lng1 = plant.area.coordinates[2].longitude
      
-
-
-
    this.loadMap();
    this.addPolygon(false, false, '#ffffff')
-   this.sectors1()
-
+   this.sectorsCoords()
 
   })
 
@@ -119,22 +97,15 @@ loadMap() {
   const mapOptions: google.maps.MapOptions = {
     center: { lat: centerLat, lng: centerLng },
     zoom: 15,
-
   };
 
-
   const mapElement = document.getElementById('map')!;
-
   this.map = new google.maps.Map(mapElement, mapOptions);
-  console.log(mapElement)
 
 }
 
 
-
-sectors1(){
-  console.log(this.details.sectors.length)
-  
+sectorsCoords(){
   for(var i=0; i < this.details.sectors.length; i++){
 
     this.lat0 = this.details.sectors[i].coordinates[0].latitude
@@ -150,8 +121,8 @@ sectors1(){
 addPolygon(edit: boolean, drag: boolean, color: string) {
   const polygon = new google.maps.Polygon({
     map: this.map,
-   editable: edit, // Ustawienie na true umożliwia edycję wielokąta
-    draggable: drag, // Ustawienie na true umożliwia przeciąganie wielokąta
+   editable: edit,
+    draggable: drag,
     paths: [
       { lat: this.lat0, lng: this.lng0 },
       { lat: this.lat1, lng: this.lng0 },
@@ -163,24 +134,15 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
     
   });
 
-  // Dodaj obsługę przeciągania wielokąta
   google.maps.event.addListener(polygon, 'dragend', () => {
     this.ngZone.run(() => {
       const coordinates = polygon.getPath().getArray().map((latLng: any) => {
         return { lat: latLng.lat(), lng: latLng.lng() };
       });
-      // Tutaj możesz obsługiwać przeciąganie wielokąta, np. zapisując nowe współrzędne
-      console.log('Wielokąt przeciągnięty!', coordinates);
     });
   });
-
-
   this.polygons.push(polygon);
 }
-
-
-
-
 
   public deleteUserHarvest(index: number): void {
     this.userHarvestForHarvest.splice(index, 1);
@@ -189,28 +151,21 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
   }
 
   public saveHarvest(): void {
- 
-    console.log(this.harvestModel.plantationId)
   
     this.userHarvestForHarvest.forEach(uh => uh.plantationId = this.harvestModel.plantationId);
     this.harvestModel.userHarvests = this.userHarvestForHarvest;
-    console.log(this.harvestModel.date)
    
-  
       const data = new Date(this.harvestModel.date);
-  
+
       const dzien = String(data.getDate()).padStart(2, '0');
       const miesiac = String(data.getMonth() + 1).padStart(2, '0');
       const rok = data.getFullYear();
   
       const sformatowanaData = `${rok}-${miesiac}-${dzien}`;
-  
-      console.log(sformatowanaData);  // Wyświetli: 10/01/2024
       this.harvestModel.date=sformatowanaData
-    
 
       this.harvestModel.season=rok
-    //this.harvestModel.season = parseInt(this.harvestModel.date.split('-')[0]);
+
     if (!this.harvestModel.id) {
       this._harvestsService.addHarvest(this.harvestModel).subscribe({
         next: () => {
@@ -222,7 +177,7 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
           alert('Wystąpił błąd podczas zapisu zbioru')
         }
       })
-    } else {
+    } else { 
       this._harvestsService.editHarvest(this.harvestModel).subscribe({
         next: () => {
           alert('Zbiór został zmieniony');
@@ -234,7 +189,6 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
         }
       })
     }
-    console.log(this.harvestModel)
   }
 
   private clearHarvestData(): void {
@@ -249,14 +203,12 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
   }
 
   public addEmptyUserHarvest(): void {
-    
     this.userHarvestForHarvest.push({
       plantId: null,
       row: null,
       userId: null,
       sectorId: null,
     });
-    console.log(this.userHarvestForHarvest)
     this.getPlants(this.userHarvestForHarvest.length - 1);
   }
 
@@ -268,7 +220,6 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
       sortColumn: 'id'
     }).subscribe({
       next: responsePlants => {
-        console.log(responsePlants.data)
         this.plants[index] = responsePlants.data;
         this.userHarvestForHarvest[index].plantId = responsePlants.data[0].id;
       },
@@ -276,41 +227,21 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
     })
   }
 
-  
-
   public getEmployees(): void {
-    console.log('aaaaaaaaaaaaa')
- 
     this._plantationService.getEmployees(this.harvestModel.plantationId).subscribe({
       next: response => {
         this.employees = response;
-        console.log(response)
       },
       error: err => console.error(err)
     })
   }
 
   public changePlantation(): void {
-   // console.log(this.harvestModel.plantationId.sectors)
-   
-    console.log(this.harvestModel.plantationId);
-
- 
-  console.log(this.harvestModel.plantationId)
-
-      
       this.plantationSectors=[]
-      // @ts-ignore
-    // for(var i = 0; i< this.harvestModel.plantationId.sectors.length;i++){
-    //    // @ts-ignore
-    //   this.plantationSectors.push(this.harvestModel.plantationId.sectors[i])
-    // }
+   
    this.plantationSectors = this.plantations.find(p => p.id === this.harvestModel.plantationId).sectors;
-    // this.plantationSectors = this.harvestModel.plantationId
 
-  console.log(this.plantationSectors)
     this.getEmployees();
-    // console.log(this.getEmployees())
   }
 
   private getPlantations(): void {
@@ -338,7 +269,6 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
 
   private setDateAsString(): string {
     const date: Date = new Date();
-    console.log('data')
     return `${date.getFullYear()}.${date.getMonth() + 1 < 10 ? '0' + date.getMonth() + 1 : date.getMonth() + 1}.${date.getDate() < 10 ? '0' + date.getDate() : date.getDate()}`;
   }
 
@@ -350,7 +280,6 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
       sortDirection: 'DSC'
     }).subscribe({
       next: response => {
-        console.log(response)
         this.harvests = response.data;
         this.pagination.totalPages = response.page.totalPages;
         this.calcPagination()
@@ -379,15 +308,12 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
   }
 
   public formatDateFromArray(date: any): string {
-   
     return `${date[0]}-${date[1] < 10 ? '0' + date[1] : date[1]}-${date[2] < 10 ? '0' + date[2] : date[2]}`;
-
   }
 
   public editHarvest(id: number): void {
     this.clearHarvestData();
     const editedHarvest = this.harvests.find(h => h.id === id);
-    console.log(editedHarvest)
     this.harvestModel = {
       date: this.formatDate(new Date(this.formatDateFromArray(editedHarvest.date))),
       priceForFullContainer: editedHarvest.priceForFullContainer,
@@ -416,7 +342,6 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
 
   public canEditHarvest = (date: any): boolean => new Date() < new Date(this.formatDateFromArray(date));
 
-
   private calcPagination(): void {
     this.leftButton = !((this.pagination.page - 1) >= 0);
     this.rightButton = !((this.pagination.page + 1) < this.pagination.totalPages);
@@ -425,7 +350,6 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
   public getTodayUserHarvest(): void {
     this._harvestsService.getUserHarvestByDate(this.formatDate(new Date()), this.todayPlantationId).subscribe({
       next: response => {
-        console.log(response)
         this.userHarvests = response
       },
       error: err => console.error(err)

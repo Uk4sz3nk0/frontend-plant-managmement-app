@@ -6,13 +6,11 @@ import {User, USER_DATA_KEY} from "./auth-utils";
 import {CookieService} from 'ngx-cookie-service';
 import {Auth} from '../interfaces/auth';
 
-
 @Injectable({
   providedIn: 'root'
 })
 
 export class LoginService {
-
 
   private _tokenExpirationTimer: any;
   public readonly user: WritableSignal<User> = signal(null);
@@ -20,13 +18,11 @@ export class LoginService {
   constructor(private _http: HttpClient, private _router: Router, private _snackbar: MatSnackBar, private _cookieService: CookieService) {
   }
 
-
   auth(login: string, password: string): void {
 
     const user = {"email": login, "password": password}
-    console.log('LOGGING IN')
+  
     this._http.post<Auth>('http://localhost:8080/auth/login', user).subscribe(data => {
-        console.log(data)
         if (data) {
           const expDate: Date = new Date(new Date().getTime() + +data.accessTokenDuration);
           const refExpDate: Date = new Date(new Date().getTime() + +data.refreshTokenDuration);
@@ -39,7 +35,6 @@ export class LoginService {
           this.autoLogout(data.accessTokenDuration);
           ;
           this._router.navigate(['/menu/list']).then();
-
         }
 
       },
@@ -60,13 +55,12 @@ export class LoginService {
       permissions: userData._role.permissions
     }, userData._token, new Date(userData.tokenExpiration), userData.refreshToken, new Date(userData.refreshTokenExpiration));
     if (loadedUser) {
-      this.autoLogout(new Date(userData.tokenExpiration).getTime() - new Date().getTime())
+   
       this.user.set(loadedUser);
     }
   }
 
   logout(): void {
-
 
     this._cookieService.delete('access_token');
     this._cookieService.delete('refresh_token');
@@ -79,16 +73,4 @@ export class LoginService {
     this._router.navigate(['/login']).then();
   }
 
-
-  autoLogout(expirationDuration: number) {
-    // this._tokenExpirationTimer = setTimeout(() => {
-    //   this.logout()
-    // }, expirationDuration)
-    // this._tokenExpirationTimer = setTimeout(() => {
-    //   this.logout()
-    // }, expirationDuration)
-    // console.log('logout')
-  }
 }
-
-

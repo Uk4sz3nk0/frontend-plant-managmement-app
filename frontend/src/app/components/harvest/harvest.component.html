@@ -29,7 +29,7 @@
         <mat-label>Wybierz plantację</mat-label>
         <mat-select [(ngModel)]="harvestModel.plantationId" (ngModelChange)="changePlantation()"  required>
           
-            <mat-option *ngFor="let plantation of plantations" [value]="plantation">{{ plantation.name}}</mat-option>
+            <mat-option *ngFor="let plantation of plantations" [value]="plantation.id">{{ plantation.name}}</mat-option>
       
         </mat-select>
       </mat-form-field>
@@ -51,7 +51,7 @@
         <!-- <button (click)="addEmptyUserHarvest()" [disabled]="harvestModel.plantationId == null">Przypisz pracownika do
           zbioru:
         </button> -->
-        <button mat-raised-button color="primary" (click)="addEmptyUserHarvest()" [disabled]="harvestModel.plantationId == null">Przypisz pracownika do
+        <button mat-raised-button color="primary" (click)="addEmptyUserHarvest()" [disabled]="harvestModel.plantationId == null" class="bt1">Przypisz pracownika do
           zbioru</button>
         <div [style.height]="userHarvestForHarvest.length > 2 ? '20vh' : '10vh'" style="overflow: auto;">
           @for (userHarvest of userHarvestForHarvest; track userHarvest; let index = $index) {
@@ -146,7 +146,7 @@
                 [disabled]="harvestModel.plantationId == null">Zapisz zbiór
         </button> -->
 
-        <button mat-raised-button color="primary" (click)="saveHarvest()" [disabled]="harvestModel.plantationId == null">Zapisz zbiór</button>
+        <button mat-raised-button color="primary" (click)="saveHarvest()" [disabled]="harvestModel.plantationId == null" class="bt1">Zapisz zbiór</button>
       </div>
     </div>
   </div>
@@ -237,8 +237,9 @@
       <!-- <button class="btn btn-sm btn-primary py-1 px-2" (click)="getHarvests()" [disabled]="plantationId == null">
         Szukaj
       </button> -->
-      <button mat-raised-button color="primary" (click)="getHarvests()" [disabled]="plantationId == null">Szukaj</button>
-      <div>
+      <button mat-raised-button color="primary" (click)="getHarvests()" [disabled]="plantationId == null" class="bt1">Szukaj</button>
+      <br>
+      <div id="zbior">
         @for (harvest of harvests; track harvest.id) {
           <div class="d-flex flex-row">
             <p class="mb-0 mt-1">Id zbioru: <span class="font-weight-bold">{{ harvest.id }}</span></p>
@@ -267,6 +268,7 @@
           <button class="btn btn-sm btn-primary rounded-circle py-0 px-2"
                   (click)="changePageInHarvests(pagination.page - 1)" [disabled]="leftButton"><
           </button>
+          <br>
           <p class="mb-0 mt-1">strona {{ pagination.page + 1 }} z {{ pagination.totalPages }}</p>
           <button class="btn btn-sm btn-primary rounded-circle py-0 px-2"
                   (click)="changePageInHarvests(pagination.page + 1)" [disabled]="rightButton">>

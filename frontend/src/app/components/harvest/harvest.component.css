@@ -1,8 +1,12 @@
-p, mat-form-field, button{
+p, mat-form-field, .bt1{
     margin: 1vw;
 }
 #map{
     margin: 1vw;
     width: 1000px;
     height: 500px;
+}
+#zbior{
+    text-align:center;
+
 }

@@ -186,10 +186,10 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
   }
 
   public saveHarvest(): void {
-    // @ts-ignore
-    console.log(this.harvestModel.plantationId.id)
-    // @ts-ignore
-    this.userHarvestForHarvest.forEach(uh => uh.plantationId = this.harvestModel.plantationId.id);
+ 
+    console.log(this.harvestModel.plantationId)
+  
+    this.userHarvestForHarvest.forEach(uh => uh.plantationId = this.harvestModel.plantationId);
     this.harvestModel.userHarvests = this.userHarvestForHarvest;
     console.log(this.harvestModel.date)
    
@@ -277,8 +277,8 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
 
   public getEmployees(): void {
     console.log('aaaaaaaaaaaaa')
-      // @ts-ignore
-    this._plantationService.getEmployees(this.harvestModel.plantationId.id).subscribe({
+ 
+    this._plantationService.getEmployees(this.harvestModel.plantationId).subscribe({
       next: response => {
         this.employees = response;
         console.log(response)
@@ -292,18 +292,19 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
    
     console.log(this.harvestModel.plantationId);
 
-    // @ts-ignore
-  console.log(this.harvestModel.plantationId.sectors)
+ 
+  console.log(this.harvestModel.plantationId)
 
       
       this.plantationSectors=[]
       // @ts-ignore
-    for(var i = 0; i< this.harvestModel.plantationId.sectors.length;i++){
-       // @ts-ignore
-      this.plantationSectors.push(this.harvestModel.plantationId.sectors[i])
-    }
-   // this.plantationSectors = this.plantations.find(p => p.id === this.harvestModel.plantationId).sectors;
+    // for(var i = 0; i< this.harvestModel.plantationId.sectors.length;i++){
+    //    // @ts-ignore
+    //   this.plantationSectors.push(this.harvestModel.plantationId.sectors[i])
+    // }
+   this.plantationSectors = this.plantations.find(p => p.id === this.harvestModel.plantationId).sectors;
     // this.plantationSectors = this.harvestModel.plantationId
+
   console.log(this.plantationSectors)
     this.getEmployees();
     // console.log(this.getEmployees())

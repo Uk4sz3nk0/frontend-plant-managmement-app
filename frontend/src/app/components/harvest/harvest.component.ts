@@ -186,7 +186,10 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
   }
 
   public saveHarvest(): void {
-    this.userHarvestForHarvest.forEach(uh => uh.plantationId = this.harvestModel.plantationId);
+    // @ts-ignore
+    console.log(this.harvestModel.plantationId.id)
+    // @ts-ignore
+    this.userHarvestForHarvest.forEach(uh => uh.plantationId = this.harvestModel.plantationId.id);
     this.harvestModel.userHarvests = this.userHarvestForHarvest;
     console.log(this.harvestModel.date)
    

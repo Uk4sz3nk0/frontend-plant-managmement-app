@@ -214,7 +214,7 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
     if (!this.harvestModel.id) {
       this._harvestsService.addHarvest(this.harvestModel).subscribe({
         next: () => {
-          alert('Harvest added');
+          alert('Zbiór został dodany');
           this.clearHarvestData();
         },
         error: err => {
@@ -225,7 +225,7 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
     } else {
       this._harvestsService.editHarvest(this.harvestModel).subscribe({
         next: () => {
-          alert('Harvest edited');
+          alert('Zbiór został zmieniony');
           this.clearHarvestData();
         },
         error: err => {

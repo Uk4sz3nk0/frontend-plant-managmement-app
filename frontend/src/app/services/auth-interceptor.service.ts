@@ -23,8 +23,5 @@ export class AuthInterceptorService implements HttpInterceptor {
             console.log('Interceptor: Token not available, passing request as is');
             return next.handle(req);
         }
-
     }
-
-
 }

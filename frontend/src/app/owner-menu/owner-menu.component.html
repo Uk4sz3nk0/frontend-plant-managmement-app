@@ -2,7 +2,7 @@
   <button mat-icon-button aria-label="Menu icon" (click)="menu()">
     <mat-icon>menu</mat-icon>
   </button>
-  <h1>Strona główna</h1>
+  <h1 #title>{{pageTitle}}</h1>
   <button mat-button color="primary" id="logout" (click)="logout()">Wyloguj się</button>
 </mat-toolbar>
 
@@ -21,7 +21,7 @@
       </mat-list-item>
       <mat-list-item (click)="sec()" OwnerAccess>
               <span class="entry">
-                <span>Sektory</span>
+                <span>Pracownicy</span>
               </span>
       </mat-list-item>
 

@@ -53,7 +53,7 @@
         </button> -->
         <button mat-raised-button color="primary" (click)="addEmptyUserHarvest()" [disabled]="harvestModel.plantationId == null">Przypisz pracownika do
           zbioru</button>
-        <div [style.height]="userHarvestForHarvest.length > 2 ? '20vh' : '7vh'" style="overflow: auto;">
+        <div [style.height]="userHarvestForHarvest.length > 2 ? '20vh' : '10vh'" style="overflow: auto;">
           @for (userHarvest of userHarvestForHarvest; track userHarvest; let index = $index) {
             <div>
               <div id="plant-pick" class="d-inline">
@@ -118,8 +118,8 @@
                   <!-- <span matTextPrefix>$&nbsp;</span>
                   <span matTextSuffix>.00</span> -->
                 </mat-form-field>
-<!-- 
-                <label for="employee">Wybierz pracownika:</label>
+
+                <!-- <label for="employee">Wybierz pracownika:</label>
                 <select id="employee" [(ngModel)]="userHarvestForHarvest[index].userId">
                   @for (employee of employees; track employee) {
                     <option [ngValue]="employee.id">{{ employee.firstName }} {{ employee.lastName }}</option>
@@ -128,7 +128,7 @@
 
                 <mat-form-field>
                   <mat-label>Wybierz pracownika</mat-label>
-                  <mat-select [(ngModel)]="userHarvestForHarvest[index].userId">
+                  <mat-select [(ngModel)]="userHarvestForHarvest[index].userId" [ngModelOptions]="{standalone: true}">
                     
                       <mat-option *ngFor="let employee of employees" [value]="employee.id">{{ employee.firstName }} {{ employee.lastName }}</mat-option>
                 

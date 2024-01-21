@@ -19,6 +19,8 @@ export class OwnerMenuComponent implements AfterViewInit {
   showDetails: boolean = false
   showSector: boolean = false
 
+  pageTitle: string = 'Strona główna'
+
   public readonly user: Signal<User>;
 
   constructor(private route: ActivatedRoute, private router: Router, private log: LoginService,
@@ -33,31 +35,33 @@ export class OwnerMenuComponent implements AfterViewInit {
   plant() {
     console.log('plant')
     this.router.navigate(['/menu/map']).then();
+    this.pageTitle='Dodaj plantację'
   }
 
   myPlant() {
     this.router.navigate(['/menu/list']).then();
+    this.pageTitle='Twoje plantacje'
   }
 
 
   sec() {
     this.router.navigate(['/menu/seclist']).then();
+    this.pageTitle='Pracownicy'
   }
 
   emp() {
     this.router.navigate(['/menu/employees']).then();
+    this.pageTitle='plantacje'
   }
 
   harvest() {
     this.router.navigate(['/menu/harvest']).then();
+    this.pageTitle='Zbiory'
   }
 
   userDetails() {
     this.router.navigate(['/menu/user-details']).then();
-  }
-
-  harvests() {
-    this.router.navigate(['/menu/harvests'])
+    this.pageTitle='Panel użytkownika'
   }
 
   logout() {

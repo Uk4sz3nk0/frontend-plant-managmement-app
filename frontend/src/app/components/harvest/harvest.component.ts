@@ -101,7 +101,7 @@ getPlantById(id: number){
 
 
    this.loadMap();
-   this.addPolygon(false, false, '#00FF00')
+   this.addPolygon(false, false, '#ffffff')
    this.sectors1()
 
 
@@ -126,6 +126,8 @@ loadMap() {
   console.log(mapElement)
 
 }
+
+
 
 sectors1(){
   console.log(this.details.sectors.length)
@@ -225,12 +227,14 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
   }
 
   public addEmptyUserHarvest(): void {
+    
     this.userHarvestForHarvest.push({
       plantId: null,
       row: null,
       userId: null,
       sectorId: null,
     });
+    console.log(this.userHarvestForHarvest)
     this.getPlants(this.userHarvestForHarvest.length - 1);
   }
 
@@ -242,6 +246,7 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
       sortColumn: 'id'
     }).subscribe({
       next: responsePlants => {
+        console.log(responsePlants.data)
         this.plants[index] = responsePlants.data;
         this.userHarvestForHarvest[index].plantId = responsePlants.data[0].id;
       },
@@ -252,17 +257,37 @@ addPolygon(edit: boolean, drag: boolean, color: string) {
   
 
   public getEmployees(): void {
-    this._plantationService.getEmployees(this.harvestModel.plantationId).subscribe({
+    console.log('aaaaaaaaaaaaa')
+      // @ts-ignore
+    this._plantationService.getEmployees(this.harvestModel.plantationId.id).subscribe({
       next: response => {
         this.employees = response;
+        console.log(response)
       },
       error: err => console.error(err)
     })
   }
 
   public changePlantation(): void {
-    this.plantationSectors = this.plantations.find(p => p.id === this.harvestModel.plantationId).sectors;
+   // console.log(this.harvestModel.plantationId.sectors)
+   
+    console.log(this.harvestModel.plantationId);
+
+    // @ts-ignore
+  console.log(this.harvestModel.plantationId.sectors)
+
+      
+      this.plantationSectors=[]
+      // @ts-ignore
+    for(var i = 0; i< this.harvestModel.plantationId.sectors.length;i++){
+       // @ts-ignore
+      this.plantationSectors.push(this.harvestModel.plantationId.sectors[i])
+    }
+   // this.plantationSectors = this.plantations.find(p => p.id === this.harvestModel.plantationId).sectors;
+    // this.plantationSectors = this.harvestModel.plantationId
+  console.log(this.plantationSectors)
     this.getEmployees();
+    // console.log(this.getEmployees())
   }
 
   private getPlantations(): void {

@@ -94,7 +94,7 @@ export class SectorsFormComponent implements OnInit{
     const last = this.polygons[i].getPath().getArray().map((latLng) =>{
       return {latitude: latLng.lat(), longitude: latLng.lng()}
     })
-    this.add.addArea(this.data, last)
+    this.add.addArea(this.data, last, i+1)
    this.coords.push(last)
   }
   console.log(this.coords)

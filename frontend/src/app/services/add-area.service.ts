@@ -8,9 +8,11 @@ import {Plantation} from '../interfaces/plantation';
 })
 export class AddAreaService {
 
+  nazwa: string = ''
+
   area: Plantation["area"] = {
     id: null,
-      name: 'Główny obszar plantacji',
+      name: null,
       polygonColor: 'red',
       coordinates: [
         {
@@ -24,8 +26,9 @@ export class AddAreaService {
 
   constructor(private http: HttpClient) { }
 
-  addArea(id: number, coords: any){
+  addArea(id: number, coords: any, num: number){
     this.area.coordinates = coords
+    this.area.name = 'Sektor nr: '+ num
     this.http.post('http://localhost:8080/plantation/add-area?plantationId='+id, this.area).subscribe(data => {
       console.log(data)
       console.log("Sektory zostały dodane")

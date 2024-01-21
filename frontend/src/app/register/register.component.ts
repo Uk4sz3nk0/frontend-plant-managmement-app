@@ -19,10 +19,8 @@ export class RegisterComponent {
 
   constructor(private formBuilder: FormBuilder, private reg: RegistrationService){}
 
-
   register(){
     this.reg.register(this.form.value.firstname, this.form.value.lastname, this.form.value.email, this.form.value.password,this.form.value.role)
-    console.log(this.form.value)
     this.form.reset()
   }
 }

@@ -41,7 +41,7 @@ export class UserDetailsComponent implements OnInit {
       sortColumn: 'id',
       sortDirection: 'ASC'
     }).subscribe(response => {
-      // forkJoin, aby poczekać na zakończenie wszystkich asynchronicznych operacji
+
       const harvestObservables = response.data.map(stats => this.getHarvestById(stats.harvestId));
 
       forkJoin(harvestObservables).subscribe(harvests => {
@@ -50,7 +50,6 @@ export class UserDetailsComponent implements OnInit {
           const harvest = harvests[i];
 
           this._plantationsService.getPlantationById(harvest.plantationId).subscribe(plantation => {
-            console.log(`There is plantation: ${plantation.name} and harvest object ${harvest.season}`);
             this.userStats.push({
               season: harvest.season,
               plantation: plantation.name,
@@ -78,7 +77,6 @@ export class UserDetailsComponent implements OnInit {
   private getFutureHarvests(): void {
     this.futureHarvests = [];
     this._harvestService.getFutureHarvests().subscribe(response => {
-      console.log(response)
       response.forEach(harvest => {
         this.getPlantationName(harvest.plantationId).subscribe(name => {
           this.futureHarvests.push({

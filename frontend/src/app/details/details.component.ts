@@ -31,28 +31,16 @@ export class DetailsComponent implements OnInit {
   constructor(private ngZone: NgZone, private renderer: Renderer2, private router: Router, private route: ActivatedRoute, 
     private endpoint: EndpointsService, private _plantationService: PlantationService) { }
 
-  
 
   ngOnInit() {
-    
 
     this.route.params.subscribe(params =>{
       const id = params['id']
       console.log(id)
       this.data = id
-
-
-
-      
-      
     })
 
-    console.log('aaaaaaaaaa')
-
     this.endpoint.getPlantationById(this.data).subscribe((plant: any) =>{
-      console.log(plant)
-
-      console.log('sektory:' + plant.sectors.length)
       this.name = plant.name
       this.sectorsnumber = plant.sectors.length
       this.employeesnumber = plant.employeeIds.length
@@ -63,50 +51,33 @@ export class DetailsComponent implements OnInit {
       this.lng0 = plant.area.coordinates[0].longitude
       this.lng1 = plant.area.coordinates[2].longitude
        
-
-
-
       this.loadMap();
       this.addPolygon(false, false, '#00FF00')
-      this.sectors()
- 
+      this.sectorsCoords()
 
     })
 
-//     const id = 2; // Twój identyfikator
-// this.endpoint.getPlantationById(id).then(response => {
-//   console.log(response);
-// });
-  
 
-    
   }
 
   loadMap() {
     const centerLat = (this.lat1 - this.lat0) / 2 + this.lat0
     const centerLng = (this.lng1 - this.lng0) / 2 + this.lng0
 
-
-
     const mapOptions: google.maps.MapOptions = {
       center: { lat: centerLat, lng: centerLng },
       zoom: 15,
-
-      
-      // gestureHandling: 'none'
+  
     };
 
-    
 
     const mapElement = document.getElementById('map')!;
 
     this.map = new google.maps.Map(mapElement, mapOptions);
 
-    // Dodaj obsługę przeciągania mapy
-
   }
 
-  sectors(){
+  sectorsCoords(){
     console.log(this.details.sectors.length)
     
     for(var i=0; i < this.details.sectors.length; i++){
@@ -121,13 +92,11 @@ export class DetailsComponent implements OnInit {
   }
 
   delete(){
-    console.log(this.details)
     if(this.details.employeeIds.length == 0){
 
     
     this._plantationService.deletePlantation(this.data).subscribe({
       next: () => {
-        console.log('Plantacja usunięta')
         this.router.navigate(['menu/list'])
       },
       error: er => console.error(er)
@@ -137,7 +106,6 @@ export class DetailsComponent implements OnInit {
   }
   }
 
-  // Funkcja do dodawania wielokątów
   addPolygon(edit: boolean, drag: boolean, color: string) {
     const polygon = new google.maps.Polygon({
       map: this.map,
@@ -154,14 +122,12 @@ export class DetailsComponent implements OnInit {
       
     });
 
-    // Dodaj obsługę przeciągania wielokąta
     google.maps.event.addListener(polygon, 'dragend', () => {
       this.ngZone.run(() => {
         const coordinates = polygon.getPath().getArray().map((latLng: any) => {
           return { lat: latLng.lat(), lng: latLng.lng() };
         });
-        // Tutaj możesz obsługiwać przeciąganie wielokąta, np. zapisując nowe współrzędne
-        console.log('Wielokąt przeciągnięty!', coordinates);
+      
       });
     });
 
@@ -171,11 +137,8 @@ export class DetailsComponent implements OnInit {
     
     google.maps.event.addListener(polygon, 'mouseover', (event: any) =>{
 
-      // this.label.setPosition(event.latLng)
-      // this.label.open(this.map)
       infoWindow.setPosition(event.latLng)
       infoWindow.open(this.map)
-      console.log(this.map)
     })
 
     google.maps.event.addListener(polygon, 'mouseout', () => {
@@ -183,17 +146,10 @@ export class DetailsComponent implements OnInit {
     });
 
     google.maps.event.addListener(polygon, 'mousedown', () => {
-      console.log(this.details)
       this.router.navigate(['/menu/sectors', this.details.id])
             .then(() => {
         window.location.reload()
       })
-      // window.location.reload()
-
-      // this.router.navigate(['/home', {param: 'sectors'}])
-      // .then(() => {
-      //   window.location.reload()
-      // })
       
     });
 

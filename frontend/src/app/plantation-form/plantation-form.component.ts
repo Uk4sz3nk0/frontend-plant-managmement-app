@@ -53,21 +53,17 @@ export class PlantationFormComponent implements OnInit {
       zoom: 15
     };
 
-
     const mapElement = document.getElementById('map')!;
 
     this.map = new google.maps.Map(mapElement, mapOptions);
 
-    // Dodaj obsługę przeciągania mapy
-
   }
 
-  // Funkcja do dodawania wielokątów
   addPolygon() {
     const polygon = new google.maps.Polygon({
       map: this.map,
-      editable: true, // Ustawienie na true umożliwia edycję wielokąta
-      draggable: true, // Ustawienie na true umożliwia przeciąganie wielokąta
+      editable: true, 
+      draggable: true, 
       paths: [
         {lat: this.lat0, lng: this.lng0},
         {lat: this.lat1, lng: this.lng0},
@@ -78,17 +74,13 @@ export class PlantationFormComponent implements OnInit {
       fillColor: '#00FF00'
     });
 
-    // Dodaj obsługę przeciągania wielokąta
     google.maps.event.addListener(polygon, 'dragend', () => {
       this.ngZone.run(() => {
         const coordinates = polygon.getPath().getArray().map((latLng: any) => {
           return {latitude: latLng.lat(), longitude: latLng.lng()};
         });
-        // Tutaj możesz obsługiwać przeciąganie wielokąta, np. zapisując nowe współrzędne
-        console.log('Wielokąt przeciągnięty!', coordinates);
-    //    this.coordinatesArray += coordinates
+      
         this.coordinatesArray = coordinates
-        console.log(this.coordinatesArray)
       });
     });
 
@@ -96,18 +88,11 @@ export class PlantationFormComponent implements OnInit {
   }
 
   save() {
-    console.log(this.formData)
-    // alert('Zapisano plantację')
-    console.log(this.coordinatesArray)
     this.createplant.create(this.formData.name, "blueberry", this.formData.city, this.formData.street, this.formData.housenumber, this.coordinatesArray)
-
   }
 
   debug(formularz: NgForm): void {
-    console.log('aaaaa')
     console.log('Stan formularza:', formularz.form.valid);
-
   }
 
 }
-

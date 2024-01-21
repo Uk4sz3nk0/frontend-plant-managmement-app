@@ -17,16 +17,11 @@ export class LoginComponent {
 
   constructor(private log: LoginService, private formBuilder: FormBuilder) {
 
-
   }
-
 
   login() {
     this.log.auth(this.sign.value.email, this.sign.value.password)
-    console.log(this.sign.value)
     this.sign.reset()
   }
 
 }
-
-

@@ -35,6 +35,7 @@ export class LoginService {
           this.autoLogout(data.accessTokenDuration);
           ;
           this._router.navigate(['/menu/list']).then();
+
         }
 
       },
@@ -55,7 +56,7 @@ export class LoginService {
       permissions: userData._role.permissions
     }, userData._token, new Date(userData.tokenExpiration), userData.refreshToken, new Date(userData.refreshTokenExpiration));
     if (loadedUser) {
-   
+      this.autoLogout(new Date(userData.tokenExpiration).getTime() - new Date().getTime())
       this.user.set(loadedUser);
     }
   }
@@ -73,4 +74,10 @@ export class LoginService {
     this._router.navigate(['/login']).then();
   }
 
+
+  autoLogout(expirationDuration: number) {
+ 
+  }
 }
+
+

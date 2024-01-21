@@ -68,9 +68,7 @@ export class OwnerMenuComponent implements AfterViewInit {
     this.log.logout()
   }
 
-
   ngAfterViewInit(): void {
-    // console.log(this.list)
     this.route.params.subscribe(params => {
       const sec = params['param']
       if (sec === 'sectors') {
@@ -81,9 +79,6 @@ export class OwnerMenuComponent implements AfterViewInit {
 
       }
     })
-    //console.log(this.list.nativeElement)
-    //  console.log("dasdfasdfas" +this.list.nativeElement.offsetWidth)
-    //   console.log('aaaaaa')
-    // this.renderer.setStyle(this.list.nativeElement, 'display', 'none')
+
   }
 }

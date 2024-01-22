@@ -32,15 +32,6 @@ ngOnInit(): void {
 
 }
 
-pobierz() {
-  this.endpoint.getPlantations().subscribe(
-    (data) => {
-      this.dane = data;
-    },
-    (error) => {
-      console.error('Błąd podczas pobierania danych:', error);
-    })}
-
 
 ngAfterViewInit(): void {
 
@@ -77,8 +68,6 @@ ngAfterViewInit(): void {
      
       this.dynamic = newDiv
     }
-
-
 
   })
 
